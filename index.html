@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PeakCraft Innovations — Services, Portfolio, How It Works, Pricing, Contact</title>
+  <meta name="description" content="PeakCraft Innovations Limited – premium digital solutions: websites, mobile apps, automation, AI, custom software." />
+  
+  <!-- Google Fonts: Poppins + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+  
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="script.js"></script>
+  
+  <style>
+    /* ===== COMPLETE CSS ===== */
+    :root {
+      --primary-green: #1A7A3A;
+      --secondary-green: #2E8B57;
+      --light-green: #E8F5E9;
+      --white: #FFFFFF;
+      --off-white: #F8F9FA;
+      --warm-yellow: #F5C842;
+      --dark-yellow: #E6B422;
+      --deep-green: #0D4A2A;
+      --text-dark: #1A1A2E;
+      --text-secondary: #4A4A6A;
+      --radius: 16px;
+      --max-width: 1200px;
+      --shadow: 0 8px 24px rgba(26, 122, 58, 0.15);
+      --transition: 0.3s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--off-white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--primary-green); text-decoration: none; transition: color var(--transition); }
+    a:hover, a:focus { color: var(--secondary-green); outline: none; }
+    img { max-width: 100%; display: block; border-radius: var(--radius); }
+    h1, h2, h3 { font-family: 'Poppins', sans-serif; margin: 0 0 0.5em 0; color: var(--text-dark); }
+    h1 { font-weight: 800; font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; }
+    h2 { font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); }
+    h3 { font-weight: 700; font-size: 1.25rem; color: var(--primary-green); }
+    p { margin: 0 0 1.25em 0; color: var(--text-secondary); font-size: 1rem; }
+    button {
+      font-family: 'Poppins', sans-serif; font-weight: 700; cursor: pointer;
+      border-radius: var(--radius); border: none; padding: 0.75em 1.5em;
+      background-color: var(--primary-green); color: var(--white);
+      box-shadow: var(--shadow); transition: background-color var(--transition), box-shadow var(--transition);
+    }
+    button:hover, button:focus { background-color: var(--secondary-green); box-shadow: 0 12px 32px rgba(46, 139, 87, 0.3); outline: none; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 4rem 0; }
+    .flex { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .btn-secondary {
+      background-color: var(--warm-yellow);
+      color: var(--deep-green);
+      box-shadow: 0 8px 24px rgba(245, 200, 66, 0.3);
+    }
+    .btn-secondary:hover, .btn-secondary:focus {
+      background-color: var(--dark-yellow);
+      box-shadow: 0 12px 32px rgba(230, 180, 34, 0.4);
+    }
+    
+    /* ===== HEADER ===== */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    
+    /* ===== LOGO - VISIBLE & PROPERLY SIZED ===== */
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .logo-wrapper:hover {
+      opacity: 0.8;
+    }
+    
+    .logo-img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 16px;
+      background: rgba(26, 122, 58, 0.08);
+      padding: 4px;
+      flex-shrink: 0;
+      image-rendering: auto;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+      border: 2px solid rgba(26, 122, 58, 0.2);
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+      border-color: var(--primary-green);
+    }
+    .logo-img.loading {
+      opacity: 0;
+    }
+    .logo-img.loaded {
+      opacity: 1;
+    }
+    
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--primary-green);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    
+    /* ===== NAVIGATION ===== */
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--primary-green);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus::after {
+      width: 100%;
+    }
+    .nav-links a.active-link {
+      color: var(--primary-green);
+    }
+    .nav-links a.active-link::after {
+      width: 100%;
+    }
+    
+    /* ===== HERO ===== */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 3rem;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+    .hero-text { flex: 1 1 400px; }
+    .hero-text p { font-size: 1.125rem; margin-bottom: 2rem; }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-image { flex: 1 1 400px; text-align: center; }
+    .hero-image img { max-width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); }
+    
+    /* ===== SERVICES ===== */
+    .services { background-color: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 3rem 2rem; }
+    .service-card {
+      background-color: var(--light-green);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover, .service-card:focus-within { transform: translateY(-8px); box-shadow: 0 8px 24px rgba(26, 122, 58, 0.3); outline: none; }
+    .service-icon { font-size: 3rem; color: var(--primary-green); margin-bottom: 1rem; }
+    .service-title { font-weight: 700; margin-bottom: 0.5rem; color: var(--primary-green); }
+    .service-desc { color: var(--text-secondary); font-size: 1rem; }
+    
+    /* ===== CAROUSEL ===== */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background-color: var(--white);
+      padding: 1rem;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 1rem;
+      transition: transform 0.4s ease;
+      will-change: transform;
+    }
+    .carousel-item {
+      min-width: 280px;
+      background-color: var(--light-green);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.15);
+      flex-shrink: 0;
+    }
+    .carousel-item img { border-radius: var(--radius); margin-bottom: 0.75rem; }
+    .carousel-item h4 { margin: 0 0 0.5rem 0; color: var(--primary-green); }
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .carousel-button {
+      background-color: var(--primary-green);
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: all;
+      box-shadow: var(--shadow);
+      transition: background-color 0.3s ease;
+    }
+    .carousel-button:hover, .carousel-button:focus { background-color: var(--secondary-green); outline: none; }
+    
+    /* ===== HOW IT WORKS ===== */
+    .how-it-works { max-width: 900px; margin: 0 auto; text-align: center; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .step {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    .step:hover, .step:focus-within { transform: translateY(-6px); outline: none; }
+    .step-number { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 2rem; color: var(--warm-yellow); margin-bottom: 0.5rem; }
+    .step-title { font-weight: 700; margin-bottom: 0.5rem; color: var(--primary-green); }
+    .step-desc { color: var(--text-secondary); font-size: 1rem; }
+    
+    /* ===== PRICING ===== */
+    .starter-package {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      max-width: 400px;
+      margin: 3rem auto 0 auto;
+      text-align: center;
+      border: 3px solid var(--primary-green);
+    }
+    .starter-package h3 { color: var(--primary-green); margin-bottom: 1rem; }
+    .starter-package ul { list-style: none; padding: 0; margin: 0 0 1.5rem 0; color: var(--text-secondary); text-align: left; }
+    .starter-package ul li { margin-bottom: 0.75rem; padding-left: 1.25rem; position: relative; }
+    .starter-package ul li::before { content: '✔'; position: absolute; left: 0; color: var(--warm-yellow); font-weight: 700; }
+    .starter-package .price { font-weight: 800; font-size: 1.5rem; color: var(--primary-green); margin-bottom: 1rem; }
+    
+    /* ===== TAGS ===== */
+    .tags { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 2rem; }
+    .tag {
+      background-color: var(--light-green);
+      color: var(--primary-green);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.15);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    /* ===== CONTACT FORM ===== */
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--primary-green);
+      font-family: 'Inter', sans-serif;
+    }
+    form input:focus, form select:focus, form textarea:focus {
+      outline: none;
+      border-color: var(--secondary-green);
+      box-shadow: 0 0 0 3px rgba(26, 122, 58, 0.1);
+    }
+    
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: var(--deep-green);
+      color: var(--off-white);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--warm-yellow); font-weight: 600; }
+    footer a:hover { color: var(--dark-yellow); }
+    
+    /* ===== PAGE VISIBILITY ===== */
+    .page { display: none; }
+    .page.active { display: block; }
+    
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero { flex-direction: column; text-align: center; }
+      .hero-text, .hero-image { flex: 1 1 100%; }
+      .nav-links { justify-content: center; gap: 1rem; }
+      nav { flex-wrap: wrap; gap: 1rem; justify-content: center; }
+      .logo-wrapper { justify-content: center; }
+      .logo-img {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+      }
+      .logo {
+        font-size: 1.2rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        padding: 3px;
+      }
+      .logo {
+        font-size: 1rem;
+      }
+      .logo-wrapper {
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav class="container" aria-label="Primary navigation">
+    <!-- Logo with SVG path - visible and smooth loading -->
+    <div class="logo-wrapper" onclick="navigateTo('services')" role="link" tabindex="0" aria-label="Go to home page">
+      <img 
+        class="logo-img" 
+        src="Socials/assets/Logo.svg" 
+        alt="PeakCraft Innovations logo"
+        width="64"
+        height="64"
+        loading="eager"
+        decoding="async"
+        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%231A7A3A%22 rx=%2216%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2232%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'"
+        onload="this.style.opacity='1'"
+        style="opacity:0; transition: opacity 0.4s ease;"
+      />
+      <span class="logo">PeakCraft Innovations</span>
+    </div>
+    <div class="nav-links" role="navigation" aria-label="Main menu">
+      <a href="#" data-page="services" class="nav-link active-link">Services</a>
+      <a href="#" data-page="portfolio" class="nav-link">Portfolio</a>
+      <a href="#" data-page="how-it-works" class="nav-link">How It Works</a>
+      <a href="#" data-page="pricing" class="nav-link">Pricing</a>
+      <a href="#" data-page="contact" class="nav-link">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <!-- ========== SERVICES PAGE ========== -->
+  <section id="page-services" class="page active" aria-label="Services">
+    <div class="hero" aria-label="Introduction and call to action">
+      <div class="hero-text">
+        <h1>Building Tomorrow's Digital Experiences Today</h1>
+        <p>PeakCraft Innovations Limited is your trusted partner for premium websites, mobile apps, business automation, AI solutions, and custom software development.</p>
+        <div class="hero-buttons">
+          <button onclick="navigateTo('contact')">Request a Project</button>
+          <button class="btn-secondary" onclick="navigateTo('portfolio')">View Portfolio</button>
+        </div>
+      </div>
+      <div class="hero-image" aria-hidden="true">
+        <img src="Socials/assets/hero-photo.jpg" alt="Modern technology workspace" onerror="this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'" />
+      </div>
+    </div>
+
+    <div class="services" aria-label="Our services">
+      <h2>Our Services</h2>
+      <div class="grid-3" role="list">
+        <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s1">
+          <div class="service-icon" aria-hidden="true">🌐</div>
+          <h3 id="s1" class="service-title">Website Development</h3>
+          <p class="service-desc">Custom, responsive websites designed to engage your audience and grow your business.</p>
+        </article>
+        <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s2">
+          <div class="service-icon" aria-hidden="true">📱</div>
+          <h3 id="s2" class="service-title">Mobile Apps</h3>
+          <p class="service-desc">User-friendly mobile applications tailored to your business needs on iOS and Android.</p>
+        </article>
+        <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s3">
+          <div class="service-icon" aria-hidden="true">⚡</div>
+          <h3 id="s3" class="service-title">Business Automation</h3>
+          <p class="service-desc">Streamline workflows and increase efficiency with custom automation solutions.</p>
+        </article>
+        <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s4">
+          <div class="service-icon" aria-hidden="true">🤖</div>
+          <h3 id="s4" class="service-title">AI Solutions</h3>
+          <p class="service-desc">Leverage artificial intelligence to transform your business and gain competitive advantage.</p>
+        </article>
+        <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s5">
+          <div class="service-icon" aria-hidden="true">☁️</div>
+          <h3 id="s5" class="service-title">SaaS Development</h3>
+          <p class="service-desc">Build scalable, secure, and user-centric SaaS platforms tailored to your market.</p>
+        </article>
+        <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s6">
+          <div class="service-icon" aria-hidden="true">🛠️</div>
+          <h3 id="s6" class="service-title">Custom Software</h3>
+          <p class="service-desc">End-to-end custom software solutions designed to solve your unique challenges.</p>
+        </article>
+      </div>
+    </div>
+
+    <section aria-label="What you can request" style="margin-top:2rem;">
+      <div class="tags" role="list">
+        <span class="tag" role="listitem">Web Apps</span>
+        <span class="tag" role="listitem">Websites</span>
+        <span class="tag" role="listitem">SaaS</span>
+        <span class="tag" role="listitem">Mobile Apps</span>
+        <span class="tag" role="listitem">Business Automation</span>
+        <span class="tag" role="listitem">AI Solutions</span>
+        <span class="tag" role="listitem">Custom Software</span>
+      </div>
+    </section>
+  </section>
+
+  <!-- ========== PORTFOLIO PAGE ========== -->
+  <section id="page-portfolio" class="page" aria-label="Portfolio">
+    <h2>Demo Projects</h2>
+    <div class="carousel" aria-roledescription="carousel" aria-label="Demo projects carousel">
+      <div class="carousel-track" id="carousel-track">
+        <div class="carousel-item" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="MediCare project" />
+          <h4>MediCare</h4>
+          <p>Healthcare platform with patient management and telemedicine.</p>
+        </div>
+        <div class="carousel-item" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="ZamBuild project" />
+          <h4>ZamBuild</h4>
+          <p>Construction project management for Zambian contractors.</p>
+        </div>
+        <div class="carousel-item" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="Foodie project" />
+          <h4>Foodie</h4>
+          <p>Food delivery app with real-time tracking and ratings.</p>
+        </div>
+        <div class="carousel-item" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="ShopEase project" />
+          <h4>ShopEase</h4>
+          <p>E-commerce platform with seamless checkout and inventory.</p>
+        </div>
+        <div class="carousel-item" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80" alt="EduLearn project" />
+          <h4>EduLearn</h4>
+          <p>Online learning platform with courses, quizzes, tracking.</p>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-button" aria-label="Previous project" id="prevBtn">&#10094;</button>
+        <button class="carousel-button" aria-label="Next project" id="nextBtn">&#10095;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS PAGE ========== -->
+  <section id="page-how-it-works" class="page" aria-label="How it works">
+    <div class="how-it-works">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step" tabindex="0"><div class="step-number">1</div><div class="step-title">Submit Your Request</div><div class="step-desc">Tell us what you need built with your specifications and timeline.</div></div>
+        <div class="step" tabindex="0"><div class="step-number">2</div><div class="step-title">Receive a Quote</div><div class="step-desc">We review your request and provide a fixed price and timeline.</div></div>
+        <div class="step" tabindex="0"><div class="step-number">3</div><div class="step-title">Project Kickoff</div><div class="step-desc">Once approved, we start building your custom solution.</div></div>
+        <div class="step" tabindex="0"><div class="step-number">4</div><div class="step-title">Progress Updates</div><div class="step-desc">Receive regular updates and previews during development.</div></div>
+        <div class="step" tabindex="0"><div class="step-number">5</div><div class="step-title">Launch & Support</div><div class="step-desc">We help you launch and provide ongoing support.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING PAGE ========== -->
+  <section id="page-pricing" class="page" aria-label="Pricing">
+    <div class="starter-package" aria-label="Starter Package pricing">
+      <h3>Starter Package</h3>
+      <p class="price">K2,500 – K3,500</p>
+      <ul>
+        <li>Custom Website</li>
+        <li>Mobile Responsive Design</li>
+        <li>Contact Forms & Google Maps</li>
+        <li>Basic SEO Optimization</li>
+      </ul>
+      <button onclick="navigateTo('contact')">Get Started</button>
+    </div>
+    <div style="text-align:center; margin-top: 2rem;">
+      <p style="color:var(--text-secondary);">Need a custom quote? <a href="#" onclick="navigateTo('contact');return false;">Contact us</a> for tailored pricing.</p>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT PAGE ========== -->
+  <section id="page-contact" class="page" aria-label="Contact PeakCraft Innovations">
+    <h2>Contact Us</h2>
+    <p>Phone / WhatsApp: <a href="tel:+260951683381">+260951683381</a></p>
+    <p>Email: <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a></p>
+    <p>Address: Lusaka, Zambia</p>
+
+    <form id="contact-form" style="max-width: 600px; margin: 2rem auto;" aria-label="Request a project form">
+      <label for="name">Full Name</label>
+      <input id="name" name="name" type="text" required />
+      
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required />
+      
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" type="tel" required />
+      
+      <label for="whatsapp">WhatsApp</label>
+      <input id="whatsapp" name="whatsapp" type="tel" required />
+      
+      <label for="projectType">Project Type</label>
+      <select id="projectType" name="projectType" required>
+        <option value="">Select a project type</option>
+        <option value="Web App">Web App</option>
+        <option value="Website">Website</option>
+        <option value="SaaS">SaaS</option>
+        <option value="Mobile App">Mobile App</option>
+        <option value="Business Automation">Business Automation</option>
+        <option value="AI Solutions">AI Solutions</option>
+        <option value="Custom Software">Custom Software</option>
+      </select>
+      
+      <label for="startDate">Start Date</label>
+      <input id="startDate" name="startDate" type="date" />
+      
+      <label for="endDate">End Date</label>
+      <input id="endDate" name="endDate" type="date" />
+      
+      <label for="budget">Budget</label>
+      <select id="budget" name="budget">
+        <option value="">Select budget range</option>
+        <option value="K500 - K2,500">K500 - K2,500</option>
+        <option value="K2,500 - K5,000">K2,500 - K5,000</option>
+        <option value="K5,000+">K5,000+</option>
+      </select>
+      
+      <label for="timeline">Timeline</label>
+      <select id="timeline" name="timeline">
+        <option value="">Select timeline</option>
+        <option value="ASAP">ASAP</option>
+        <option value="Within 1 week">Within 1 week</option>
+        <option value="2 to 4 weeks">2 to 4 weeks</option>
+        <option value="1 to 2 months">1 to 2 months</option>
+        <option value="Flexible">Flexible</option>
+      </select>
+      
+      <label for="description">Project Description</label>
+      <textarea id="description" name="description" rows="5" required></textarea>
+      
+      <label for="files">Upload Files (max 10MB)</label>
+      <input id="files" name="files" type="file" multiple />
+      
+      <button type="submit">Submit Request</button>
+    </form>
+
+    <section aria-label="Payment Information" style="max-width:600px; margin:2rem auto; background:var(--light-green); padding:1.5rem; border-radius:var(--radius); box-shadow:var(--shadow);">
+      <h3>Make a Payment</h3>
+      <p><strong>Mobile Money (ZMW):</strong> 0951683381 – John B. (PeakCraft)</p>
+      <p><strong>Bank Transfer:</strong> ZANACO – Account Name: PeakCraft Innovations Ltd – Account Number: 1234567890123</p>
+    </section>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
+  <p>Contact us: <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a> | Phone/WhatsApp: <a href="tel:+260951683381">+260951683381</a></p>
+</footer>
+
+<script>
+  // Navigation
+  const pages = {
+    services: document.getElementById('page-services'),
+    portfolio: document.getElementById('page-portfolio'),
+    'how-it-works': document.getElementById('page-how-it-works'),
+    pricing: document.getElementById('page-pricing'),
+    contact: document.getElementById('page-contact')
+  };
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function navigateTo(pageId) {
+    Object.values(pages).forEach(p => p.classList.remove('active'));
+    if (pages[pageId]) pages[pageId].classList.add('active');
+    navLinks.forEach(link => {
+      link.classList.remove('active-link');
+      if (link.dataset.page === pageId) link.classList.add('active-link');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const page = this.dataset.page;
+      if (page) navigateTo(page);
+    });
+  });
+
+  window.navigateTo = navigateTo;
+
+  // Carousel
+  const track = document.getElementById('carousel-track');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    if (!track) return;
+    const firstItem = track.querySelector('.carousel-item');
+    if (!firstItem) return;
+    const itemWidth = firstItem.offsetWidth + 16;
+    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+  }
+
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentIndex = Math.max(currentIndex - 1, 0);
+      updateCarousel();
+    });
+    nextBtn.addEventListener('click', () => {
+      const items = track.children;
+      const maxIndex = Math.max(0, items.length - Math.floor(track.parentElement.offsetWidth / (track.querySelector('.carousel-item').offsetWidth + 16)));
+      currentIndex = Math.min(currentIndex + 1, maxIndex);
+      updateCarousel();
+    });
+    window.addEventListener('resize', updateCarousel);
+    setTimeout(updateCarousel, 100);
+  }
+
+  navigateTo('services');
+</script>
+</body>
+</html>   
