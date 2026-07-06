@@ -1237,25 +1237,146 @@
 </footer>
 
 <script>
-  // ===== EMAILJS CONFIGURATION =====
-  // ✅ All your EmailJS credentials are now properly integrated
-  const EMAILJS_CONFIG = {
-    publicKey: 'lJvZLakX5Di_kxhdG',    // ✅ Your Public Key
-    serviceID: 'service_xjrsbg8',      // ✅ Your Service ID
-    templateID: 'template_2hcybjz'     // ✅ Your Template ID
-  };
+  // ============================================
+  // script.js - PeakCraft Innovations
+  // EmailJS Integration with YOUR credentials
+  // Service ID: service_xjrsbg8
+  // Template ID: template_2hcybjz
+  // ============================================
 
   // Initialize EmailJS with your public key
-  (function initEmailJS() {
-    try {
+  (function() {
       emailjs.init({
-        publicKey: EMAILJS_CONFIG.publicKey
+          publicKey: "lJvZLakX5Di_kxhdG",
       });
-      console.log('✅ EmailJS initialized successfully with your credentials!');
-    } catch (error) {
-      console.error('❌ EmailJS initialization failed:', error);
-    }
   })();
+
+  /**
+   * sendMail - Main function to send project requests via EmailJS
+   * Uses Service ID: service_xjrsbg8
+   * Uses Template ID: template_2hcybjz
+   */
+  function sendMail(event) {
+      // Prevent default form submission
+      if (event) {
+          event.preventDefault();
+      }
+
+      // Get form and button elements
+      const form = document.getElementById('contact-form');
+      if (!form) {
+          console.error('Form with id "contact-form" not found');
+          return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : 'Submit';
+
+      // Collect ALL form data
+      let params = {
+          // Client Information
+          name: document.getElementById("name")?.value?.trim() || '',
+          email: document.getElementById("email")?.value?.trim() || '',
+          phone: document.getElementById("phone")?.value?.trim() || '',
+          whatsapp: document.getElementById("whatsapp")?.value?.trim() || '',
+          
+          // Project Details
+          project_type: document.getElementById("projectType")?.value || '',
+          start_date: document.getElementById("startDate")?.value || 'Not specified',
+          end_date: document.getElementById("endDate")?.value || 'Not specified',
+          budget: document.getElementById("budget")?.value || 'Not specified',
+          timeline: document.getElementById("timeline")?.value || 'Not specified',
+          description: document.getElementById("description")?.value?.trim() || '',
+          
+          // Additional Info
+          to_email: 'peaklshda1@gmail.com',
+          submitted_date: new Date().toLocaleString('en-ZM', {
+              timeZone: 'Africa/Lusaka',
+              dateStyle: 'full',
+              timeStyle: 'medium'
+          })
+      };
+
+      // Validate required fields
+      if (!params.name || !params.email || !params.phone || 
+          !params.whatsapp || !params.project_type || !params.description) {
+          alert('⚠️ Please fill in all required fields.\n\nRequired: Name, Email, Phone, WhatsApp, Project Type, Description');
+          return;
+      }
+
+      // Show loading state if button exists
+      if (submitBtn) {
+          submitBtn.textContent = '⏳ Sending...';
+          submitBtn.disabled = true;
+      }
+
+      // YOUR EmailJS credentials
+      const SERVICE_ID = "service_xjrsbg8";
+      const TEMPLATE_ID = "template_2hcybjz";
+
+      // Send email using EmailJS
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, params)
+          .then(function(response) {
+              // Success
+              alert('✅ Thank you for your request!\n\nWe will get back to you within 24 hours.\n\n📧 Confirmation sent to: ' + params.email);
+              
+              // Reset form
+              form.reset();
+              
+              // Reset button
+              if (submitBtn) {
+                  submitBtn.textContent = originalText;
+                  submitBtn.disabled = false;
+              }
+              
+              console.log('Email sent successfully!', response);
+          })
+          .catch(function(error) {
+              // Error handling
+              console.error('❌ EmailJS Error:', error);
+              
+              let errorMsg = '❌ Oops! Something went wrong.\n\n';
+              if (error.status === 400) {
+                  errorMsg += 'Please check all fields and try again.';
+              } else if (error.status === 429) {
+                  errorMsg += 'Too many requests. Please wait a moment and try again.';
+              } else if (error.status === 403) {
+                  errorMsg += 'Access denied. Please check your API key.';
+              } else {
+                  errorMsg += 'Please try again or contact us directly at peaklshda1@gmail.com';
+              }
+              
+              alert(errorMsg);
+              
+              // Reset button
+              if (submitBtn) {
+                  submitBtn.textContent = originalText;
+                  submitBtn.disabled = false;
+              }
+          });
+  }
+
+  // ============================================
+  // Auto-attach form submission handler
+  // ============================================
+  document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-form');
+      if (form) {
+          // Use sendMail as the default handler
+          form.addEventListener('submit', sendMail);
+          console.log('✅ Contact form ready! Using Service: service_xjrsbg8, Template: template_2hcybjz');
+      } else {
+          console.warn('⚠️ Contact form not found. Make sure your form has id="contact-form"');
+      }
+  });
+
+  // ============================================
+  // Console helper for debugging
+  // ============================================
+  console.log('📧 PeakCraft Innovations - EmailJS Ready');
+  console.log('🔑 Service ID: service_xjrsbg8');
+  console.log('📄 Template ID: template_2hcybjz');
+  console.log('📋 Function available: sendMail()');
 
   // ===== NAVIGATION =====
   const pages = {
@@ -1417,65 +1538,6 @@
 
   // Init
   setTimeout(() => { buildDots(); updateCarousel(); }, 100);
-
-  // ===== CONTACT FORM HANDLER =====
-  document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('contact-form');
-    if (!form) return;
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Get the submit button
-      const submitBtn = form.querySelector('.form-submit-btn');
-      
-      // Prepare template parameters
-      const templateParams = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        whatsapp: document.getElementById('whatsapp').value,
-        projectType: document.getElementById('projectType').value,
-        startDate: document.getElementById('startDate').value || 'Not specified',
-        endDate: document.getElementById('endDate').value || 'Not specified',
-        budget: document.getElementById('budget').value || 'Not specified',
-        timeline: document.getElementById('timeline').value || 'Not specified',
-        description: document.getElementById('description').value,
-        files: document.getElementById('files').value || 'No files attached',
-        // Additional fields for email template
-        to_name: 'PeakCraft Innovations Team',
-        from_name: document.getElementById('name').value,
-        reply_to: document.getElementById('email').value
-      };
-
-      // Disable button and show loading state
-      submitBtn.disabled = true;
-      submitBtn.classList.add('loading');
-      submitBtn.textContent = 'Sending...';
-
-      // Send email via EmailJS
-      emailjs.send(
-        EMAILJS_CONFIG.serviceID,
-        EMAILJS_CONFIG.templateID,
-        templateParams
-      )
-      .then(function(response) {
-        console.log('✅ Email sent successfully!', response);
-        alert('🎉 Your request has been sent successfully! We will get back to you within 24 hours.');
-        form.reset();
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('loading');
-        submitBtn.textContent = '📨 Submit Request';
-      })
-      .catch(function(error) {
-        console.error('❌ EmailJS error:', error);
-        alert('❌ Something went wrong. Please try again or contact us directly at +260 951 683 381.');
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('loading');
-        submitBtn.textContent = '📨 Submit Request';
-      });
-    });
-  });
 
   // Default page
   navigateTo('services');
