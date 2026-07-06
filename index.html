@@ -9,14 +9,13 @@
   <!-- Google Fonts: Poppins + Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
   
   <!-- EmailJS Library -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="script.js"></script>
   
   <style>
-    /* ===== COMPLETE CSS ===== */
+    /* ===== CSS VARIABLES ===== */
     :root {
       --primary-green: #1A7A3A;
       --secondary-green: #2E8B57;
@@ -25,15 +24,19 @@
       --off-white: #F8F9FA;
       --warm-yellow: #F5C842;
       --dark-yellow: #E6B422;
-      --deep-green: #0D4A2A;
+      --deep-green: #0A3D20;
       --text-dark: #1A1A2E;
       --text-secondary: #4A4A6A;
       --radius: 16px;
+      --radius-sm: 8px;
       --max-width: 1200px;
       --shadow: 0 8px 24px rgba(26, 122, 58, 0.15);
+      --shadow-lg: 0 16px 40px rgba(26, 122, 58, 0.2);
       --transition: 0.3s ease;
     }
+
     *, *::before, *::after { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -42,345 +45,749 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
+
     a { color: var(--primary-green); text-decoration: none; transition: color var(--transition); }
     a:hover, a:focus { color: var(--secondary-green); outline: none; }
+
     img { max-width: 100%; display: block; border-radius: var(--radius); }
-    h1, h2, h3 { font-family: 'Poppins', sans-serif; margin: 0 0 0.5em 0; color: var(--text-dark); }
-    h1 { font-weight: 800; font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; }
-    h2 { font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); }
-    h3 { font-weight: 700; font-size: 1.25rem; color: var(--primary-green); }
-    p { margin: 0 0 1.25em 0; color: var(--text-secondary); font-size: 1rem; }
+
+    h1, h2, h3 { font-family: 'Poppins', sans-serif; margin: 0 0 0.5em; color: var(--text-dark); }
+    h1 { font-weight: 800; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.15; }
+    h2 { font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.5rem); }
+    h3 { font-weight: 700; font-size: 1.2rem; color: var(--primary-green); }
+
+    p { margin: 0 0 1.25em; color: var(--text-secondary); font-size: 1rem; }
+
     button {
-      font-family: 'Poppins', sans-serif; font-weight: 700; cursor: pointer;
-      border-radius: var(--radius); border: none; padding: 0.75em 1.5em;
-      background-color: var(--primary-green); color: var(--white);
-      box-shadow: var(--shadow); transition: background-color var(--transition), box-shadow var(--transition);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: var(--radius);
+      border: none;
+      padding: 0.8em 1.75em;
+      background-color: var(--primary-green);
+      color: var(--white);
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+      transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
     }
-    button:hover, button:focus { background-color: var(--secondary-green); box-shadow: 0 12px 32px rgba(46, 139, 87, 0.3); outline: none; }
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+    button:hover, button:focus {
+      background-color: var(--secondary-green);
+      box-shadow: 0 12px 32px rgba(46, 139, 87, 0.35);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    button:active { transform: translateY(0); }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; }
+
     section { padding: 4rem 0; }
-    .flex { display: flex; gap: 2rem; flex-wrap: wrap; }
+
     .grid-3 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
     }
+
     .btn-secondary {
       background-color: var(--warm-yellow);
       color: var(--deep-green);
-      box-shadow: 0 8px 24px rgba(245, 200, 66, 0.3);
+      box-shadow: 0 8px 24px rgba(245, 200, 66, 0.35);
     }
     .btn-secondary:hover, .btn-secondary:focus {
       background-color: var(--dark-yellow);
-      box-shadow: 0 12px 32px rgba(230, 180, 34, 0.4);
+      box-shadow: 0 12px 32px rgba(230, 180, 34, 0.45);
     }
-    
+
+    /* ===== PAGE VISIBILITY ===== */
+    .page { display: none; }
+    .page.active { display: block; }
+
     /* ===== HEADER ===== */
     header {
       background-color: var(--white);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
     }
+
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 0.75rem 1.25rem;
       max-width: var(--max-width);
       margin: 0 auto;
+      gap: 1rem;
     }
-    
-    /* ===== LOGO - VISIBLE & PROPERLY SIZED ===== */
+
+    /* ===== LOGO ===== */
     .logo-wrapper {
       display: flex;
       align-items: center;
       gap: 0.75rem;
       cursor: pointer;
       transition: opacity 0.2s ease;
+      flex-shrink: 0;
     }
-    .logo-wrapper:hover {
-      opacity: 0.8;
-    }
-    
+    .logo-wrapper:hover { opacity: 0.85; }
+
     .logo-img {
-      width: 64px;
-      height: 64px;
+      width: 56px;
+      height: 56px;
       object-fit: contain;
-      border-radius: 16px;
-      background: rgba(26, 122, 58, 0.08);
+      border-radius: 12px;
+      background: rgba(26, 122, 58, 0.06);
       padding: 4px;
       flex-shrink: 0;
-      image-rendering: auto;
       transition: opacity 0.4s ease, transform 0.3s ease;
       border: 2px solid rgba(26, 122, 58, 0.2);
     }
-    .logo-img:hover {
-      transform: scale(1.05);
-      border-color: var(--primary-green);
-    }
-    .logo-img.loading {
-      opacity: 0;
-    }
-    .logo-img.loaded {
-      opacity: 1;
-    }
-    
-    .logo {
+    .logo-img:hover { transform: scale(1.05); border-color: var(--primary-green); }
+
+    .logo-text {
       font-family: 'Poppins', sans-serif;
       font-weight: 800;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: var(--primary-green);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
       white-space: nowrap;
     }
-    
-    /* ===== NAVIGATION ===== */
+
+    /* ===== NAV LINKS ===== */
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 0.25rem;
       flex-wrap: wrap;
+      align-items: center;
     }
     .nav-links a {
       font-weight: 600;
+      font-size: 0.9rem;
       color: var(--text-secondary);
-      padding: 0.5rem 0;
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
       position: relative;
+      transition: color var(--transition), background-color var(--transition);
     }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background-color: var(--primary-green);
-      transition: width 0.3s ease;
-    }
-    .nav-links a:hover::after,
-    .nav-links a:focus::after {
-      width: 100%;
+    .nav-links a:hover {
+      color: var(--primary-green);
+      background-color: var(--light-green);
     }
     .nav-links a.active-link {
       color: var(--primary-green);
+      background-color: var(--light-green);
+      font-weight: 700;
     }
     .nav-links a.active-link::after {
-      width: 100%;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background-color: var(--primary-green);
+      border-radius: 2px;
     }
-    
+
     /* ===== HERO ===== */
     .hero {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 3rem;
-      padding-top: 3rem;
-      padding-bottom: 3rem;
+      padding: 3.5rem 0;
     }
-    .hero-text { flex: 1 1 400px; }
-    .hero-text p { font-size: 1.125rem; margin-bottom: 2rem; }
+    .hero-text { flex: 1 1 380px; }
+    .hero-text p { font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.75; }
     .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .hero-image { flex: 1 1 400px; text-align: center; }
-    .hero-image img { max-width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); }
-    
-    /* ===== SERVICES ===== */
-    .services { background-color: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 3rem 2rem; }
+    .hero-image { flex: 1 1 380px; text-align: center; }
+    .hero-image img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ===== SERVICES BLOCK ===== */
+    .services-block {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 2rem;
+      margin-top: 1rem;
+    }
+    .services-block h2 { margin-bottom: 1.5rem; }
+
     .service-card {
       background-color: var(--light-green);
       border-radius: var(--radius);
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.15);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.1);
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid transparent;
     }
-    .service-card:hover, .service-card:focus-within { transform: translateY(-8px); box-shadow: 0 8px 24px rgba(26, 122, 58, 0.3); outline: none; }
-    .service-icon { font-size: 3rem; color: var(--primary-green); margin-bottom: 1rem; }
-    .service-title { font-weight: 700; margin-bottom: 0.5rem; color: var(--primary-green); }
-    .service-desc { color: var(--text-secondary); font-size: 1rem; }
-    
-    /* ===== CAROUSEL ===== */
+    .service-card:hover, .service-card:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 32px rgba(26, 122, 58, 0.2);
+      border-color: rgba(26, 122, 58, 0.2);
+      outline: none;
+    }
+    .service-icon { font-size: 2.75rem; margin-bottom: 0.75rem; }
+    .service-title { font-weight: 700; margin-bottom: 0.5rem; color: var(--primary-green); font-size: 1.05rem; }
+    .service-desc { color: var(--text-secondary); font-size: 0.95rem; margin: 0; }
+
+    /* ===== TAGS – CLICKABLE ===== */
+    .tags { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 2rem; }
+    .tag {
+      background-color: var(--light-green);
+      color: var(--primary-green);
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 8px rgba(26, 122, 58, 0.12);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: background-color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      user-select: none;
+    }
+    .tag:hover, .tag:focus {
+      background-color: var(--primary-green);
+      color: var(--white);
+      border-color: var(--primary-green);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(26, 122, 58, 0.3);
+      outline: none;
+    }
+    .tag:active { transform: translateY(0); }
+
+    /* ===== PORTFOLIO / CAROUSEL ===== */
+    .portfolio-section h2 { margin-bottom: 0.5rem; }
+    .portfolio-intro { margin-bottom: 1.5rem; color: var(--text-secondary); }
+
+    /* Featured video */
+    .portfolio-video-wrap {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    .portfolio-video-wrap video {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+    .portfolio-video-label {
+      padding: 1rem 1.5rem;
+      background: var(--deep-green);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .portfolio-video-label::before {
+      content: '▶';
+      background: var(--warm-yellow);
+      color: var(--deep-green);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* Carousel */
     .carousel {
       position: relative;
       overflow: hidden;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       background-color: var(--white);
-      padding: 1rem;
+      padding: 1.25rem 1rem;
     }
     .carousel-track {
       display: flex;
       gap: 1rem;
-      transition: transform 0.4s ease;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform;
     }
     .carousel-item {
-      min-width: 280px;
+      min-width: calc(100% - 4rem);
+      max-width: calc(100% - 4rem);
       background-color: var(--light-green);
       border-radius: var(--radius);
-      padding: 1rem;
-      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.15);
+      padding: 0;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.12);
       flex-shrink: 0;
+      overflow: hidden;
     }
-    .carousel-item img { border-radius: var(--radius); margin-bottom: 0.75rem; }
-    .carousel-item h4 { margin: 0 0 0.5rem 0; color: var(--primary-green); }
-    .carousel-controls {
-      position: absolute;
-      top: 50%;
+
+    @media (min-width: 600px) {
+      .carousel-item {
+        min-width: calc(50% - 1.5rem);
+        max-width: calc(50% - 1.5rem);
+      }
+    }
+    @media (min-width: 900px) {
+      .carousel-item {
+        min-width: calc(33.333% - 1.2rem);
+        max-width: calc(33.333% - 1.2rem);
+      }
+    }
+
+    .carousel-item-img-wrap {
       width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+    .carousel-item-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .carousel-item-body {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .carousel-item h4 {
+      margin: 0 0 0.4rem;
+      color: var(--primary-green);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .carousel-item p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .carousel-controls {
       display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      pointer-events: none;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
     }
     .carousel-button {
       background-color: var(--primary-green);
       border: none;
       color: var(--white);
-      font-size: 1.5rem;
-      padding: 0.5rem 1rem;
+      font-size: 1.25rem;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       cursor: pointer;
-      pointer-events: all;
       box-shadow: var(--shadow);
-      transition: background-color 0.3s ease;
+      transition: background-color var(--transition), transform var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .carousel-button:hover, .carousel-button:focus { background-color: var(--secondary-green); outline: none; }
-    
+    .carousel-button:hover, .carousel-button:focus {
+      background-color: var(--secondary-green);
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(26, 122, 58, 0.25);
+      transition: background var(--transition), width var(--transition);
+    }
+    .carousel-dot.active {
+      background: var(--primary-green);
+      width: 24px;
+      border-radius: 4px;
+    }
+
     /* ===== HOW IT WORKS ===== */
-    .how-it-works { max-width: 900px; margin: 0 auto; text-align: center; }
+    .how-it-works-inner { max-width: 960px; margin: 0 auto; text-align: center; }
     .steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1.5rem;
       margin-top: 2rem;
     }
     .step {
       background-color: var(--white);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 1.5rem;
+      padding: 1.5rem 1.25rem;
       transition: transform 0.3s ease;
+      border-top: 4px solid var(--primary-green);
     }
     .step:hover, .step:focus-within { transform: translateY(-6px); outline: none; }
-    .step-number { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 2rem; color: var(--warm-yellow); margin-bottom: 0.5rem; }
-    .step-title { font-weight: 700; margin-bottom: 0.5rem; color: var(--primary-green); }
-    .step-desc { color: var(--text-secondary); font-size: 1rem; }
-    
-    /* ===== PRICING ===== */
-    .starter-package {
-      background-color: var(--white);
+    .step-number {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--warm-yellow);
+      margin-bottom: 0.5rem;
+    }
+    .step-title { font-weight: 700; margin-bottom: 0.4rem; color: var(--primary-green); font-size: 1rem; }
+    .step-desc { color: var(--text-secondary); font-size: 0.9rem; margin: 0; }
+
+    /* Demo video in How It Works */
+    .demo-video-section {
+      margin-top: 3rem;
+      background: var(--white);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 2rem;
-      max-width: 400px;
-      margin: 3rem auto 0 auto;
+      overflow: hidden;
+    }
+    .demo-video-header {
+      background: var(--primary-green);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
       text-align: center;
-      border: 3px solid var(--primary-green);
     }
-    .starter-package h3 { color: var(--primary-green); margin-bottom: 1rem; }
-    .starter-package ul { list-style: none; padding: 0; margin: 0 0 1.5rem 0; color: var(--text-secondary); text-align: left; }
-    .starter-package ul li { margin-bottom: 0.75rem; padding-left: 1.25rem; position: relative; }
-    .starter-package ul li::before { content: '✔'; position: absolute; left: 0; color: var(--warm-yellow); font-weight: 700; }
-    .starter-package .price { font-weight: 800; font-size: 1.5rem; color: var(--primary-green); margin-bottom: 1rem; }
-    
-    /* ===== TAGS ===== */
-    .tags { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 2rem; }
-    .tag {
-      background-color: var(--light-green);
-      color: var(--primary-green);
-      padding: 0.5rem 1rem;
+    .demo-video-header span {
+      display: block;
+      font-weight: 400;
+      font-size: 0.85rem;
+      opacity: 0.85;
+      margin-top: 0.25rem;
+    }
+    .demo-video-section video {
+      width: 100%;
+      max-height: 480px;
+      object-fit: contain;
+      background: #000;
+      display: block;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing-intro {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+      color: var(--text-secondary);
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--white);
       border-radius: var(--radius);
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.15);
-      -webkit-user-select: none;
-      user-select: none;
+      box-shadow: var(--shadow);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
     }
-    
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .pricing-card.featured {
+      border-color: var(--primary-green);
+      background: linear-gradient(135deg, #f0faf3 0%, #ffffff 100%);
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--warm-yellow);
+      color: var(--deep-green);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.25rem 1rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-card h3 { color: var(--primary-green); margin-bottom: 0.25rem; }
+    .pricing-price {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: var(--primary-green);
+      margin: 0.5rem 0 0.25rem;
+    }
+    .pricing-period {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+    .pricing-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.75rem;
+      text-align: left;
+      flex: 1;
+    }
+    .pricing-card ul li {
+      padding: 0.5rem 0 0.5rem 1.75rem;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(26, 122, 58, 0.07);
+    }
+    .pricing-card ul li:last-child { border-bottom: none; }
+    .pricing-card ul li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: var(--primary-green);
+      font-weight: 700;
+    }
+    .pricing-card ul li.no::before {
+      content: '✕';
+      color: #ccc;
+    }
+    .pricing-note {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
     /* ===== CONTACT FORM ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    .contact-info h2 { margin-bottom: 1rem; }
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(26, 122, 58, 0.08);
+    }
+    .contact-info-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .contact-info-text { flex: 1; }
+    .contact-info-text strong { display: block; color: var(--primary-green); font-size: 0.85rem; margin-bottom: 0.2rem; }
+    .contact-info-text a, .contact-info-text p {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    .payment-box {
+      background: var(--light-green);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.1);
+    }
+    .payment-box h3 { margin-bottom: 1rem; }
+    .payment-box p { font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .payment-box p:last-child { margin-bottom: 0; }
+
+    form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
     form input, form select, form textarea {
       width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--primary-green);
+      padding: 0.65rem 0.9rem;
+      margin-bottom: 1.1rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid #d0e8d8;
       font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      appearance: auto;
     }
     form input:focus, form select:focus, form textarea:focus {
       outline: none;
-      border-color: var(--secondary-green);
-      box-shadow: 0 0 0 3px rgba(26, 122, 58, 0.1);
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(26, 122, 58, 0.12);
     }
-    
+    form select { cursor: pointer; }
+    form textarea { resize: vertical; min-height: 100px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1rem;
+    }
+    @media (max-width: 500px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .budget-note {
+      background: rgba(245, 200, 66, 0.15);
+      border: 1px solid rgba(245, 200, 66, 0.5);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--deep-green);
+      margin-top: -0.75rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 0.9em 1.5em;
+      font-size: 1rem;
+    }
+
     /* ===== FOOTER ===== */
     footer {
-      background-color: var(--deep-green);
-      color: var(--off-white);
-      padding: 2rem 1.5rem;
-      text-align: center;
+      background: linear-gradient(180deg, var(--deep-green) 0%, #061a0e 100%);
+      color: #e8f5e9;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-brand .footer-logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand p {
+      color: rgba(232, 245, 233, 0.75);
       font-size: 0.9rem;
     }
-    footer a { color: var(--warm-yellow); font-weight: 600; }
-    footer a:hover { color: var(--dark-yellow); }
-    
-    /* ===== PAGE VISIBILITY ===== */
-    .page { display: none; }
-    .page.active { display: block; }
-    
+    .footer-col h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--warm-yellow);
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .footer-col p, .footer-col a {
+      color: rgba(232, 245, 233, 0.8);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      display: block;
+      margin: 0;
+    }
+    .footer-col a:hover { color: var(--warm-yellow); }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom p {
+      color: rgba(232, 245, 233, 0.6);
+      font-size: 0.82rem;
+      margin: 0;
+    }
+    .footer-bottom a { color: var(--warm-yellow); font-size: 0.82rem; }
+    .footer-bottom a:hover { color: var(--dark-yellow); }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .hero { flex-direction: column; text-align: center; }
+      .hero { flex-direction: column; text-align: center; gap: 2rem; }
       .hero-text, .hero-image { flex: 1 1 100%; }
-      .nav-links { justify-content: center; gap: 1rem; }
-      nav { flex-wrap: wrap; gap: 1rem; justify-content: center; }
+      .hero-buttons { justify-content: center; }
+      nav { flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
       .logo-wrapper { justify-content: center; }
-      .logo-img {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-      }
-      .logo {
-        font-size: 1.2rem;
-      }
+      .logo-img { width: 48px; height: 48px; }
+      .logo-text { font-size: 1.15rem; }
+      .nav-links a { font-size: 0.82rem; padding: 0.35rem 0.55rem; }
+      section { padding: 2.5rem 0; }
+      .services-block { padding: 1.75rem 1rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
+
     @media (max-width: 480px) {
-      .logo-img {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        padding: 3px;
-      }
-      .logo {
-        font-size: 1rem;
-      }
-      .logo-wrapper {
-        gap: 0.5rem;
-      }
+      .logo-img { width: 40px; height: 40px; border-radius: 10px; }
+      .logo-text { font-size: 1rem; }
+      h1 { font-size: 1.9rem; }
+    }
+
+    /* Loading state for form */
+    .form-submit-btn.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .form-submit-btn.loading::after {
+      content: ' ...';
     }
   </style>
 </head>
 <body>
+
 <header>
   <nav class="container" aria-label="Primary navigation">
-    <!-- Logo with SVG path - visible and smooth loading -->
-    <div class="logo-wrapper" onclick="navigateTo('services')" role="link" tabindex="0" aria-label="Go to home page">
-      <img 
-        class="logo-img" 
-        src="Socials/assets/Logo.svg" 
+    <div class="logo-wrapper" onclick="navigateTo('services')" role="link" tabindex="0" aria-label="Go to home">
+      <img
+        class="logo-img"
+        src="Socials/assets/magic_edit#TUFIT2R4XzJFdkkjMSNjZTZjNjIyOTVjODlhNTQ2NWU0NDlkZjMzNzcxNjVmMCMxNTM2IyNUUkFOU0ZPUk1BVElPTl9SRVFVRVNU.png"
         alt="PeakCraft Innovations logo"
-        width="64"
-        height="64"
+        width="56"
+        height="56"
         loading="eager"
-        decoding="async"
-        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%231A7A3A%22 rx=%2216%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2232%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'"
-        onload="this.style.opacity='1'"
-        style="opacity:0; transition: opacity 0.4s ease;"
+        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%231A7A3A%22 rx=%2216%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'"
+        onload="this.style.opacity='1'; this.style.transition='opacity 0.4s ease';"
+        style="opacity: 0;"
       />
-      <span class="logo">PeakCraft Innovations</span>
+      <span class="logo-text">PeakCraft Innovations</span>
     </div>
+
     <div class="nav-links" role="navigation" aria-label="Main menu">
       <a href="#" data-page="services" class="nav-link active-link">Services</a>
       <a href="#" data-page="portfolio" class="nav-link">Portfolio</a>
@@ -392,221 +799,465 @@
 </header>
 
 <main class="container">
+
   <!-- ========== SERVICES PAGE ========== -->
   <section id="page-services" class="page active" aria-label="Services">
+
     <div class="hero" aria-label="Introduction and call to action">
       <div class="hero-text">
         <h1>Building Tomorrow's Digital Experiences Today</h1>
-        <p>PeakCraft Innovations Limited is your trusted partner for premium websites, mobile apps, business automation, AI solutions, and custom software development.</p>
+        <p>PeakCraft Innovations Limited is your trusted partner for premium websites, mobile apps, business automation, AI solutions, and custom software – built right here in Zambia.</p>
         <div class="hero-buttons">
           <button onclick="navigateTo('contact')">Request a Project</button>
           <button class="btn-secondary" onclick="navigateTo('portfolio')">View Portfolio</button>
         </div>
       </div>
       <div class="hero-image" aria-hidden="true">
-        <img src="Socials/assets/hero-photo.jpg" alt="Modern technology workspace" onerror="this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'" />
+        <img
+          src="Socials/assets/hero-photo.jpg"
+          alt="Modern technology workspace"
+          onerror="this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'"
+        />
       </div>
     </div>
 
-    <div class="services" aria-label="Our services">
+    <div class="services-block" aria-label="Our services">
       <h2>Our Services</h2>
       <div class="grid-3" role="list">
         <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s1">
           <div class="service-icon" aria-hidden="true">🌐</div>
-          <h3 id="s1" class="service-title">Website Development</h3>
-          <p class="service-desc">Custom, responsive websites designed to engage your audience and grow your business.</p>
+          <div id="s1" class="service-title">Website Development</div>
+          <p class="service-desc">Custom, responsive websites designed to engage your audience and grow your business online.</p>
         </article>
         <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s2">
           <div class="service-icon" aria-hidden="true">📱</div>
-          <h3 id="s2" class="service-title">Mobile Apps</h3>
+          <div id="s2" class="service-title">Mobile Apps</div>
           <p class="service-desc">User-friendly mobile applications tailored to your business needs on iOS and Android.</p>
         </article>
         <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s3">
           <div class="service-icon" aria-hidden="true">⚡</div>
-          <h3 id="s3" class="service-title">Business Automation</h3>
+          <div id="s3" class="service-title">Business Automation</div>
           <p class="service-desc">Streamline workflows and increase efficiency with custom automation solutions.</p>
         </article>
         <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s4">
           <div class="service-icon" aria-hidden="true">🤖</div>
-          <h3 id="s4" class="service-title">AI Solutions</h3>
-          <p class="service-desc">Leverage artificial intelligence to transform your business and gain competitive advantage.</p>
+          <div id="s4" class="service-title">AI Solutions</div>
+          <p class="service-desc">Leverage artificial intelligence to transform your business and gain a competitive advantage.</p>
         </article>
         <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s5">
           <div class="service-icon" aria-hidden="true">☁️</div>
-          <h3 id="s5" class="service-title">SaaS Development</h3>
+          <div id="s5" class="service-title">SaaS Development</div>
           <p class="service-desc">Build scalable, secure, and user-centric SaaS platforms tailored to your market.</p>
         </article>
         <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s6">
           <div class="service-icon" aria-hidden="true">🛠️</div>
-          <h3 id="s6" class="service-title">Custom Software</h3>
-          <p class="service-desc">End-to-end custom software solutions designed to solve your unique challenges.</p>
+          <div id="s6" class="service-title">Custom Software</div>
+          <p class="service-desc">End-to-end custom software solutions designed to solve your unique business challenges.</p>
         </article>
       </div>
     </div>
 
-    <section aria-label="What you can request" style="margin-top:2rem;">
+    <section aria-label="Service categories" style="margin-top:2.5rem; text-align:center;">
+      <p style="font-weight:600; color: var(--text-dark); margin-bottom:0.25rem;">Click any service to get started</p>
       <div class="tags" role="list">
-        <span class="tag" role="listitem">Web Apps</span>
-        <span class="tag" role="listitem">Websites</span>
-        <span class="tag" role="listitem">SaaS</span>
-        <span class="tag" role="listitem">Mobile Apps</span>
-        <span class="tag" role="listitem">Business Automation</span>
-        <span class="tag" role="listitem">AI Solutions</span>
-        <span class="tag" role="listitem">Custom Software</span>
+        <span class="tag" role="button" tabindex="0" onclick="contactWithService('Web App')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Web App')}">Web Apps</span>
+        <span class="tag" role="button" tabindex="0" onclick="contactWithService('Website')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Website')}">Websites</span>
+        <span class="tag" role="button" tabindex="0" onclick="contactWithService('SaaS')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('SaaS')}">SaaS</span>
+        <span class="tag" role="button" tabindex="0" onclick="contactWithService('Mobile App')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Mobile App')}">Mobile Apps</span>
+        <span class="tag" role="button" tabindex="0" onclick="contactWithService('Business Automation')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Business Automation')}">Business Automation</span>
+        <span class="tag" role="button" tabindex="0" onclick="contactWithService('AI Solutions')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('AI Solutions')}">AI Solutions</span>
+        <span class="tag" role="button" tabindex="0" onclick="contactWithService('Custom Software')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Custom Software')}">Custom Software</span>
       </div>
     </section>
   </section>
 
   <!-- ========== PORTFOLIO PAGE ========== -->
-  <section id="page-portfolio" class="page" aria-label="Portfolio">
+  <section id="page-portfolio" class="page portfolio-section" aria-label="Portfolio">
     <h2>Demo Projects</h2>
-    <div class="carousel" aria-roledescription="carousel" aria-label="Demo projects carousel">
+    <p class="portfolio-intro">A look at what we've built – from healthcare platforms to e-commerce solutions.</p>
+
+    <!-- Featured Demo Video -->
+    <div class="portfolio-video-wrap">
+      <video controls preload="metadata" aria-label="PeakCraft project demo video">
+        <source src="Socials/assets/Complete.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="portfolio-video-label">Featured Demo – See PeakCraft in action</div>
+    </div>
+
+    <!-- Project Carousel -->
+    <div class="carousel" aria-roledescription="carousel" aria-label="Demo projects">
       <div class="carousel-track" id="carousel-track">
         <div class="carousel-item" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="MediCare project" />
-          <h4>MediCare</h4>
-          <p>Healthcare platform with patient management and telemedicine.</p>
+          <div class="carousel-item-img-wrap">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="MediCare project" />
+          </div>
+          <div class="carousel-item-body">
+            <h4>MediCare</h4>
+            <p>Healthcare platform with patient management and telemedicine features.</p>
+          </div>
         </div>
         <div class="carousel-item" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="ZamBuild project" />
-          <h4>ZamBuild</h4>
-          <p>Construction project management for Zambian contractors.</p>
+          <div class="carousel-item-img-wrap">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" alt="ZamBuild project" />
+          </div>
+          <div class="carousel-item-body">
+            <h4>ZamBuild</h4>
+            <p>Construction project management for Zambian contractors and developers.</p>
+          </div>
         </div>
         <div class="carousel-item" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="Foodie project" />
-          <h4>Foodie</h4>
-          <p>Food delivery app with real-time tracking and ratings.</p>
+          <div class="carousel-item-img-wrap">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Foodie project" />
+          </div>
+          <div class="carousel-item-body">
+            <h4>Foodie</h4>
+            <p>Food delivery app with real-time order tracking and customer ratings.</p>
+          </div>
         </div>
         <div class="carousel-item" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="ShopEase project" />
-          <h4>ShopEase</h4>
-          <p>E-commerce platform with seamless checkout and inventory.</p>
+          <div class="carousel-item-img-wrap">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="ShopEase project" />
+          </div>
+          <div class="carousel-item-body">
+            <h4>ShopEase</h4>
+            <p>E-commerce platform with seamless checkout and inventory management.</p>
+          </div>
         </div>
         <div class="carousel-item" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80" alt="EduLearn project" />
-          <h4>EduLearn</h4>
-          <p>Online learning platform with courses, quizzes, tracking.</p>
+          <div class="carousel-item-img-wrap">
+            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80" alt="EduLearn project" />
+          </div>
+          <div class="carousel-item-body">
+            <h4>EduLearn</h4>
+            <p>Online learning platform with courses, quizzes, and progress tracking.</p>
+          </div>
         </div>
       </div>
       <div class="carousel-controls">
         <button class="carousel-button" aria-label="Previous project" id="prevBtn">&#10094;</button>
         <button class="carousel-button" aria-label="Next project" id="nextBtn">&#10095;</button>
       </div>
+      <div class="carousel-dots" id="carousel-dots" aria-hidden="true"></div>
     </div>
   </section>
 
   <!-- ========== HOW IT WORKS PAGE ========== -->
   <section id="page-how-it-works" class="page" aria-label="How it works">
-    <div class="how-it-works">
+    <div class="how-it-works-inner">
       <h2>How It Works</h2>
+      <p style="color:var(--text-secondary); margin-bottom:0;">From your idea to a live product – here's our process.</p>
       <div class="steps">
-        <div class="step" tabindex="0"><div class="step-number">1</div><div class="step-title">Submit Your Request</div><div class="step-desc">Tell us what you need built with your specifications and timeline.</div></div>
-        <div class="step" tabindex="0"><div class="step-number">2</div><div class="step-title">Receive a Quote</div><div class="step-desc">We review your request and provide a fixed price and timeline.</div></div>
-        <div class="step" tabindex="0"><div class="step-number">3</div><div class="step-title">Project Kickoff</div><div class="step-desc">Once approved, we start building your custom solution.</div></div>
-        <div class="step" tabindex="0"><div class="step-number">4</div><div class="step-title">Progress Updates</div><div class="step-desc">Receive regular updates and previews during development.</div></div>
-        <div class="step" tabindex="0"><div class="step-number">5</div><div class="step-title">Launch & Support</div><div class="step-desc">We help you launch and provide ongoing support.</div></div>
+        <div class="step" tabindex="0">
+          <div class="step-number">1</div>
+          <div class="step-title">Submit Your Request</div>
+          <div class="step-desc">Tell us what you need with your specifications and timeline.</div>
+        </div>
+        <div class="step" tabindex="0">
+          <div class="step-number">2</div>
+          <div class="step-title">Receive a Quote</div>
+          <div class="step-desc">We review your request and provide a fixed price and timeline.</div>
+        </div>
+        <div class="step" tabindex="0">
+          <div class="step-number">3</div>
+          <div class="step-title">Project Kickoff</div>
+          <div class="step-desc">Once approved, we start building your custom solution.</div>
+        </div>
+        <div class="step" tabindex="0">
+          <div class="step-number">4</div>
+          <div class="step-title">Progress Updates</div>
+          <div class="step-desc">Receive regular previews and updates during development.</div>
+        </div>
+        <div class="step" tabindex="0">
+          <div class="step-number">5</div>
+          <div class="step-title">Launch & Deploy</div>
+          <div class="step-desc">We deploy your project to the web and help you go live.</div>
+        </div>
+        <div class="step" tabindex="0">
+          <div class="step-number">6</div>
+          <div class="step-title">Ongoing Support</div>
+          <div class="step-desc">Maintenance, security updates, and hosting management included.</div>
+        </div>
+      </div>
+
+      <!-- Demo video in How It Works -->
+      <div class="demo-video-section">
+        <div class="demo-video-header">
+          Watch How We Work
+          <span>A full walkthrough of our development process</span>
+        </div>
+        <video controls preload="metadata" aria-label="PeakCraft development process walkthrough">
+          <source src="Socials/assets/Complete.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
   </section>
 
   <!-- ========== PRICING PAGE ========== -->
   <section id="page-pricing" class="page" aria-label="Pricing">
-    <div class="starter-package" aria-label="Starter Package pricing">
-      <h3>Starter Package</h3>
-      <p class="price">K2,500 – K3,500</p>
-      <ul>
-        <li>Custom Website</li>
-        <li>Mobile Responsive Design</li>
-        <li>Contact Forms & Google Maps</li>
-        <li>Basic SEO Optimization</li>
-      </ul>
-      <button onclick="navigateTo('contact')">Get Started</button>
+    <h2 style="text-align:center; margin-bottom:0.5rem;">Transparent Pricing</h2>
+    <p class="pricing-intro">All packages include deployment to the web, domain setup, security, hosting, and 3 months of free maintenance. No hidden fees.</p>
+
+    <div class="pricing-grid">
+
+      <!-- Starter -->
+      <div class="pricing-card">
+        <h3>Starter Package</h3>
+        <div class="pricing-price">K2,500 – K3,500</div>
+        <div class="pricing-period">One-time build fee</div>
+        <ul>
+          <li>Custom Website (up to 5 pages)</li>
+          <li>Mobile Responsive Design</li>
+          <li>Contact Forms &amp; Google Maps</li>
+          <li>Basic SEO Optimization</li>
+          <li>Web Hosting (1 year)</li>
+          <li>Domain Setup</li>
+          <li>SSL Security Certificate</li>
+          <li>3 Months Free Maintenance</li>
+          <li class="no">E-commerce / Online Store</li>
+          <li class="no">Mobile App</li>
+        </ul>
+        <button onclick="contactWithService('Website')">Get Started</button>
+      </div>
+
+      <!-- Growth – featured -->
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <h3>Growth Package</h3>
+        <div class="pricing-price">K5,000 – K10,000</div>
+        <div class="pricing-period">One-time build fee</div>
+        <ul>
+          <li>Everything in Starter</li>
+          <li>E-commerce / Online Store</li>
+          <li>Admin Dashboard</li>
+          <li>Advanced SEO</li>
+          <li>WhatsApp Chat Integration</li>
+          <li>Web Hosting (1 year)</li>
+          <li>SSL Security Certificate</li>
+          <li>6 Months Free Maintenance</li>
+          <li>Priority Support</li>
+          <li class="no">Mobile App (iOS/Android)</li>
+        </ul>
+        <button onclick="contactWithService('Web App')">Get Started</button>
+      </div>
+
+      <!-- Premium -->
+      <div class="pricing-card">
+        <h3>Premium Package</h3>
+        <div class="pricing-price">K12,000+</div>
+        <div class="pricing-period">Custom quote</div>
+        <ul>
+          <li>Everything in Growth</li>
+          <li>Mobile App (iOS &amp; Android)</li>
+          <li>Custom API / Integrations</li>
+          <li>AI / Automation Features</li>
+          <li>SaaS Platform</li>
+          <li>Cloud Hosting &amp; Scaling</li>
+          <li>Full Security Hardening</li>
+          <li>12 Months Free Maintenance</li>
+          <li>Dedicated Account Manager</li>
+          <li>Training &amp; Documentation</li>
+        </ul>
+        <button onclick="contactWithService('Custom Software')">Request a Quote</button>
+      </div>
+
     </div>
-    <div style="text-align:center; margin-top: 2rem;">
-      <p style="color:var(--text-secondary);">Need a custom quote? <a href="#" onclick="navigateTo('contact');return false;">Contact us</a> for tailored pricing.</p>
-    </div>
+
+    <p class="pricing-note">
+      Need something specific? <a href="#" onclick="navigateTo('contact');return false;">Contact us</a> for a tailored quote.<br />
+      <small style="color:var(--text-secondary);">All prices in Zambian Kwacha (ZMW). Hosting renewal after year 1 is billed separately.</small>
+    </p>
   </section>
 
   <!-- ========== CONTACT PAGE ========== -->
   <section id="page-contact" class="page" aria-label="Contact PeakCraft Innovations">
-    <h2>Contact Us</h2>
-    <p>Phone / WhatsApp: <a href="tel:+260951683381">+260951683381</a></p>
-    <p>Email: <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a></p>
-    <p>Address: Lusaka, Zambia</p>
+    <h2 style="margin-bottom:1.5rem;">Get In Touch</h2>
 
-    <form id="contact-form" style="max-width: 600px; margin: 2rem auto;" aria-label="Request a project form">
-      <label for="name">Full Name</label>
-      <input id="name" name="name" type="text" required />
-      
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" required />
-      
-      <label for="phone">Phone</label>
-      <input id="phone" name="phone" type="tel" required />
-      
-      <label for="whatsapp">WhatsApp</label>
-      <input id="whatsapp" name="whatsapp" type="tel" required />
-      
-      <label for="projectType">Project Type</label>
-      <select id="projectType" name="projectType" required>
-        <option value="">Select a project type</option>
-        <option value="Web App">Web App</option>
-        <option value="Website">Website</option>
-        <option value="SaaS">SaaS</option>
-        <option value="Mobile App">Mobile App</option>
-        <option value="Business Automation">Business Automation</option>
-        <option value="AI Solutions">AI Solutions</option>
-        <option value="Custom Software">Custom Software</option>
-      </select>
-      
-      <label for="startDate">Start Date</label>
-      <input id="startDate" name="startDate" type="date" />
-      
-      <label for="endDate">End Date</label>
-      <input id="endDate" name="endDate" type="date" />
-      
-      <label for="budget">Budget</label>
-      <select id="budget" name="budget">
-        <option value="">Select budget range</option>
-        <option value="K500 - K2,500">K500 - K2,500</option>
-        <option value="K2,500 - K5,000">K2,500 - K5,000</option>
-        <option value="K5,000+">K5,000+</option>
-      </select>
-      
-      <label for="timeline">Timeline</label>
-      <select id="timeline" name="timeline">
-        <option value="">Select timeline</option>
-        <option value="ASAP">ASAP</option>
-        <option value="Within 1 week">Within 1 week</option>
-        <option value="2 to 4 weeks">2 to 4 weeks</option>
-        <option value="1 to 2 months">1 to 2 months</option>
-        <option value="Flexible">Flexible</option>
-      </select>
-      
-      <label for="description">Project Description</label>
-      <textarea id="description" name="description" rows="5" required></textarea>
-      
-      <label for="files">Upload Files (max 10MB)</label>
-      <input id="files" name="files" type="file" multiple />
-      
-      <button type="submit">Submit Request</button>
-    </form>
+    <div class="contact-grid">
+      <!-- Left: info + payment -->
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📞</div>
+          <div class="contact-info-text">
+            <strong>Phone / WhatsApp</strong>
+            <a href="tel:+260951683381">+260 951 683 381</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉️</div>
+          <div class="contact-info-text">
+            <strong>Email</strong>
+            <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📍</div>
+          <div class="contact-info-text">
+            <strong>Location</strong>
+            <p>Lusaka, Zambia</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">⏰</div>
+          <div class="contact-info-text">
+            <strong>Response Time</strong>
+            <p>We reply within 24 hours</p>
+          </div>
+        </div>
 
-    <section aria-label="Payment Information" style="max-width:600px; margin:2rem auto; background:var(--light-green); padding:1.5rem; border-radius:var(--radius); box-shadow:var(--shadow);">
-      <h3>Make a Payment</h3>
-      <p><strong>Mobile Money (ZMW):</strong> 0951683381 – John B. (PeakCraft)</p>
-      <p><strong>Bank Transfer:</strong> ZANACO – Account Name: PeakCraft Innovations Ltd – Account Number: 1234567890123</p>
-    </section>
+        <div class="payment-box">
+          <h3>💳 Make a Payment</h3>
+          <p><strong>Mobile Money (ZMW):</strong><br />0951683381 – John B. (PeakCraft Innovations)</p>
+          <p><strong>Bank Transfer:</strong><br />ZANACO Bank<br />Account Name: PeakCraft Innovations Ltd<br />Account Number: 1234567890123</p>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div>
+        <form id="contact-form" aria-label="Project request form">
+          <div class="form-row">
+            <div>
+              <label for="name">Full Name *</label>
+              <input id="name" name="name" type="text" placeholder="Your full name" required />
+            </div>
+            <div>
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label for="phone">Phone *</label>
+              <input id="phone" name="phone" type="tel" placeholder="+260..." required />
+            </div>
+            <div>
+              <label for="whatsapp">WhatsApp *</label>
+              <input id="whatsapp" name="whatsapp" type="tel" placeholder="+260..." required />
+            </div>
+          </div>
+
+          <label for="projectType">Project Type *</label>
+          <select id="projectType" name="projectType" required>
+            <option value="">Select a project type</option>
+            <option value="Web App">Web App</option>
+            <option value="Website">Website</option>
+            <option value="SaaS">SaaS</option>
+            <option value="Mobile App">Mobile App</option>
+            <option value="Business Automation">Business Automation</option>
+            <option value="AI Solutions">AI Solutions</option>
+            <option value="Custom Software">Custom Software</option>
+          </select>
+
+          <div class="form-row">
+            <div>
+              <label for="startDate">Start Date</label>
+              <input id="startDate" name="startDate" type="date" />
+            </div>
+            <div>
+              <label for="endDate">End Date</label>
+              <input id="endDate" name="endDate" type="date" />
+            </div>
+          </div>
+
+          <label for="budget">Budget Range</label>
+          <select id="budget" name="budget">
+            <option value="">Select budget range</option>
+            <option value="K500 - K2,500">K500 – K2,500 (Basic)</option>
+            <option value="K2,500 - K5,000">K2,500 – K5,000 (Starter)</option>
+            <option value="K5,000 - K12,000">K5,000 – K12,000 (Growth)</option>
+            <option value="K12,000+">K12,000+ (Premium / Custom)</option>
+          </select>
+          <div class="budget-note">
+            💡 All packages include web deployment, hosting, SSL security, and maintenance. See the <a href="#" onclick="navigateTo('pricing');return false;">Pricing</a> page for full details.
+          </div>
+
+          <label for="timeline">Preferred Timeline</label>
+          <select id="timeline" name="timeline">
+            <option value="">Select timeline</option>
+            <option value="ASAP">ASAP</option>
+            <option value="Within 1 week">Within 1 week</option>
+            <option value="2 to 4 weeks">2 to 4 weeks</option>
+            <option value="1 to 2 months">1 to 2 months</option>
+            <option value="Flexible">Flexible</option>
+          </select>
+
+          <label for="description">Project Description *</label>
+          <textarea id="description" name="description" rows="4" placeholder="Describe your project, goals, and any specific requirements..." required></textarea>
+
+          <label for="files">Attach Files (optional, max 10MB)</label>
+          <input id="files" name="files" type="file" multiple />
+
+          <button type="submit" class="form-submit-btn">📨 Submit Request</button>
+        </form>
+      </div>
+    </div>
   </section>
+
 </main>
 
+<!-- ===== FOOTER ===== -->
 <footer>
-  <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
-  <p>Contact us: <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a> | Phone/WhatsApp: <a href="tel:+260951683381">+260951683381</a></p>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-text">PeakCraft Innovations</div>
+      <p>Premium digital solutions built in Zambia – websites, mobile apps, automation, AI, and custom software.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#" onclick="navigateTo('services');return false;">Website Development</a>
+      <a href="#" onclick="navigateTo('services');return false;">Mobile Apps</a>
+      <a href="#" onclick="navigateTo('services');return false;">Business Automation</a>
+      <a href="#" onclick="navigateTo('services');return false;">AI Solutions</a>
+      <a href="#" onclick="navigateTo('services');return false;">SaaS &amp; Custom Software</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:+260951683381">📞 +260 951 683 381</a>
+      <a href="mailto:peaklshda1@gmail.com">✉️ peaklshda1@gmail.com</a>
+      <p>📍 Lusaka, Zambia</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#" onclick="navigateTo('portfolio');return false;">Portfolio</a>
+      <a href="#" onclick="navigateTo('how-it-works');return false;">How It Works</a>
+      <a href="#" onclick="navigateTo('pricing');return false;">Pricing</a>
+      <a href="#" onclick="navigateTo('contact');return false;">Get a Quote</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
+    <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+  </div>
 </footer>
 
 <script>
-  // Navigation
+  // ===== EMAILJS CONFIGURATION =====
+  // ✅ All your EmailJS credentials are now properly integrated
+  const EMAILJS_CONFIG = {
+    publicKey: 'lJvZLakX5Di_kxhdG',    // ✅ Your Public Key
+    serviceID: 'service_xjrsbg8',      // ✅ Your Service ID
+    templateID: 'template_2hcybjz'     // ✅ Your Template ID
+  };
+
+  // Initialize EmailJS with your public key
+  (function initEmailJS() {
+    try {
+      emailjs.init({
+        publicKey: EMAILJS_CONFIG.publicKey
+      });
+      console.log('✅ EmailJS initialized successfully with your credentials!');
+    } catch (error) {
+      console.error('❌ EmailJS initialization failed:', error);
+    }
+  })();
+
+  // ===== NAVIGATION =====
   const pages = {
     services: document.getElementById('page-services'),
     portfolio: document.getElementById('page-portfolio'),
@@ -617,7 +1268,7 @@
   const navLinks = document.querySelectorAll('.nav-link');
 
   function navigateTo(pageId) {
-    Object.values(pages).forEach(p => p.classList.remove('active'));
+    Object.values(pages).forEach(p => { if (p) p.classList.remove('active'); });
     if (pages[pageId]) pages[pageId].classList.add('active');
     navLinks.forEach(link => {
       link.classList.remove('active-link');
@@ -634,20 +1285,98 @@
     });
   });
 
+  // Keyboard nav for logo wrapper
+  document.querySelector('.logo-wrapper').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigateTo('services'); }
+  });
+
   window.navigateTo = navigateTo;
 
-  // Carousel
+  // Contact with pre-selected service
+  function contactWithService(serviceType) {
+    navigateTo('contact');
+    setTimeout(() => {
+      const select = document.getElementById('projectType');
+      if (select) {
+        const opt = Array.from(select.options).find(o => o.value === serviceType);
+        if (opt) {
+          select.value = serviceType;
+          select.focus();
+        } else {
+          select.focus();
+        }
+      }
+    }, 200);
+  }
+  window.contactWithService = contactWithService;
+
+  // ===== CAROUSEL =====
   const track = document.getElementById('carousel-track');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
+  const dotsContainer = document.getElementById('carousel-dots');
   let currentIndex = 0;
+  let itemsVisible = 1;
+
+  function getItemsVisible() {
+    if (window.innerWidth >= 900) return 3;
+    if (window.innerWidth >= 600) return 2;
+    return 1;
+  }
+
+  function buildDots() {
+    if (!dotsContainer || !track) return;
+    const items = track.querySelectorAll('.carousel-item');
+    itemsVisible = getItemsVisible();
+    const totalPages = Math.ceil(items.length / itemsVisible);
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide group ' + (i + 1));
+      dot.style.cssText = 'background:none;border:none;padding:4px;cursor:pointer;';
+      const inner = document.createElement('span');
+      inner.style.cssText = 'display:block;width:8px;height:8px;border-radius:50%;background:rgba(26,122,58,0.25);transition:background 0.3s,width 0.3s,border-radius 0.3s;';
+      dot.appendChild(inner);
+      dot.addEventListener('click', () => {
+        currentIndex = i * itemsVisible;
+        updateCarousel();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function updateDots() {
+    if (!dotsContainer) return;
+    itemsVisible = getItemsVisible();
+    const activePage = Math.floor(currentIndex / itemsVisible);
+    const dots = dotsContainer.querySelectorAll('.carousel-dot');
+    dots.forEach((d, i) => {
+      const inner = d.querySelector('span');
+      if (i === activePage) {
+        d.classList.add('active');
+        if (inner) { inner.style.background = 'var(--primary-green)'; inner.style.width = '24px'; inner.style.borderRadius = '4px'; }
+      } else {
+        d.classList.remove('active');
+        if (inner) { inner.style.background = 'rgba(26,122,58,0.25)'; inner.style.width = '8px'; inner.style.borderRadius = '50%'; }
+      }
+    });
+  }
 
   function updateCarousel() {
     if (!track) return;
     const firstItem = track.querySelector('.carousel-item');
     if (!firstItem) return;
-    const itemWidth = firstItem.offsetWidth + 16;
-    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+    itemsVisible = getItemsVisible();
+    const gap = 16;
+    const itemWidth = firstItem.offsetWidth + gap;
+    const items = track.querySelectorAll('.carousel-item');
+    const maxIndex = Math.max(0, items.length - itemsVisible);
+    currentIndex = Math.min(currentIndex, maxIndex);
+    track.style.transform = 'translateX(' + (-currentIndex * itemWidth) + 'px)';
+    updateDots();
+    if (prevBtn) prevBtn.style.opacity = currentIndex === 0 ? '0.4' : '1';
+    if (nextBtn) nextBtn.style.opacity = currentIndex >= maxIndex ? '0.4' : '1';
   }
 
   if (prevBtn && nextBtn) {
@@ -656,16 +1385,100 @@
       updateCarousel();
     });
     nextBtn.addEventListener('click', () => {
-      const items = track.children;
-      const maxIndex = Math.max(0, items.length - Math.floor(track.parentElement.offsetWidth / (track.querySelector('.carousel-item').offsetWidth + 16)));
+      const items = track.querySelectorAll('.carousel-item');
+      const maxIndex = Math.max(0, items.length - getItemsVisible());
       currentIndex = Math.min(currentIndex + 1, maxIndex);
       updateCarousel();
     });
-    window.addEventListener('resize', updateCarousel);
-    setTimeout(updateCarousel, 100);
   }
 
+  // Touch/swipe support for mobile carousel
+  let touchStartX = 0;
+  let touchEndX = 0;
+  if (track) {
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) {
+        const items = track.querySelectorAll('.carousel-item');
+        const maxIndex = Math.max(0, items.length - getItemsVisible());
+        if (diff > 0) currentIndex = Math.min(currentIndex + 1, maxIndex);
+        else currentIndex = Math.max(currentIndex - 1, 0);
+        updateCarousel();
+      }
+    }, { passive: true });
+  }
+
+  window.addEventListener('resize', () => {
+    buildDots();
+    updateCarousel();
+  });
+
+  // Init
+  setTimeout(() => { buildDots(); updateCarousel(); }, 100);
+
+  // ===== CONTACT FORM HANDLER =====
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get the submit button
+      const submitBtn = form.querySelector('.form-submit-btn');
+      
+      // Prepare template parameters
+      const templateParams = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        whatsapp: document.getElementById('whatsapp').value,
+        projectType: document.getElementById('projectType').value,
+        startDate: document.getElementById('startDate').value || 'Not specified',
+        endDate: document.getElementById('endDate').value || 'Not specified',
+        budget: document.getElementById('budget').value || 'Not specified',
+        timeline: document.getElementById('timeline').value || 'Not specified',
+        description: document.getElementById('description').value,
+        files: document.getElementById('files').value || 'No files attached',
+        // Additional fields for email template
+        to_name: 'PeakCraft Innovations Team',
+        from_name: document.getElementById('name').value,
+        reply_to: document.getElementById('email').value
+      };
+
+      // Disable button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = 'Sending...';
+
+      // Send email via EmailJS
+      emailjs.send(
+        EMAILJS_CONFIG.serviceID,
+        EMAILJS_CONFIG.templateID,
+        templateParams
+      )
+      .then(function(response) {
+        console.log('✅ Email sent successfully!', response);
+        alert('🎉 Your request has been sent successfully! We will get back to you within 24 hours.');
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitBtn.textContent = '📨 Submit Request';
+      })
+      .catch(function(error) {
+        console.error('❌ EmailJS error:', error);
+        alert('❌ Something went wrong. Please try again or contact us directly at +260 951 683 381.');
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitBtn.textContent = '📨 Submit Request';
+      });
+    });
+  });
+
+  // Default page
   navigateTo('services');
 </script>
 </body>
-</html>   
+</html> 
