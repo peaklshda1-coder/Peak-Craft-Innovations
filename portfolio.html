@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — PeakCraft Innovations</title>
+  <meta name="description" content="Explore our portfolio of websites, apps, and digital solutions built for clients across Zambia and beyond." />
+
+  <!-- Google Fonts: Poppins + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --primary-green: #1A7A3A;
+      --secondary-green: #2E8B57;
+      --light-green: #E8F5E9;
+      --white: #FFFFFF;
+      --off-white: #F8F9FA;
+      --warm-yellow: #F5C842;
+      --dark-yellow: #E6B422;
+      --deep-green: #0A3D20;
+      --text-dark: #1A1A2E;
+      --text-secondary: #4A4A6A;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --max-width: 1200px;
+      --shadow: 0 8px 24px rgba(26, 122, 58, 0.15);
+      --shadow-lg: 0 16px 40px rgba(26, 122, 58, 0.2);
+      --transition: 0.3s ease;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--off-white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--primary-green);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover,
+    a:focus {
+      color: var(--secondary-green);
+      outline: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: var(--radius);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Poppins', sans-serif;
+      margin: 0 0 0.5em;
+      color: var(--text-dark);
+    }
+    h1 {
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+    }
+    h3 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary-green);
+    }
+
+    p {
+      margin: 0 0 1.25em;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: var(--radius);
+      border: none;
+      padding: 0.8em 1.75em;
+      background-color: var(--primary-green);
+      color: var(--white);
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+      transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    button:hover,
+    button:focus {
+      background-color: var(--secondary-green);
+      box-shadow: 0 12px 32px rgba(46, 139, 87, 0.35);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    button:active {
+      transform: translateY(0);
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .btn-secondary {
+      background-color: var(--warm-yellow);
+      color: var(--deep-green);
+      box-shadow: 0 8px 24px rgba(245, 200, 66, 0.35);
+    }
+    .btn-secondary:hover,
+    .btn-secondary:focus {
+      background-color: var(--dark-yellow);
+      box-shadow: 0 12px 32px rgba(230, 180, 34, 0.45);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      gap: 1rem;
+    }
+
+    /* ===== LOGO ===== */
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      flex-shrink: 0;
+    }
+    .logo-wrapper:hover {
+      opacity: 0.85;
+    }
+
+    .logo-img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: rgba(26, 122, 58, 0.06);
+      padding: 4px;
+      flex-shrink: 0;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+      border: 2px solid rgba(26, 122, 58, 0.2);
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+      border-color: var(--primary-green);
+    }
+
+    .logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--primary-green);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* ===== NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      position: relative;
+      transition: color var(--transition), background-color var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+    }
+    .nav-links a.active-link {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+      font-weight: 700;
+    }
+    .nav-links a.active-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background-color: var(--primary-green);
+      border-radius: 2px;
+    }
+
+    /* ===== PORTFOLIO ===== */
+    .portfolio-section h2 {
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-intro {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    /* Featured video */
+    .portfolio-video-wrap {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    .portfolio-video-wrap video {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+    .portfolio-video-label {
+      padding: 1rem 1.5rem;
+      background: var(--deep-green);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .portfolio-video-label::before {
+      content: '▶';
+      background: var(--warm-yellow);
+      color: var(--deep-green);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    .portfolio-showcase {
+      margin-top: 2.5rem;
+    }
+
+    .category-section {
+      margin-bottom: 3rem;
+    }
+
+    .category-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--primary-green);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--light-green);
+      position: relative;
+    }
+
+    .category-title::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background: var(--primary-green);
+      border-radius: 2px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .portfolio-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      border: 1px solid rgba(26, 122, 58, 0.08);
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-img-wrap {
+      height: 200px;
+      overflow: hidden;
+      background: var(--light-green);
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .portfolio-card:hover .card-img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .card-body {
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+
+    .card-body h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .card-body p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin: 0 0 1rem;
+      line-height: 1.5;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      color: var(--primary-green);
+      text-decoration: none;
+      transition: gap var(--transition), color var(--transition);
+    }
+
+    .card-link:hover {
+      gap: 0.8rem;
+      color: var(--secondary-green);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(180deg, var(--deep-green) 0%, #061a0e 100%);
+      color: #e8f5e9;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-brand .footer-logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand p {
+      color: rgba(232, 245, 233, 0.75);
+      font-size: 0.9rem;
+    }
+    .footer-col h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--warm-yellow);
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .footer-col p,
+    .footer-col a {
+      color: rgba(232, 245, 233, 0.8);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      display: block;
+      margin: 0;
+    }
+    .footer-col a:hover {
+      color: var(--warm-yellow);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom p {
+      color: rgba(232, 245, 233, 0.6);
+      font-size: 0.82rem;
+      margin: 0;
+    }
+    .footer-bottom a {
+      color: var(--warm-yellow);
+      font-size: 0.82rem;
+    }
+    .footer-bottom a:hover {
+      color: var(--dark-yellow);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      .logo-wrapper {
+        justify-content: center;
+      }
+      .logo-img {
+        width: 48px;
+        height: 48px;
+      }
+      .logo-text {
+        font-size: 1.15rem;
+      }
+      .nav-links a {
+        font-size: 0.82rem;
+        padding: 0.35rem 0.55rem;
+      }
+      section {
+        padding: 2.5rem 0;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .category-title {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+      .logo-text {
+        font-size: 1rem;
+      }
+      h1 {
+        font-size: 1.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="container" aria-label="Primary navigation">
+      <div class="logo-wrapper" onclick="location.href='services.html'" role="link" tabindex="0" aria-label="Go to home">
+        <img class="logo-img" src="Socials/assets/logo.png" alt="PeakCraft Innovations logo" width="56" height="56" loading="eager" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%231A7A3A%22 rx=%2216%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'" onload="this.style.opacity='1'; this.style.transition='opacity 0.4s ease';" style="opacity: 0;" />
+        <span class="logo-text">PeakCraft Innovations</span>
+      </div>
+
+      <div class="nav-links" role="navigation" aria-label="Main menu">
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="portfolio.html" class="nav-link active-link">Portfolio</a>
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ========== PORTFOLIO PAGE ========== -->
+    <section id="page-portfolio" class="portfolio-section" aria-label="Portfolio">
+      <h2>Our Portfolio</h2>
+      <p class="portfolio-intro">A look at the range of websites and digital solutions we've built, from business templates to specialized platforms.</p>
+
+      <!-- Featured Demo Video -->
+      <div class="portfolio-video-wrap">
+        <video controls preload="metadata" aria-label="PeakCraft project demo video">
+          <source src="Socials\assets\0711(1).mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="portfolio-video-label">Featured Demo – See PeakCraft in action</div>
+      </div>
+
+      <!-- Project Showcase Grid -->
+      <div class="portfolio-showcase">
+        <!-- Business Category -->
+        <div class="category-section">
+          <h3 class="category-title">Business Solutions</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="Business Solutions Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Business Solutions</h4>
+                <p>Professional business website template with modern layout and service-focused design.</p>
+                <a href="https://peaklshda1-coder.github.io/Business-Solutions/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="Business World Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Business World Template</h4>
+                <p>Versatile business template designed for corporate branding and professional services.</p>
+                <a href="https://peaklshda1-coder.github.io/Business-World-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=600&q=80" alt="Lawfirm Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Lawfirm</h4>
+                <p>Elegant and professional template tailored for legal practices and consultancy firms.</p>
+                <a href="https://peaklshda1-coder.github.io/Lawfirm/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EduLearn Category -->
+        <div class="category-section">
+          <h3 class="category-title">EduLearn</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80" alt="Modern Glassmorphism Education Showcase" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Modern Glassmorphism Education Showcase</h4>
+                <p>Contemporary educational platform with glassmorphism design and interactive elements.</p>
+                <a href="https://peaklshda1-coder.github.io/Modern-Glassmorphism-Education-Showcase/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=80" alt="Shepherds Corner Preschool" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Shepherd's Corner Preschool</h4>
+                <p>Warm and welcoming website designed for a preschool, featuring a playful yet professional layout.</p>
+                <a href="https://peaklshda1-coder.github.io/Shepherd-s-Corner-Preschool/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foodie Category -->
+        <div class="category-section">
+          <h3 class="category-title">Foodie</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Modern Split Layout Foodie Customer App" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Modern Split Layout (Foodie Customer App)</h4>
+                <p>Customer-facing food delivery app with a modern split layout for enhanced visual appeal.</p>
+                <a href="https://peaklshda1-coder.github.io/Modern-Split-Layout-Foodie-Customer-App-/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="SaaS Dashboard Timeline Style" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>SaaS Dashboard Timeline Style</h4>
+                <p>Dashboard-style layout for a SaaS product, showcasing data and timelines effectively.</p>
+                <a href="https://peaklshda1-coder.github.io/SaaS-Dashboard-Timeline-Style/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="Frozen Yogurt Shop" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Frozen Yogurt Shop</h4>
+                <p>Vibrant and inviting template for a frozen yogurt shop, perfect for food-related businesses.</p>
+                <a href="https://peaklshda1-coder.github.io/Frozen-Yogurt-Shop/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&q=80" alt="Cake Website Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Cake Website Template</h4>
+                <p>Delightful and visually appealing template for a cake shop or bakery business.</p>
+                <a href="https://peaklshda1-coder.github.io/Cake-Website-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MediCare Category -->
+        <div class="category-section">
+          <h3 class="category-title">MediCare</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="Medical Hospital Website Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Medical Hospital Website Template</h4>
+                <p>Comprehensive hospital website template with dedicated sections for services and patient care.</p>
+                <a href="https://peaklshda1-coder.github.io/Medical-Hospital-Website-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80" alt="PulseOne" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>PulseOne</h4>
+                <p>Modern health and wellness platform with a clean, user-friendly interface.</p>
+                <a href="https://peaklshda1-coder.github.io/PulseOne/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="CareNest" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>CareNest</h4>
+                <p>Healthcare platform focused on patient-centered care and intuitive navigation.</p>
+                <a href="https://peaklshda1-coder.github.io/CareNest/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80" alt="Rehabilitation Yoga" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Rehabilitation Yoga</h4>
+                <p>Dedicated platform for yoga and rehabilitation services, promoting holistic wellness.</p>
+                <a href="https://peaklshda1-coder.github.io/Rehabilitation-Yoga/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1461897106932-1c2c8979b7a0?auto=format&fit=crop&w=600&q=80" alt="Running" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Running</h4>
+                <p>Sports and fitness-focused website template for running clubs and athletic events.</p>
+                <a href="https://peaklshda1-coder.github.io/-Running/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logistics, Personalized, and ZamBuild Categories -->
+        <div class="category-section">
+          <h3 class="category-title">Logistics, Personalized, &amp; ZamBuild</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" alt="Logistics" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Logistics</h4>
+                <p>Professional logistics and supply chain management website template.</p>
+                <a href="https://peaklshda1-coder.github.io/Logistics/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Personalized Web Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Personalized Web Template</h4>
+                <p>Highly customizable web template for personal branding and creative portfolios.</p>
+                <a href="https://peaklshda1-coder.github.io/Personalized-Web-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="ZamBuild" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>ZamBuild</h4>
+                <p>Construction management platform built for Zambian contractors, engineers, and developers.</p>
+                <a href="https://peaklshda1-coder.github.io/Portfolio-Piece-01-ZamBuild/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="AgroLink Zambia" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>AgroLink Zambia</h4>
+                <p>Digital platform connecting Zambian farmers with agricultural resources and market opportunities.</p>
+                <a href="https://peaklshda1-coder.github.io/Portfolio-Piece-02-AgroLink-Zambia/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ShopEase Category -->
+        <div class="category-section">
+          <h3 class="category-title">ShopEase</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" alt="Luxury Dark Glassmorphism" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Luxury Dark Glassmorphism</h4>
+                <p>Sophisticated e-commerce template with a modern dark glassmorphism design.</p>
+                <a href="https://peaklshda1-coder.github.io/Luxury-Dark-Glassmorphism/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80" alt="Her Designs Web Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Her Designs Web Template</h4>
+                <p>Elegant and feminine design template for fashion, beauty, and lifestyle brands.</p>
+                <a href="https://peaklshda1-coder.github.io/Her-Designs-Web-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80" alt="Hairstyle Salon" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Hairstyle Salon</h4>
+                <p>Stylish and modern template for hair salons and beauty service providers.</p>
+                <a href="https://peaklshda1-coder.github.io/Hairstyle-Salon/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80" alt="Hair Repair Website Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Hair Repair Website Template</h4>
+                <p>Clean and professional template for hair repair and cosmetic treatment services.</p>
+                <a href="https://peaklshda1-coder.github.io/Hair-Repair-Website-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-text">PeakCraft Innovations</div>
+        <p>Premium digital solutions built in Zambia – websites, mobile apps, automation, AI, and custom software.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Website Development</a>
+        <a href="services.html">Mobile Apps</a>
+        <a href="services.html">Business Automation</a>
+        <a href="services.html">AI Solutions</a>
+        <a href="services.html">SaaS &amp; Custom Software</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+260951683381">📞 +260 951 683 381</a>
+        <a href="mailto:peaklshda1@gmail.com">✉️ peaklshda1@gmail.com</a>
+        <p>📍 Lusaka, Zambia</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Get a Quote</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
+      <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================
+    // script.js - PeakCraft Innovations
+    // EmailJS Integration with YOUR credentials
+    // Service ID: service_xjrsbg8
+    // Template ID: template_2hcybjz
+    // ============================================
+
+    // Initialize EmailJS with your public key
+    (function() {
+      emailjs.init({
+        publicKey: "lJvZLakX5Di_kxhdG",
+      });
+    })();
+
+    /**
+     * sendMail - Main function to send project requests via EmailJS
+     * Uses Service ID: service_xjrsbg8
+     * Uses Template ID: template_2hcybjz
+     */
+    function sendMail(event) {
+      // Prevent default form submission
+      if (event) {
+        event.preventDefault();
+      }
+
+      // Get form and button elements
+      const form = document.getElementById('contact-form');
+      if (!form) {
+        console.error('Form with id "contact-form" not found');
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : 'Submit';
+
+      // Collect ALL form data
+      let params = {
+        // Client Information
+        name: document.getElementById("name")?.value?.trim() || '',
+        email: document.getElementById("email")?.value?.trim() || '',
+        phone: document.getElementById("phone")?.value?.trim() || '',
+        whatsapp: document.getElementById("whatsapp")?.value?.trim() || '',
+
+        // Project Details
+        project_type: document.getElementById("projectType")?.value || '',
+        start_date: document.getElementById("startDate")?.value || 'Not specified',
+        end_date: document.getElementById("endDate")?.value || 'Not specified',
+        budget: document.getElementById("budget")?.value || 'Not specified',
+        timeline: document.getElementById("timeline")?.value || 'Not specified',
+        description: document.getElementById("description")?.value?.trim() || '',
+
+        // Additional Info
+        to_email: 'peaklshda1@gmail.com',
+        submitted_date: new Date().toLocaleString('en-ZM', {
+          timeZone: 'Africa/Lusaka',
+          dateStyle: 'full',
+          timeStyle: 'medium'
+        })
+      };
+
+      // Validate required fields
+      if (!params.name || !params.email || !params.phone ||
+        !params.whatsapp || !params.project_type || !params.description) {
+        alert('⚠️ Please fill in all required fields.\n\nRequired: Name, Email, Phone, WhatsApp, Project Type, Description');
+        return;
+      }
+
+      // Show loading state if button exists
+      if (submitBtn) {
+        submitBtn.textContent = '⏳ Sending...';
+        submitBtn.disabled = true;
+      }
+
+      // YOUR EmailJS credentials
+      const SERVICE_ID = "service_xjrsbg8";
+      const TEMPLATE_ID = "template_2hcybjz";
+
+      // Send email using EmailJS
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, params)
+        .then(function(response) {
+          // Success
+          alert('✅ Thank you for your request!\n\nWe will get back to you within 24 hours.\n\n📧 Confirmation sent to: ' +
+            params.email);
+
+          // Reset form
+          form.reset();
+
+          // Reset button
+          if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+
+          console.log('Email sent successfully!', response);
+        })
+        .catch(function(error) {
+          // Error handling
+          console.error('❌ EmailJS Error:', error);
+
+          let errorMsg = '❌ Oops! Something went wrong.\n\n';
+          if (error.status === 400) {
+            errorMsg += 'Please check all fields and try again.';
+          } else if (error.status === 429) {
+            errorMsg += 'Too many requests. Please wait a moment and try again.';
+          } else if (error.status === 403) {
+            errorMsg += 'Access denied. Please check your API key.';
+          } else {
+            errorMsg += 'Please try again or contact us directly at peaklshda1@gmail.com';
+          }
+
+          alert(errorMsg);
+
+          // Reset button
+          if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+    }
+
+    // ============================================
+    // Auto-attach form submission handler
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-form');
+      if (form) {
+        // Use sendMail as the default handler
+        form.addEventListener('submit', sendMail);
+        console.log('✅ Contact form ready! Using Service: service_xjrsbg8, Template: template_2hcybjz');
+      } else {
+        console.warn('⚠️ Contact form not found. Make sure your form has id="contact-form"');
+      }
+    });
+
+    // ============================================
+    // Console helper for debugging
+    // ============================================
+    console.log('📧 PeakCraft Innovations - EmailJS Ready');
+    console.log('🔑 Service ID: service_xjrsbg8');
+    console.log('📄 Template ID: template_2hcybjz');
+    console.log('📋 Function available: sendMail()');
+  </script>
+</body>
+</html>
