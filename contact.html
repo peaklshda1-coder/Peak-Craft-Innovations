@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — PeakCraft Innovations</title>
+  <meta name="description" content="Get in touch with PeakCraft Innovations for your website, app, or digital project." />
+
+  <!-- Google Fonts: Poppins + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --primary-green: #1A7A3A;
+      --secondary-green: #2E8B57;
+      --light-green: #E8F5E9;
+      --white: #FFFFFF;
+      --off-white: #F8F9FA;
+      --warm-yellow: #F5C842;
+      --dark-yellow: #E6B422;
+      --deep-green: #0A3D20;
+      --text-dark: #1A1A2E;
+      --text-secondary: #4A4A6A;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --max-width: 1200px;
+      --shadow: 0 8px 24px rgba(26, 122, 58, 0.15);
+      --shadow-lg: 0 16px 40px rgba(26, 122, 58, 0.2);
+      --transition: 0.3s ease;
+      --facebook-blue: #1877F2;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--off-white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--primary-green);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover,
+    a:focus {
+      color: var(--secondary-green);
+      outline: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: var(--radius);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Poppins', sans-serif;
+      margin: 0 0 0.5em;
+      color: var(--text-dark);
+    }
+    h1 {
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+    }
+    h3 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary-green);
+    }
+
+    p {
+      margin: 0 0 1.25em;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: var(--radius);
+      border: none;
+      padding: 0.8em 1.75em;
+      background-color: var(--primary-green);
+      color: var(--white);
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+      transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    button:hover,
+    button:focus {
+      background-color: var(--secondary-green);
+      box-shadow: 0 12px 32px rgba(46, 139, 87, 0.35);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    button:active {
+      transform: translateY(0);
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      gap: 1rem;
+    }
+
+    /* ===== LOGO ===== */
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      flex-shrink: 0;
+    }
+    .logo-wrapper:hover {
+      opacity: 0.85;
+    }
+
+    .logo-img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: rgba(26, 122, 58, 0.06);
+      padding: 4px;
+      flex-shrink: 0;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+      border: 2px solid rgba(26, 122, 58, 0.2);
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+      border-color: var(--primary-green);
+    }
+
+    .logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--primary-green);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* ===== NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      position: relative;
+      transition: color var(--transition), background-color var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+    }
+    .nav-links a.active-link {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+      font-weight: 700;
+    }
+    .nav-links a.active-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background-color: var(--primary-green);
+      border-radius: 2px;
+    }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-info h2 {
+      margin-bottom: 1rem;
+    }
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(26, 122, 58, 0.08);
+    }
+    .contact-info-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .contact-info-text {
+      flex: 1;
+    }
+    .contact-info-text strong {
+      display: block;
+      color: var(--primary-green);
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+    }
+    .contact-info-text a,
+    .contact-info-text p {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    /* ===== SOCIAL ICONS ===== */
+    .social-icons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+      flex-wrap: wrap;
+    }
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--light-green);
+      color: var(--primary-green);
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 16px rgba(26, 122, 58, 0.2);
+    }
+
+    /* Facebook specific styling */
+    .social-icons a.facebook-link {
+      background: #1877F2;
+      color: white;
+    }
+    .social-icons a.facebook-link:hover {
+      background: #0d6ad9;
+      box-shadow: 0 6px 16px rgba(24, 119, 242, 0.4);
+    }
+
+    /* WhatsApp specific styling */
+    .social-icons a.whatsapp-link {
+      background: #25D366;
+      color: white;
+    }
+    .social-icons a.whatsapp-link:hover {
+      background: #1da851;
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Instagram specific styling */
+    .social-icons a.instagram-link {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+    }
+    .social-icons a.instagram-link:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 16px rgba(225, 48, 108, 0.4);
+    }
+
+    /* LinkedIn specific styling */
+    .social-icons a.linkedin-link {
+      background: #0A66C2;
+      color: white;
+    }
+    .social-icons a.linkedin-link:hover {
+      background: #004182;
+      box-shadow: 0 6px 16px rgba(10, 102, 194, 0.4);
+    }
+
+    .payment-box {
+      background: var(--light-green);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.1);
+    }
+    .payment-box h3 {
+      margin-bottom: 1rem;
+    }
+    .payment-box p {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .payment-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
+    form input,
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      margin-bottom: 1.1rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid #d0e8d8;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      appearance: auto;
+    }
+    form input:focus,
+    form select:focus,
+    form textarea:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(26, 122, 58, 0.12);
+    }
+    form select {
+      cursor: pointer;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1rem;
+    }
+    @media (max-width: 500px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .budget-note {
+      background: rgba(245, 200, 66, 0.15);
+      border: 1px solid rgba(245, 200, 66, 0.5);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--deep-green);
+      margin-top: -0.75rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 0.9em 1.5em;
+      font-size: 1rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(180deg, var(--deep-green) 0%, #061a0e 100%);
+      color: #e8f5e9;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-brand .footer-logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand p {
+      color: rgba(232, 245, 233, 0.75);
+      font-size: 0.9rem;
+    }
+    .footer-col h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--warm-yellow);
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .footer-col p,
+    .footer-col a {
+      color: rgba(232, 245, 233, 0.8);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      display: block;
+      margin: 0;
+    }
+    .footer-col a:hover {
+      color: var(--warm-yellow);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom p {
+      color: rgba(232, 245, 233, 0.6);
+      font-size: 0.82rem;
+      margin: 0;
+    }
+    .footer-bottom a {
+      color: var(--warm-yellow);
+      font-size: 0.82rem;
+    }
+    .footer-bottom a:hover {
+      color: var(--dark-yellow);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      .logo-wrapper {
+        justify-content: center;
+      }
+      .logo-img {
+        width: 48px;
+        height: 48px;
+      }
+      .logo-text {
+        font-size: 1.15rem;
+      }
+      .nav-links a {
+        font-size: 0.82rem;
+        padding: 0.35rem 0.55rem;
+      }
+      section {
+        padding: 2.5rem 0;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+      .social-icons a {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+      .logo-text {
+        font-size: 1rem;
+      }
+      h1 {
+        font-size: 1.9rem;
+      }
+      .social-icons a {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Loading state for form */
+    .form-submit-btn.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .form-submit-btn.loading::after {
+      content: ' ...';
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="container" aria-label="Primary navigation">
+      <div class="logo-wrapper" onclick="location.href='services.html'" role="link" tabindex="0" aria-label="Go to home">
+        <img class="logo-img" src="Socials/assets/logo.png" alt="PeakCraft Innovations logo" width="56" height="56" loading="eager" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%231A7A3A%22 rx=%2216%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'" onload="this.style.opacity='1'; this.style.transition='opacity 0.4s ease';" style="opacity: 0;" />
+        <span class="logo-text">PeakCraft Innovations</span>
+      </div>
+
+      <div class="nav-links" role="navigation" aria-label="Main menu">
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="contact.html" class="nav-link active-link">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ========== CONTACT PAGE ========== -->
+    <section id="page-contact" aria-label="Contact PeakCraft Innovations">
+      <h2 style="margin-bottom:1.5rem;">Get In Touch</h2>
+
+      <div class="contact-grid">
+        <!-- Left: info + payment -->
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-text">
+              <strong>Phone / WhatsApp</strong>
+              <a href="tel:+260951683381">+260 951 683 381</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">✉️</div>
+            <div class="contact-info-text">
+              <strong>Email</strong>
+              <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-text">
+              <strong>Location</strong>
+              <p>Lusaka, Zambia</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">⏰</div>
+            <div class="contact-info-text">
+              <strong>Response Time</strong>
+              <p>We reply within 24 hours</p>
+            </div>
+          </div>
+
+          <!-- ===== SOCIAL MEDIA SECTION ===== -->
+          <div class="contact-info-item">
+            <div class="contact-info-icon">🌐</div>
+            <div class="contact-info-text">
+              <strong>Follow Us</strong>
+              <div class="social-icons">
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/1MSvjvE5Wn/" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="facebook-link" 
+                   aria-label="Follow us on Facebook">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/260951683381" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="whatsapp-link" 
+                   aria-label="Chat with us on WhatsApp">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                </a>
+                <!-- Instagram -->
+                <a href="#" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="instagram-link" 
+                   aria-label="Follow us on Instagram">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                  </svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="#" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="linkedin-link" 
+                   aria-label="Connect with us on LinkedIn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="payment-box">
+            <h3>💳 Make a Payment</h3>
+            <p><strong>Mobile Money (ZMW):</strong><br />+260951683381 – Ben Mutema. (PeakCraft Innovations)</p>
+            <p><strong>Bank Transfer:</strong><br />FNB Bank<br />Account Name: PeakCraft Innovations Ltd<br />Account Number: 63171729701</p>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div>
+          <form id="contact-form" aria-label="Project request form">
+            <div class="form-row">
+              <div>
+                <label for="name">Full Name *</label>
+                <input id="name" name="name" type="text" placeholder="Your full name" required />
+              </div>
+              <div>
+                <label for="email">Email *</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label for="phone">Phone *</label>
+                <input id="phone" name="phone" type="tel" placeholder="+260..." required />
+              </div>
+              <div>
+                <label for="whatsapp">WhatsApp *</label>
+                <input id="whatsapp" name="whatsapp" type="tel" placeholder="+260..." required />
+              </div>
+            </div>
+
+            <label for="projectType">Project Type *</label>
+            <select id="projectType" name="projectType" required>
+              <option value="">Select a project type</option>
+              <option value="Web App">Web App</option>
+              <option value="Website">Website</option>
+              <option value="SaaS">SaaS</option>
+              <option value="Mobile App">Mobile App</option>
+              <option value="Business Automation">Business Automation</option>
+              <option value="AI Solutions">AI Solutions</option>
+              <option value="Custom Software">Custom Software</option>
+            </select>
+
+            <div class="form-row">
+              <div>
+                <label for="startDate">Start Date</label>
+                <input id="startDate" name="startDate" type="date" />
+              </div>
+              <div>
+                <label for="endDate">End Date</label>
+                <input id="endDate" name="endDate" type="date" />
+              </div>
+            </div>
+
+            <label for="budget">Budget Range</label>
+            <select id="budget" name="budget">
+              <option value="">Select budget range</option>
+              <option value="Under K4,500">Under K4,500</option>
+              <option value="K4,500 - K9,500">K4,500 – K9,500</option>
+              <option value="K9,500 - K18,500">K9,500 – K18,500</option>
+              <option value="K18,500 - K35,000">K18,500 – K35,000</option>
+              <option value="K35,000+">K35,000+</option>
+            </select>
+            <div class="budget-note">
+              💡 All packages include web deployment, hosting, SSL security, and maintenance. See the <a href="pricing.html">Pricing</a> page for full details.
+            </div>
+
+            <label for="timeline">Preferred Timeline</label>
+            <select id="timeline" name="timeline">
+              <option value="">Select timeline</option>
+              <option value="ASAP">ASAP</option>
+              <option value="Within 1 week">Within 1 week</option>
+              <option value="2 to 4 weeks">2 to 4 weeks</option>
+              <option value="1 to 2 months">1 to 2 months</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+
+            <label for="description">Project Description *</label>
+            <textarea id="description" name="description" rows="4" placeholder="Describe your project, goals, and any specific requirements..." required></textarea>
+
+            <label for="files">Attach Files (optional, max 10MB)</label>
+            <input id="files" name="files" type="file" multiple />
+
+            <button type="submit" class="form-submit-btn">📨 Submit Request</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-text">PeakCraft Innovations</div>
+        <p>Premium digital solutions built in Zambia – websites, mobile apps, automation, AI, and custom software.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Website Development</a>
+        <a href="services.html">Mobile Apps</a>
+        <a href="services.html">Business Automation</a>
+        <a href="services.html">AI Solutions</a>
+        <a href="services.html">SaaS &amp; Custom Software</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+260951683381">📞 +260 951 683 381</a>
+        <a href="mailto:peaklshda1@gmail.com">✉️ peaklshda1@gmail.com</a>
+        <p>📍 Lusaka, Zambia</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Get a Quote</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
+      <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================
+    // script.js - PeakCraft Innovations
+    // EmailJS Integration with YOUR credentials
+    // Service ID: service_xjrsbg8
+    // Template ID: template_2hcybjz
+    // ============================================
+
+    // Initialize EmailJS with your public key
+    (function() {
+      emailjs.init({
+        publicKey: "lJvZLakX5Di_kxhdG",
+      });
+    })();
+
+    /**
+     * sendMail - Main function to send project requests via EmailJS
+     * Uses Service ID: service_xjrsbg8
+     * Uses Template ID: template_2hcybjz
+     */
+    function sendMail(event) {
+      // Prevent default form submission
+      if (event) {
+        event.preventDefault();
+      }
+
+      // Get form and button elements
+      const form = document.getElementById('contact-form');
+      if (!form) {
+        console.error('Form with id "contact-form" not found');
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : 'Submit';
+
+      // Collect ALL form data
+      let params = {
+        // Client Information
+        name: document.getElementById("name")?.value?.trim() || '',
+        email: document.getElementById("email")?.value?.trim() || '',
+        phone: document.getElementById("phone")?.value?.trim() || '',
+        whatsapp: document.getElementById("whatsapp")?.value?.trim() || '',
+
+        // Project Details
+        project_type: document.getElementById("projectType")?.value || '',
+        start_date: document.getElementById("startDate")?.value || 'Not specified',
+        end_date: document.getElementById("endDate")?.value || 'Not specified',
+        budget: document.getElementById("budget")?.value || 'Not specified',
+        timeline: document.getElementById("timeline")?.value || 'Not specified',
+        description: document.getElementById("description")?.value?.trim() || '',
+
+        // Additional Info
+        to_email: 'peaklshda1@gmail.com',
+        submitted_date: new Date().toLocaleString('en-ZM', {
+          timeZone: 'Africa/Lusaka',
+          dateStyle: 'full',
+          timeStyle: 'medium'
+        })
+      };
+
+      // Validate required fields
+      if (!params.name || !params.email || !params.phone ||
+        !params.whatsapp || !params.project_type || !params.description) {
+        alert('⚠️ Please fill in all required fields.\n\nRequired: Name, Email, Phone, WhatsApp, Project Type, Description');
+        return;
+      }
+
+      // Show loading state if button exists
+      if (submitBtn) {
+        submitBtn.textContent = '⏳ Sending...';
+        submitBtn.disabled = true;
+      }
+
+      // YOUR EmailJS credentials
+      const SERVICE_ID = "service_xjrsbg8";
+      const TEMPLATE_ID = "template_2hcybjz";
+
+      // Send email using EmailJS
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, params)
+        .then(function(response) {
+          // Success
+          alert('✅ Thank you for your request!\n\nWe will get back to you within 24 hours.\n\n📧 Confirmation sent to: ' +
+            params.email);
+
+          // Reset form
+          form.reset();
+
+          // Reset button
+          if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+
+          console.log('Email sent successfully!', response);
+        })
+        .catch(function(error) {
+          // Error handling
+          console.error('❌ EmailJS Error:', error);
+
+          let errorMsg = '❌ Oops! Something went wrong.\n\n';
+          if (error.status === 400) {
+            errorMsg += 'Please check all fields and try again.';
+          } else if (error.status === 429) {
+            errorMsg += 'Too many requests. Please wait a moment and try again.';
+          } else if (error.status === 403) {
+            errorMsg += 'Access denied. Please check your API key.';
+          } else {
+            errorMsg += 'Please try again or contact us directly at peaklshda1@gmail.com';
+          }
+
+          alert(errorMsg);
+
+          // Reset button
+          if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+    }
+
+    // ============================================
+    // Auto-attach form submission handler
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-form');
+      if (form) {
+        // Use sendMail as the default handler
+        form.addEventListener('submit', sendMail);
+        console.log('✅ Contact form ready! Using Service: service_xjrsbg8, Template: template_2hcybjz');
+      } else {
+        console.warn('⚠️ Contact form not found. Make sure your form has id="contact-form"');
+      }
+
+      // Check for service parameter in URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const service = urlParams.get('service');
+      if (service) {
+        const select = document.getElementById('projectType');
+        if (select) {
+          const option = Array.from(select.options).find(o => o.value === service);
+          if (option) {
+            select.value = service;
+          }
+        }
+      }
+    });
+
+    // ============================================
+    // Console helper for debugging
+    // ============================================
+    console.log('📧 PeakCraft Innovations - EmailJS Ready');
+    console.log('🔑 Service ID: service_xjrsbg8');
+    console.log('📄 Template ID: template_2hcybjz');
+    console.log('📋 Function available: sendMail()');
+  </script>
+</body>
+</html>
