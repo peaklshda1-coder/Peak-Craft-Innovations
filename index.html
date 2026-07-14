@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PeakCraft Innovations — Services, Portfolio, How It Works, Pricing, Contact</title>
+  <meta name="description" content="PeakCraft Innovations Limited – premium digital solutions: websites, mobile apps, automation, AI, custom software." />
+
+  <!-- Google Fonts: Poppins + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --primary-green: #1A7A3A;
+      --secondary-green: #2E8B57;
+      --light-green: #E8F5E9;
+      --white: #FFFFFF;
+      --off-white: #F8F9FA;
+      --warm-yellow: #F5C842;
+      --dark-yellow: #E6B422;
+      --deep-green: #0A3D20;
+      --text-dark: #1A1A2E;
+      --text-secondary: #4A4A6A;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --max-width: 1200px;
+      --shadow: 0 8px 24px rgba(26, 122, 58, 0.15);
+      --shadow-lg: 0 16px 40px rgba(26, 122, 58, 0.2);
+      --transition: 0.3s ease;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--off-white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--primary-green);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover,
+    a:focus {
+      color: var(--secondary-green);
+      outline: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: var(--radius);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Poppins', sans-serif;
+      margin: 0 0 0.5em;
+      color: var(--text-dark);
+    }
+    h1 {
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+    }
+    h3 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary-green);
+    }
+
+    p {
+      margin: 0 0 1.25em;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: var(--radius);
+      border: none;
+      padding: 0.8em 1.75em;
+      background-color: var(--primary-green);
+      color: var(--white);
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+      transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    button:hover,
+    button:focus {
+      background-color: var(--secondary-green);
+      box-shadow: 0 12px 32px rgba(46, 139, 87, 0.35);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    button:active {
+      transform: translateY(0);
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .btn-secondary {
+      background-color: var(--warm-yellow);
+      color: var(--deep-green);
+      box-shadow: 0 8px 24px rgba(245, 200, 66, 0.35);
+    }
+    .btn-secondary:hover,
+    .btn-secondary:focus {
+      background-color: var(--dark-yellow);
+      box-shadow: 0 12px 32px rgba(230, 180, 34, 0.45);
+    }
+
+    /* ===== PAGE VISIBILITY ===== */
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      gap: 1rem;
+    }
+
+    /* ===== LOGO ===== */
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      flex-shrink: 0;
+    }
+    .logo-wrapper:hover {
+      opacity: 0.85;
+    }
+
+    .logo-img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: rgba(26, 122, 58, 0.06);
+      padding: 4px;
+      flex-shrink: 0;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+      border: 2px solid rgba(26, 122, 58, 0.2);
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+      border-color: var(--primary-green);
+    }
+
+    .logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--primary-green);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* ===== NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      position: relative;
+      transition: color var(--transition), background-color var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+    }
+    .nav-links a.active-link {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+      font-weight: 700;
+    }
+    .nav-links a.active-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background-color: var(--primary-green);
+      border-radius: 2px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 3rem;
+      padding: 3.5rem 0;
+    }
+    .hero-text {
+      flex: 1 1 380px;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      line-height: 1.75;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-image {
+      flex: 1 1 380px;
+      text-align: center;
+    }
+    .hero-image img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ===== SERVICES BLOCK ===== */
+    .services-block {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 2rem;
+      margin-top: 1rem;
+    }
+    .services-block h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card {
+      background-color: var(--light-green);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid transparent;
+    }
+    .service-card:hover,
+    .service-card:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 32px rgba(26, 122, 58, 0.2);
+      border-color: rgba(26, 122, 58, 0.2);
+      outline: none;
+    }
+    .service-icon {
+      font-size: 2.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .service-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary-green);
+      font-size: 1.05rem;
+    }
+    .service-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* ===== TAGS – CLICKABLE ===== */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .tag {
+      background-color: var(--light-green);
+      color: var(--primary-green);
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 8px rgba(26, 122, 58, 0.12);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: background-color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      user-select: none;
+    }
+    .tag:hover,
+    .tag:focus {
+      background-color: var(--primary-green);
+      color: var(--white);
+      border-color: var(--primary-green);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(26, 122, 58, 0.3);
+      outline: none;
+    }
+    .tag:active {
+      transform: translateY(0);
+    }
+
+    /* ===== PORTFOLIO / CAROUSEL ===== */
+    .portfolio-section h2 {
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-intro {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    /* Featured video */
+    .portfolio-video-wrap {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    .portfolio-video-wrap video {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+    .portfolio-video-label {
+      padding: 1rem 1.5rem;
+      background: var(--deep-green);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .portfolio-video-label::before {
+      content: '▶';
+      background: var(--warm-yellow);
+      color: var(--deep-green);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== NEW PORTFOLIO SHOWCASE GRID ===== */
+    .portfolio-showcase {
+      margin-top: 2.5rem;
+    }
+
+    .category-section {
+      margin-bottom: 3rem;
+    }
+
+    .category-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--primary-green);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--light-green);
+      position: relative;
+    }
+
+    .category-title::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background: var(--primary-green);
+      border-radius: 2px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .portfolio-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      border: 1px solid rgba(26, 122, 58, 0.08);
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-img-wrap {
+      height: 200px;
+      overflow: hidden;
+      background: var(--light-green);
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .portfolio-card:hover .card-img-wrap img {
+      transform: scale(1.03);
+    }
+
+    .card-body {
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+
+    .card-body h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .card-body p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin: 0 0 1rem;
+      line-height: 1.5;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      color: var(--primary-green);
+      text-decoration: none;
+      transition: gap var(--transition), color var(--transition);
+    }
+
+    .card-link:hover {
+      gap: 0.8rem;
+      color: var(--secondary-green);
+    }
+
+    /* ===== CAROUSEL (kept for compatibility) ===== */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background-color: var(--white);
+      padding: 1.25rem 1rem;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 1rem;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+    .carousel-item {
+      min-width: calc(100% - 4rem);
+      max-width: calc(100% - 4rem);
+      background-color: var(--light-green);
+      border-radius: var(--radius);
+      padding: 0;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.12);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    @media (min-width: 600px) {
+      .carousel-item {
+        min-width: calc(50% - 1.5rem);
+        max-width: calc(50% - 1.5rem);
+      }
+    }
+    @media (min-width: 900px) {
+      .carousel-item {
+        min-width: calc(33.333% - 1.2rem);
+        max-width: calc(33.333% - 1.2rem);
+      }
+    }
+
+    .carousel-item-img-wrap {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+    .carousel-item-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .carousel-item-body {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .carousel-item h4 {
+      margin: 0 0 0.4rem;
+      color: var(--primary-green);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .carousel-item p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .carousel-button {
+      background-color: var(--primary-green);
+      border: none;
+      color: var(--white);
+      font-size: 1.25rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background-color var(--transition), transform var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-button:hover,
+    .carousel-button:focus {
+      background-color: var(--secondary-green);
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(26, 122, 58, 0.25);
+      transition: background var(--transition), width var(--transition);
+    }
+    .carousel-dot.active {
+      background: var(--primary-green);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-it-works-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .step {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.25rem;
+      transition: transform 0.3s ease;
+      border-top: 4px solid var(--primary-green);
+    }
+    .step:hover,
+    .step:focus-within {
+      transform: translateY(-6px);
+      outline: none;
+    }
+    .step-number {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--warm-yellow);
+      margin-bottom: 0.5rem;
+    }
+    .step-title {
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--primary-green);
+      font-size: 1rem;
+    }
+    .step-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* Demo video in How It Works */
+    .demo-video-section {
+      margin-top: 3rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .demo-video-header {
+      background: var(--primary-green);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+    .demo-video-header span {
+      display: block;
+      font-weight: 400;
+      font-size: 0.85rem;
+      opacity: 0.85;
+      margin-top: 0.25rem;
+    }
+    .demo-video-section video {
+      width: 100%;
+      max-height: 480px;
+      object-fit: contain;
+      background: #000;
+      display: block;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing-intro {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+      color: var(--text-secondary);
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .pricing-card.featured {
+      border-color: var(--primary-green);
+      background: linear-gradient(135deg, #f0faf3 0%, #ffffff 100%);
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--warm-yellow);
+      color: var(--deep-green);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.25rem 1rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-card h3 {
+      color: var(--primary-green);
+      margin-bottom: 0.25rem;
+    }
+    .pricing-price {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: var(--primary-green);
+      margin: 0.5rem 0 0.25rem;
+    }
+    .pricing-period {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+    .pricing-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.75rem;
+      text-align: left;
+      flex: 1;
+    }
+    .pricing-card ul li {
+      padding: 0.5rem 0 0.5rem 1.75rem;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(26, 122, 58, 0.07);
+    }
+    .pricing-card ul li:last-child {
+      border-bottom: none;
+    }
+    .pricing-card ul li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: var(--primary-green);
+      font-weight: 700;
+    }
+    .pricing-card ul li.no::before {
+      content: '✕';
+      color: #ccc;
+    }
+    .pricing-note {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-info h2 {
+      margin-bottom: 1rem;
+    }
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(26, 122, 58, 0.08);
+    }
+    .contact-info-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .contact-info-text {
+      flex: 1;
+    }
+    .contact-info-text strong {
+      display: block;
+      color: var(--primary-green);
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+    }
+    .contact-info-text a,
+    .contact-info-text p {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    .payment-box {
+      background: var(--light-green);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.1);
+    }
+    .payment-box h3 {
+      margin-bottom: 1rem;
+    }
+    .payment-box p {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .payment-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
+    form input,
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      margin-bottom: 1.1rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid #d0e8d8;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      appearance: auto;
+    }
+    form input:focus,
+    form select:focus,
+    form textarea:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(26, 122, 58, 0.12);
+    }
+    form select {
+      cursor: pointer;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1rem;
+    }
+    @media (max-width: 500px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .budget-note {
+      background: rgba(245, 200, 66, 0.15);
+      border: 1px solid rgba(245, 200, 66, 0.5);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--deep-green);
+      margin-top: -0.75rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 0.9em 1.5em;
+      font-size: 1rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(180deg, var(--deep-green) 0%, #061a0e 100%);
+      color: #e8f5e9;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-brand .footer-logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand p {
+      color: rgba(232, 245, 233, 0.75);
+      font-size: 0.9rem;
+    }
+    .footer-col h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--warm-yellow);
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .footer-col p,
+    .footer-col a {
+      color: rgba(232, 245, 233, 0.8);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      display: block;
+      margin: 0;
+    }
+    .footer-col a:hover {
+      color: var(--warm-yellow);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom p {
+      color: rgba(232, 245, 233, 0.6);
+      font-size: 0.82rem;
+      margin: 0;
+    }
+    .footer-bottom a {
+      color: var(--warm-yellow);
+      font-size: 0.82rem;
+    }
+    .footer-bottom a:hover {
+      color: var(--dark-yellow);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+      }
+      .hero-text,
+      .hero-image {
+        flex: 1 1 100%;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      .logo-wrapper {
+        justify-content: center;
+      }
+      .logo-img {
+        width: 48px;
+        height: 48px;
+      }
+      .logo-text {
+        font-size: 1.15rem;
+      }
+      .nav-links a {
+        font-size: 0.82rem;
+        padding: 0.35rem 0.55rem;
+      }
+      section {
+        padding: 2.5rem 0;
+      }
+      .services-block {
+        padding: 1.75rem 1rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .category-title {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+      .logo-text {
+        font-size: 1rem;
+      }
+      h1 {
+        font-size: 1.9rem;
+      }
+    }
+
+    /* Loading state for form */
+    .form-submit-btn.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .form-submit-btn.loading::after {
+      content: ' ...';
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="container" aria-label="Primary navigation">
+      <div class="logo-wrapper" onclick="navigateTo('services')" role="link" tabindex="0" aria-label="Go to home">
+        <img class="logo-img" src="Socials\assets\logo.png" alt="PeakCraft Innovations logo" width="56" height="56" loading="eager" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%231A7A3A%22 rx=%2216%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'" onload="this.style.opacity='1'; this.style.transition='opacity 0.4s ease';" style="opacity: 0;" />
+        <span class="logo-text">PeakCraft Innovations</span>
+      </div>
+
+      <div class="nav-links" role="navigation" aria-label="Main menu">
+        <a href="#" data-page="services" class="nav-link active-link">Services</a>
+        <a href="#" data-page="portfolio" class="nav-link">Portfolio</a>
+        <a href="#" data-page="how-it-works" class="nav-link">How It Works</a>
+        <a href="#" data-page="pricing" class="nav-link">Pricing</a>
+        <a href="#" data-page="contact" class="nav-link">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ========== SERVICES PAGE ========== -->
+    <section id="page-services" class="page active" aria-label="Services">
+
+      <div class="hero" aria-label="Introduction and call to action">
+        <div class="hero-text">
+          <h1>Building Tomorrow's Digital Experiences Today</h1>
+          <p>PeakCraft Innovations Limited is your trusted partner for premium websites, mobile apps, business automation, AI solutions, and custom software – built right here in Zambia.</p>
+          <div class="hero-buttons">
+            <button onclick="navigateTo('contact')">Request a Project</button>
+            <button class="btn-secondary" onclick="navigateTo('portfolio')">View Portfolio</button>
+          </div>
+        </div>
+        <div class="hero-image" aria-hidden="true">
+          <img src="Socials/assets/hero-photo.jpg" alt="Modern technology workspace" onerror="this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'" />
+        </div>
+      </div>
+
+      <div class="services-block" aria-label="Our services">
+        <h2>Our Services</h2>
+        <div class="grid-3" role="list">
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s1">
+            <div class="service-icon" aria-hidden="true">🌐</div>
+            <div id="s1" class="service-title">Website Development</div>
+            <p class="service-desc">Custom, responsive websites designed to engage your audience and grow your business online.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s2">
+            <div class="service-icon" aria-hidden="true">📱</div>
+            <div id="s2" class="service-title">Mobile Apps</div>
+            <p class="service-desc">User-friendly mobile applications tailored to your business needs on iOS and Android.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s3">
+            <div class="service-icon" aria-hidden="true">⚡</div>
+            <div id="s3" class="service-title">Business Automation</div>
+            <p class="service-desc">Streamline workflows and increase efficiency with custom automation solutions.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s4">
+            <div class="service-icon" aria-hidden="true">🤖</div>
+            <div id="s4" class="service-title">AI Solutions</div>
+            <p class="service-desc">Leverage artificial intelligence to transform your business and gain a competitive advantage.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s5">
+            <div class="service-icon" aria-hidden="true">☁️</div>
+            <div id="s5" class="service-title">SaaS Development</div>
+            <p class="service-desc">Build scalable, secure, and user-centric SaaS platforms tailored to your market.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s6">
+            <div class="service-icon" aria-hidden="true">🛠️</div>
+            <div id="s6" class="service-title">Custom Software</div>
+            <p class="service-desc">End-to-end custom software solutions designed to solve your unique business challenges.</p>
+          </article>
+        </div>
+      </div>
+
+      <section aria-label="Service categories" style="margin-top:2.5rem; text-align:center;">
+        <p style="font-weight:600; color: var(--text-dark); margin-bottom:0.25rem;">Click any service to get started</p>
+        <div class="tags" role="list">
+          <span class="tag" role="button" tabindex="0" onclick="contactWithService('Web App')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Web App')}">Web Apps</span>
+          <span class="tag" role="button" tabindex="0" onclick="contactWithService('Website')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Website')}">Websites</span>
+          <span class="tag" role="button" tabindex="0" onclick="contactWithService('SaaS')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('SaaS')}">SaaS</span>
+          <span class="tag" role="button" tabindex="0" onclick="contactWithService('Mobile App')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Mobile App')}">Mobile Apps</span>
+          <span class="tag" role="button" tabindex="0" onclick="contactWithService('Business Automation')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Business Automation')}">Business Automation</span>
+          <span class="tag" role="button" tabindex="0" onclick="contactWithService('AI Solutions')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('AI Solutions')}">AI Solutions</span>
+          <span class="tag" role="button" tabindex="0" onclick="contactWithService('Custom Software')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWithService('Custom Software')}">Custom Software</span>
+        </div>
+      </section>
+    </section>
+
+    <!-- ========== PORTFOLIO PAGE ========== -->
+    <section id="page-portfolio" class="page portfolio-section" aria-label="Portfolio">
+      <h2>Our Portfolio</h2>
+      <p class="portfolio-intro">A look at the range of websites and digital solutions we've built, from business templates to specialized platforms.</p>
+
+      <!-- Featured Demo Video -->
+      <div class="portfolio-video-wrap">
+        <video controls preload="metadata" aria-label="PeakCraft project demo video">
+          <source src="Socials\assets\0711(1).mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="portfolio-video-label">Featured Demo – See PeakCraft in action</div>
+      </div>
+
+      <!-- Project Showcase Grid -->
+      <div class="portfolio-showcase">
+        <!-- Business Category -->
+        <div class="category-section">
+          <h3 class="category-title">Business Solutions</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="Business Solutions Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Business Solutions</h4>
+                <p>Professional business website template with modern layout and service-focused design.</p>
+                <a href="https://peaklshda1-coder.github.io/Business-Solutions/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="Business World Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Business World Template</h4>
+                <p>Versatile business template designed for corporate branding and professional services.</p>
+                <a href="https://peaklshda1-coder.github.io/Business-World-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=600&q=80" alt="Lawfirm Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Lawfirm</h4>
+                <p>Elegant and professional template tailored for legal practices and consultancy firms.</p>
+                <a href="https://peaklshda1-coder.github.io/Lawfirm/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EduLearn Category -->
+        <div class="category-section">
+          <h3 class="category-title">EduLearn</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80" alt="Modern Glassmorphism Education Showcase" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Modern Glassmorphism Education Showcase</h4>
+                <p>Contemporary educational platform with glassmorphism design and interactive elements.</p>
+                <a href="https://peaklshda1-coder.github.io/Modern-Glassmorphism-Education-Showcase/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=80" alt="Shepherds Corner Preschool" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Shepherd's Corner Preschool</h4>
+                <p>Warm and welcoming website designed for a preschool, featuring a playful yet professional layout.</p>
+                <a href="https://peaklshda1-coder.github.io/Shepherd-s-Corner-Preschool/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foodie Category -->
+        <div class="category-section">
+          <h3 class="category-title">Foodie</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Modern Split Layout Foodie Customer App" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Modern Split Layout (Foodie Customer App)</h4>
+                <p>Customer-facing food delivery app with a modern split layout for enhanced visual appeal.</p>
+                <a href="https://peaklshda1-coder.github.io/Modern-Split-Layout-Foodie-Customer-App-/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="SaaS Dashboard Timeline Style" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>SaaS Dashboard Timeline Style</h4>
+                <p>Dashboard-style layout for a SaaS product, showcasing data and timelines effectively.</p>
+                <a href="https://peaklshda1-coder.github.io/SaaS-Dashboard-Timeline-Style/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="Frozen Yogurt Shop" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Frozen Yogurt Shop</h4>
+                <p>Vibrant and inviting template for a frozen yogurt shop, perfect for food-related businesses.</p>
+                <a href="https://peaklshda1-coder.github.io/Frozen-Yogurt-Shop/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&q=80" alt="Cake Website Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Cake Website Template</h4>
+                <p>Delightful and visually appealing template for a cake shop or bakery business.</p>
+                <a href="https://peaklshda1-coder.github.io/Cake-Website-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MediCare Category -->
+        <div class="category-section">
+          <h3 class="category-title">MediCare</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="Medical Hospital Website Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Medical Hospital Website Template</h4>
+                <p>Comprehensive hospital website template with dedicated sections for services and patient care.</p>
+                <a href="https://peaklshda1-coder.github.io/Medical-Hospital-Website-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80" alt="PulseOne" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>PulseOne</h4>
+                <p>Modern health and wellness platform with a clean, user-friendly interface.</p>
+                <a href="https://peaklshda1-coder.github.io/PulseOne/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="CareNest" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>CareNest</h4>
+                <p>Healthcare platform focused on patient-centered care and intuitive navigation.</p>
+                <a href="https://peaklshda1-coder.github.io/CareNest/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80" alt="Rehabilitation Yoga" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Rehabilitation Yoga</h4>
+                <p>Dedicated platform for yoga and rehabilitation services, promoting holistic wellness.</p>
+                <a href="https://peaklshda1-coder.github.io/Rehabilitation-Yoga/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1461897106932-1c2c8979b7a0?auto=format&fit=crop&w=600&q=80" alt="Running" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Running</h4>
+                <p>Sports and fitness-focused website template for running clubs and athletic events.</p>
+                <a href="https://peaklshda1-coder.github.io/-Running/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logistics, Personalized, and ZamBuild Categories -->
+        <div class="category-section">
+          <h3 class="category-title">Logistics, Personalized, &amp; ZamBuild</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" alt="Logistics" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Logistics</h4>
+                <p>Professional logistics and supply chain management website template.</p>
+                <a href="https://peaklshda1-coder.github.io/Logistics/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Personalized Web Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Personalized Web Template</h4>
+                <p>Highly customizable web template for personal branding and creative portfolios.</p>
+                <a href="https://peaklshda1-coder.github.io/Personalized-Web-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="ZamBuild" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>ZamBuild</h4>
+                <p>Construction management platform built for Zambian contractors, engineers, and developers.</p>
+                <a href="https://peaklshda1-coder.github.io/Portfolio-Piece-01-ZamBuild/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="AgroLink Zambia" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>AgroLink Zambia</h4>
+                <p>Digital platform connecting Zambian farmers with agricultural resources and market opportunities.</p>
+                <a href="https://peaklshda1-coder.github.io/Portfolio-Piece-02-AgroLink-Zambia/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ShopEase Category -->
+        <div class="category-section">
+          <h3 class="category-title">ShopEase</h3>
+          <div class="portfolio-grid">
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" alt="Luxury Dark Glassmorphism" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Luxury Dark Glassmorphism</h4>
+                <p>Sophisticated e-commerce template with a modern dark glassmorphism design.</p>
+                <a href="https://peaklshda1-coder.github.io/Luxury-Dark-Glassmorphism/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80" alt="Her Designs Web Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Her Designs Web Template</h4>
+                <p>Elegant and feminine design template for fashion, beauty, and lifestyle brands.</p>
+                <a href="https://peaklshda1-coder.github.io/Her-Designs-Web-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80" alt="Hairstyle Salon" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Hairstyle Salon</h4>
+                <p>Stylish and modern template for hair salons and beauty service providers.</p>
+                <a href="https://peaklshda1-coder.github.io/Hairstyle-Salon/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+            <div class="portfolio-card">
+              <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80" alt="Hair Repair Website Template" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <h4>Hair Repair Website Template</h4>
+                <p>Clean and professional template for hair repair and cosmetic treatment services.</p>
+                <a href="https://peaklshda1-coder.github.io/Hair-Repair-Website-Template/" target="_blank" rel="noopener noreferrer" class="card-link">View Project →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== HOW IT WORKS PAGE ========== -->
+    <section id="page-how-it-works" class="page" aria-label="How it works">
+      <div class="how-it-works-inner">
+        <h2>How It Works</h2>
+        <p style="color:var(--text-secondary); margin-bottom:0;">From your idea to a live product – here's our process.</p>
+        <div class="steps">
+          <div class="step" tabindex="0">
+            <div class="step-number">1</div>
+            <div class="step-title">Submit Your Request</div>
+            <div class="step-desc">Tell us what you need with your specifications and timeline.</div>
+          </div>
+          <div class="step" tabindex="0">
+            <div class="step-number">2</div>
+            <div class="step-title">Receive a Quote</div>
+            <div class="step-desc">We review your request and provide a fixed price and timeline.</div>
+          </div>
+          <div class="step" tabindex="0">
+            <div class="step-number">3</div>
+            <div class="step-title">Project Kickoff</div>
+            <div class="step-desc">Once approved, we start building your custom solution.</div>
+          </div>
+          <div class="step" tabindex="0">
+            <div class="step-number">4</div>
+            <div class="step-title">Progress Updates</div>
+            <div class="step-desc">Receive regular previews and updates during development.</div>
+          </div>
+          <div class="step" tabindex="0">
+            <div class="step-number">5</div>
+            <div class="step-title">Launch & Deploy</div>
+            <div class="step-desc">We deploy your project to the web and help you go live.</div>
+          </div>
+          <div class="step" tabindex="0">
+            <div class="step-number">6</div>
+            <div class="step-title">Ongoing Support</div>
+            <div class="step-desc">Maintenance, security updates, and hosting management included.</div>
+          </div>
+        </div>
+
+        <!-- Demo video in How It Works -->
+        <div class="demo-video-section">
+          <div class="demo-video-header">
+            Watch How We Work
+            <span>A full walkthrough of our development process</span>
+          </div>
+          <video controls preload="metadata" aria-label="PeakCraft development process walkthrough">
+            <source src="Socials\assets\0711(1).mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PRICING PAGE ========== -->
+    <section id="page-pricing" class="page" aria-label="Pricing">
+      <h2 style="text-align:center; margin-bottom:0.5rem;">Transparent Pricing</h2>
+      <p class="pricing-intro">
+        Professional digital solutions built for businesses of every size. Every website package includes deployment, domain setup, SSL security, and <strong>1 Year Managed Hosting</strong>. Ongoing support and maintenance are included to keep your business running smoothly.
+      </p>
+
+      <div class="pricing-grid">
+
+        <!-- Starter -->
+        <div class="pricing-card">
+          <h3>Starter</h3>
+          <div class="pricing-price">From K4,500</div>
+          <div class="pricing-period">Perfect for startups & small businesses</div>
+          <ul>
+            <li>Up to 5 Custom Pages</li>
+            <li>Responsive Website</li>
+            <li>Contact Form</li>
+            <li>Google Maps Integration</li>
+            <li>Basic SEO</li>
+            <li>SSL Security Certificate</li>
+            <li>1 Year Managed Hosting</li>
+            <li>Domain Setup</li>
+            <li>3 Months Technical Support & Maintenance</li>
+            <li class="no">E-commerce</li>
+            <li class="no">Booking System</li>
+          </ul>
+          <button onclick="contactWithService('Website')">Get Started</button>
+        </div>
+
+        <!-- Business – featured -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">MOST POPULAR</div>
+          <h3>Business</h3>
+          <div class="pricing-price">From K9,500</div>
+          <div class="pricing-period">Best for growing businesses</div>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>CMS</li>
+            <li>Blog</li>
+            <li>Booking System</li>
+            <li>E-commerce Store</li>
+            <li>WhatsApp Integration</li>
+            <li>Google Analytics</li>
+            <li>Performance Optimization</li>
+            <li>Advanced SEO</li>
+            <li>6 Months Technical Support & Maintenance</li>
+          </ul>
+          <button onclick="contactWithService('Website')">Get Started</button>
+        </div>
+
+        <!-- Professional – NEW -->
+        <div class="pricing-card">
+          <h3>Professional</h3>
+          <div class="pricing-price">From K18,500</div>
+          <div class="pricing-period">Ideal for established businesses</div>
+          <ul>
+            <li>Everything in Business</li>
+            <li>Custom Dashboard</li>
+            <li>Membership System</li>
+            <li>Payment Gateway</li>
+            <li>Advanced Reporting</li>
+            <li>API Integrations</li>
+            <li>Priority Development</li>
+            <li>9 Months Technical Support</li>
+          </ul>
+          <button onclick="contactWithService('Website')">Get Started</button>
+        </div>
+
+        <!-- Enterprise – formerly Premium -->
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <div class="pricing-price">From K35,000</div>
+          <div class="pricing-period">Custom enterprise solutions</div>
+          <ul>
+            <li>Everything in Professional</li>
+            <li>Mobile Applications</li>
+            <li>AI Features</li>
+            <li>Business Automation</li>
+            <li>Custom SaaS Platform</li>
+            <li>Cloud Infrastructure</li>
+            <li>Custom APIs</li>
+            <li>Dedicated Project Manager</li>
+            <li>Training & Documentation</li>
+            <li>12 Months Technical Support</li>
+          </ul>
+          <button onclick="contactWithService('Custom Software')">Request Quote</button>
+        </div>
+
+      </div>
+
+      <p class="pricing-note">
+        Need a custom solution? <br />
+        Our team provides tailored quotations for mobile apps, AI solutions, SaaS platforms, business automation, and enterprise software.
+        <br><br>
+        <strong>All prices are in Zambian Kwacha (ZMW).</strong>
+        Managed hosting is included for the first year, with optional annual renewal thereafter.
+      </p>
+    </section>
+
+    <!-- ========== CONTACT PAGE ========== -->
+    <section id="page-contact" class="page" aria-label="Contact PeakCraft Innovations">
+      <h2 style="margin-bottom:1.5rem;">Get In Touch</h2>
+
+      <div class="contact-grid">
+        <!-- Left: info + payment -->
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-text">
+              <strong>Phone / WhatsApp</strong>
+              <a href="tel:+260951683381">+260 951 683 381</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">✉️</div>
+            <div class="contact-info-text">
+              <strong>Email</strong>
+              <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-text">
+              <strong>Location</strong>
+              <p>Lusaka, Zambia</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">⏰</div>
+            <div class="contact-info-text">
+              <strong>Response Time</strong>
+              <p>We reply within 24 hours</p>
+            </div>
+          </div>
+
+          <div class="payment-box">
+            <h3>💳 Make a Payment</h3>
+            <p><strong>Mobile Money (ZMW):</strong><br />+260951683381 – Ben Mutema. (PeakCraft Innovations)</p>
+            <p><strong>Bank Transfer:</strong><br />FNB Bank<br />Account Name: PeakCraft Innovations Ltd<br />Account Number: 63171729701</p>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div>
+          <form id="contact-form" aria-label="Project request form">
+            <div class="form-row">
+              <div>
+                <label for="name">Full Name *</label>
+                <input id="name" name="name" type="text" placeholder="Your full name" required />
+              </div>
+              <div>
+                <label for="email">Email *</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label for="phone">Phone *</label>
+                <input id="phone" name="phone" type="tel" placeholder="+260..." required />
+              </div>
+              <div>
+                <label for="whatsapp">WhatsApp *</label>
+                <input id="whatsapp" name="whatsapp" type="tel" placeholder="+260..." required />
+              </div>
+            </div>
+
+            <label for="projectType">Project Type *</label>
+            <select id="projectType" name="projectType" required>
+              <option value="">Select a project type</option>
+              <option value="Web App">Web App</option>
+              <option value="Website">Website</option>
+              <option value="SaaS">SaaS</option>
+              <option value="Mobile App">Mobile App</option>
+              <option value="Business Automation">Business Automation</option>
+              <option value="AI Solutions">AI Solutions</option>
+              <option value="Custom Software">Custom Software</option>
+            </select>
+
+            <div class="form-row">
+              <div>
+                <label for="startDate">Start Date</label>
+                <input id="startDate" name="startDate" type="date" />
+              </div>
+              <div>
+                <label for="endDate">End Date</label>
+                <input id="endDate" name="endDate" type="date" />
+              </div>
+            </div>
+
+            <label for="budget">Budget Range</label>
+            <select id="budget" name="budget">
+              <option value="">Select budget range</option>
+              <option value="Under K4,500">Under K4,500</option>
+              <option value="K4,500 - K9,500">K4,500 – K9,500</option>
+              <option value="K9,500 - K18,500">K9,500 – K18,500</option>
+              <option value="K18,500 - K35,000">K18,500 – K35,000</option>
+              <option value="K35,000+">K35,000+</option>
+            </select>
+            <div class="budget-note">
+              💡 All packages include web deployment, hosting, SSL security, and maintenance. See the <a href="#" onclick="navigateTo('pricing');return false;">Pricing</a> page for full details.
+            </div>
+
+            <label for="timeline">Preferred Timeline</label>
+            <select id="timeline" name="timeline">
+              <option value="">Select timeline</option>
+              <option value="ASAP">ASAP</option>
+              <option value="Within 1 week">Within 1 week</option>
+              <option value="2 to 4 weeks">2 to 4 weeks</option>
+              <option value="1 to 2 months">1 to 2 months</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+
+            <label for="description">Project Description *</label>
+            <textarea id="description" name="description" rows="4" placeholder="Describe your project, goals, and any specific requirements..." required></textarea>
+
+            <label for="files">Attach Files (optional, max 10MB)</label>
+            <input id="files" name="files" type="file" multiple />
+
+            <button type="submit" class="form-submit-btn">📨 Submit Request</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-text">PeakCraft Innovations</div>
+        <p>Premium digital solutions built in Zambia – websites, mobile apps, automation, AI, and custom software.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#" onclick="navigateTo('services');return false;">Website Development</a>
+        <a href="#" onclick="navigateTo('services');return false;">Mobile Apps</a>
+        <a href="#" onclick="navigateTo('services');return false;">Business Automation</a>
+        <a href="#" onclick="navigateTo('services');return false;">AI Solutions</a>
+        <a href="#" onclick="navigateTo('services');return false;">SaaS &amp; Custom Software</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+260951683381">📞 +260 951 683 381</a>
+        <a href="mailto:peaklshda1@gmail.com">✉️ peaklshda1@gmail.com</a>
+        <p>📍 Lusaka, Zambia</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#" onclick="navigateTo('portfolio');return false;">Portfolio</a>
+        <a href="#" onclick="navigateTo('how-it-works');return false;">How It Works</a>
+        <a href="#" onclick="navigateTo('pricing');return false;">Pricing</a>
+        <a href="#" onclick="navigateTo('contact');return false;">Get a Quote</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
+      <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================
+    // script.js - PeakCraft Innovations
+    // EmailJS Integration with YOUR credentials
+    // Service ID: service_xjrsbg8
+    // Template ID: template_2hcybjz
+    // ============================================
+
+    // Initialize EmailJS with your public key
+    (function() {
+      emailjs.init({
+        publicKey: "lJvZLakX5Di_kxhdG",
+      });
+    })();
+
+    /**
+     * sendMail - Main function to send project requests via EmailJS
+     * Uses Service ID: service_xjrsbg8
+     * Uses Template ID: template_2hcybjz
+     */
+    function sendMail(event) {
+      // Prevent default form submission
+      if (event) {
+        event.preventDefault();
+      }
+
+      // Get form and button elements
+      const form = document.getElementById('contact-form');
+      if (!form) {
+        console.error('Form with id "contact-form" not found');
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : 'Submit';
+
+      // Collect ALL form data
+      let params = {
+        // Client Information
+        name: document.getElementById("name")?.value?.trim() || '',
+        email: document.getElementById("email")?.value?.trim() || '',
+        phone: document.getElementById("phone")?.value?.trim() || '',
+        whatsapp: document.getElementById("whatsapp")?.value?.trim() || '',
+
+        // Project Details
+        project_type: document.getElementById("projectType")?.value || '',
+        start_date: document.getElementById("startDate")?.value || 'Not specified',
+        end_date: document.getElementById("endDate")?.value || 'Not specified',
+        budget: document.getElementById("budget")?.value || 'Not specified',
+        timeline: document.getElementById("timeline")?.value || 'Not specified',
+        description: document.getElementById("description")?.value?.trim() || '',
+
+        // Additional Info
+        to_email: 'peaklshda1@gmail.com',
+        submitted_date: new Date().toLocaleString('en-ZM', {
+          timeZone: 'Africa/Lusaka',
+          dateStyle: 'full',
+          timeStyle: 'medium'
+        })
+      };
+
+      // Validate required fields
+      if (!params.name || !params.email || !params.phone ||
+        !params.whatsapp || !params.project_type || !params.description) {
+        alert('⚠️ Please fill in all required fields.\n\nRequired: Name, Email, Phone, WhatsApp, Project Type, Description');
+        return;
+      }
+
+      // Show loading state if button exists
+      if (submitBtn) {
+        submitBtn.textContent = '⏳ Sending...';
+        submitBtn.disabled = true;
+      }
+
+      // YOUR EmailJS credentials
+      const SERVICE_ID = "service_xjrsbg8";
+      const TEMPLATE_ID = "template_2hcybjz";
+
+      // Send email using EmailJS
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, params)
+        .then(function(response) {
+          // Success
+          alert('✅ Thank you for your request!\n\nWe will get back to you within 24 hours.\n\n📧 Confirmation sent to: ' +
+            params.email);
+
+          // Reset form
+          form.reset();
+
+          // Reset button
+          if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+
+          console.log('Email sent successfully!', response);
+        })
+        .catch(function(error) {
+          // Error handling
+          console.error('❌ EmailJS Error:', error);
+
+          let errorMsg = '❌ Oops! Something went wrong.\n\n';
+          if (error.status === 400) {
+            errorMsg += 'Please check all fields and try again.';
+          } else if (error.status === 429) {
+            errorMsg += 'Too many requests. Please wait a moment and try again.';
+          } else if (error.status === 403) {
+            errorMsg += 'Access denied. Please check your API key.';
+          } else {
+            errorMsg += 'Please try again or contact us directly at peaklshda1@gmail.com';
+          }
+
+          alert(errorMsg);
+
+          // Reset button
+          if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+    }
+
+    // ============================================
+    // Auto-attach form submission handler
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-form');
+      if (form) {
+        // Use sendMail as the default handler
+        form.addEventListener('submit', sendMail);
+        console.log('✅ Contact form ready! Using Service: service_xjrsbg8, Template: template_2hcybjz');
+      } else {
+        console.warn('⚠️ Contact form not found. Make sure your form has id="contact-form"');
+      }
+    });
+
+    // ============================================
+    // Console helper for debugging
+    // ============================================
+    console.log('📧 PeakCraft Innovations - EmailJS Ready');
+    console.log('🔑 Service ID: service_xjrsbg8');
+    console.log('📄 Template ID: template_2hcybjz');
+    console.log('📋 Function available: sendMail()');
+
+    // ===== NAVIGATION =====
+    const pages = {
+      services: document.getElementById('page-services'),
+      portfolio: document.getElementById('page-portfolio'),
+      'how-it-works': document.getElementById('page-how-it-works'),
+      pricing: document.getElementById('page-pricing'),
+      contact: document.getElementById('page-contact')
+    };
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function navigateTo(pageId) {
+      Object.values(pages).forEach(p => { if (p) p.classList.remove('active'); });
+      if (pages[pageId]) pages[pageId].classList.add('active');
+      navLinks.forEach(link => {
+        link.classList.remove('active-link');
+        if (link.dataset.page === pageId) link.classList.add('active-link');
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const page = this.dataset.page;
+        if (page) navigateTo(page);
+      });
+    });
+
+    // Keyboard nav for logo wrapper
+    document.querySelector('.logo-wrapper').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();
+        navigateTo('services'); }
+    });
+
+    window.navigateTo = navigateTo;
+
+    // Contact with pre-selected service
+    function contactWithService(serviceType) {
+      navigateTo('contact');
+      setTimeout(() => {
+        const select = document.getElementById('projectType');
+        if (select) {
+          const opt = Array.from(select.options).find(o => o.value === serviceType);
+          if (opt) {
+            select.value = serviceType;
+            select.focus();
+          } else {
+            select.focus();
+          }
+        }
+      }, 200);
+    }
+    window.contactWithService = contactWithService;
+
+    // ===== CAROUSEL =====
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('carousel-dots');
+    let currentIndex = 0;
+    let itemsVisible = 1;
+
+    function getItemsVisible() {
+      if (window.innerWidth >= 900) return 3;
+      if (window.innerWidth >= 600) return 2;
+      return 1;
+    }
+
+    function buildDots() {
+      if (!dotsContainer || !track) return;
+      const items = track.querySelectorAll('.carousel-item');
+      itemsVisible = getItemsVisible();
+      const totalPages = Math.ceil(items.length / itemsVisible);
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide group ' + (i + 1));
+        dot.style.cssText = 'background:none;border:none;padding:4px;cursor:pointer;';
+        const inner = document.createElement('span');
+        inner.style.cssText =
+          'display:block;width:8px;height:8px;border-radius:50%;background:rgba(26,122,58,0.25);transition:background 0.3s,width 0.3s,border-radius 0.3s;';
+        dot.appendChild(inner);
+        dot.addEventListener('click', () => {
+          currentIndex = i * itemsVisible;
+          updateCarousel();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      if (!dotsContainer) return;
+      itemsVisible = getItemsVisible();
+      const activePage = Math.floor(currentIndex / itemsVisible);
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((d, i) => {
+        const inner = d.querySelector('span');
+        if (i === activePage) {
+          d.classList.add('active');
+          if (inner) { inner.style.background = 'var(--primary-green)';
+            inner.style.width = '24px';
+            inner.style.borderRadius = '4px'; }
+        } else {
+          d.classList.remove('active');
+          if (inner) { inner.style.background = 'rgba(26,122,58,0.25)';
+            inner.style.width = '8px';
+            inner.style.borderRadius = '50%'; }
+        }
+      });
+    }
+
+    function updateCarousel() {
+      if (!track) return;
+      const firstItem = track.querySelector('.carousel-item');
+      if (!firstItem) return;
+      itemsVisible = getItemsVisible();
+      const gap = 16;
+      const itemWidth = firstItem.offsetWidth + gap;
+      const items = track.querySelectorAll('.carousel-item');
+      const maxIndex = Math.max(0, items.length - itemsVisible);
+      currentIndex = Math.min(currentIndex, maxIndex);
+      track.style.transform = 'translateX(' + (-currentIndex * itemWidth) + 'px)';
+      updateDots();
+      if (prevBtn) prevBtn.style.opacity = currentIndex === 0 ? '0.4' : '1';
+      if (nextBtn) nextBtn.style.opacity = currentIndex >= maxIndex ? '0.4' : '1';
+    }
+
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        currentIndex = Math.max(currentIndex - 1, 0);
+        updateCarousel();
+      });
+      nextBtn.addEventListener('click', () => {
+        const items = track.querySelectorAll('.carousel-item');
+        const maxIndex = Math.max(0, items.length - getItemsVisible());
+        currentIndex = Math.min(currentIndex + 1, maxIndex);
+        updateCarousel();
+      });
+    }
+
+    // Touch/swipe support for mobile carousel
+    let touchStartX = 0;
+    let touchEndX = 0;
+    if (track) {
+      track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 40) {
+          const items = track.querySelectorAll('.carousel-item');
+          const maxIndex = Math.max(0, items.length - getItemsVisible());
+          if (diff > 0) currentIndex = Math.min(currentIndex + 1, maxIndex);
+          else currentIndex = Math.max(currentIndex - 1, 0);
+          updateCarousel();
+        }
+      }, { passive: true });
+    }
+
+    window.addEventListener('resize', () => {
+      buildDots();
+      updateCarousel();
+    });
+
+    // Init
+    setTimeout(() => { buildDots();
+      updateCarousel(); }, 100);
+
+    // Default page
+    navigateTo('services');
+  </script>
+</body>
+</html>

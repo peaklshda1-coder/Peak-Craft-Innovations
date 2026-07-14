@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PeakCraft Innovations — Premium Digital Solutions</title>
+  <meta name="description" content="PeakCraft Innovations Limited – premium digital solutions: websites, mobile apps, automation, AI, custom software." />
+
+  <!-- Google Fonts: Poppins + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --primary-green: #1A7A3A;
+      --secondary-green: #2E8B57;
+      --light-green: #E8F5E9;
+      --white: #FFFFFF;
+      --off-white: #F8F9FA;
+      --warm-yellow: #F5C842;
+      --dark-yellow: #E6B422;
+      --deep-green: #0A3D20;
+      --text-dark: #1A1A2E;
+      --text-secondary: #4A4A6A;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --max-width: 1200px;
+      --shadow: 0 8px 24px rgba(26, 122, 58, 0.15);
+      --shadow-lg: 0 16px 40px rgba(26, 122, 58, 0.2);
+      --transition: 0.3s ease;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--off-white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--primary-green);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover,
+    a:focus {
+      color: var(--secondary-green);
+      outline: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: var(--radius);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Poppins', sans-serif;
+      margin: 0 0 0.5em;
+      color: var(--text-dark);
+    }
+    h1 {
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+    }
+    h3 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary-green);
+    }
+
+    p {
+      margin: 0 0 1.25em;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: var(--radius);
+      border: none;
+      padding: 0.8em 1.75em;
+      background-color: var(--primary-green);
+      color: var(--white);
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+      transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    button:hover,
+    button:focus {
+      background-color: var(--secondary-green);
+      box-shadow: 0 12px 32px rgba(46, 139, 87, 0.35);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    button:active {
+      transform: translateY(0);
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .btn-secondary {
+      background-color: var(--warm-yellow);
+      color: var(--deep-green);
+      box-shadow: 0 8px 24px rgba(245, 200, 66, 0.35);
+    }
+    .btn-secondary:hover,
+    .btn-secondary:focus {
+      background-color: var(--dark-yellow);
+      box-shadow: 0 12px 32px rgba(230, 180, 34, 0.45);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      gap: 1rem;
+    }
+
+    /* ===== LOGO ===== */
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      flex-shrink: 0;
+    }
+    .logo-wrapper:hover {
+      opacity: 0.85;
+    }
+
+    .logo-img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: rgba(26, 122, 58, 0.06);
+      padding: 4px;
+      flex-shrink: 0;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+      border: 2px solid rgba(26, 122, 58, 0.2);
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+      border-color: var(--primary-green);
+    }
+
+    .logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--primary-green);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* ===== NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      position: relative;
+      transition: color var(--transition), background-color var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+    }
+    .nav-links a.active-link {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+      font-weight: 700;
+    }
+    .nav-links a.active-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background-color: var(--primary-green);
+      border-radius: 2px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 3rem;
+      padding: 3.5rem 0;
+    }
+    .hero-text {
+      flex: 1 1 380px;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      line-height: 1.75;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-image {
+      flex: 1 1 380px;
+      text-align: center;
+    }
+    .hero-image img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ===== SERVICES BLOCK ===== */
+    .services-block {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 2rem;
+      margin-top: 1rem;
+    }
+    .services-block h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card {
+      background-color: var(--light-green);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid transparent;
+    }
+    .service-card:hover,
+    .service-card:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 32px rgba(26, 122, 58, 0.2);
+      border-color: rgba(26, 122, 58, 0.2);
+      outline: none;
+    }
+    .service-icon {
+      font-size: 2.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .service-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary-green);
+      font-size: 1.05rem;
+    }
+    .service-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* ===== TAGS – CLICKABLE ===== */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .tag {
+      background-color: var(--light-green);
+      color: var(--primary-green);
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 8px rgba(26, 122, 58, 0.12);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: background-color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      user-select: none;
+    }
+    .tag:hover,
+    .tag:focus {
+      background-color: var(--primary-green);
+      color: var(--white);
+      border-color: var(--primary-green);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(26, 122, 58, 0.3);
+      outline: none;
+    }
+    .tag:active {
+      transform: translateY(0);
+    }
+
+    /* ===== CONTACT FORM ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-info h2 {
+      margin-bottom: 1rem;
+    }
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(26, 122, 58, 0.08);
+    }
+    .contact-info-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .contact-info-text {
+      flex: 1;
+    }
+    .contact-info-text strong {
+      display: block;
+      color: var(--primary-green);
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+    }
+    .contact-info-text a,
+    .contact-info-text p {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    .payment-box {
+      background: var(--light-green);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 12px rgba(26, 122, 58, 0.1);
+    }
+    .payment-box h3 {
+      margin-bottom: 1rem;
+    }
+    .payment-box p {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .payment-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
+    form input,
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      margin-bottom: 1.1rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid #d0e8d8;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      appearance: auto;
+    }
+    form input:focus,
+    form select:focus,
+    form textarea:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(26, 122, 58, 0.12);
+    }
+    form select {
+      cursor: pointer;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1rem;
+    }
+    @media (max-width: 500px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .budget-note {
+      background: rgba(245, 200, 66, 0.15);
+      border: 1px solid rgba(245, 200, 66, 0.5);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--deep-green);
+      margin-top: -0.75rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 0.9em 1.5em;
+      font-size: 1rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(180deg, var(--deep-green) 0%, #061a0e 100%);
+      color: #e8f5e9;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-brand .footer-logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand p {
+      color: rgba(232, 245, 233, 0.75);
+      font-size: 0.9rem;
+    }
+    .footer-col h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--warm-yellow);
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .footer-col p,
+    .footer-col a {
+      color: rgba(232, 245, 233, 0.8);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      display: block;
+      margin: 0;
+    }
+    .footer-col a:hover {
+      color: var(--warm-yellow);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom p {
+      color: rgba(232, 245, 233, 0.6);
+      font-size: 0.82rem;
+      margin: 0;
+    }
+    .footer-bottom a {
+      color: var(--warm-yellow);
+      font-size: 0.82rem;
+    }
+    .footer-bottom a:hover {
+      color: var(--dark-yellow);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+      }
+      .hero-text,
+      .hero-image {
+        flex: 1 1 100%;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      .logo-wrapper {
+        justify-content: center;
+      }
+      .logo-img {
+        width: 48px;
+        height: 48px;
+      }
+      .logo-text {
+        font-size: 1.15rem;
+      }
+      .nav-links a {
+        font-size: 0.82rem;
+        padding: 0.35rem 0.55rem;
+      }
+      section {
+        padding: 2.5rem 0;
+      }
+      .services-block {
+        padding: 1.75rem 1rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+      .logo-text {
+        font-size: 1rem;
+      }
+      h1 {
+        font-size: 1.9rem;
+      }
+    }
+
+    /* Loading state for form */
+    .form-submit-btn.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .form-submit-btn.loading::after {
+      content: ' ...';
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="container" aria-label="Primary navigation">
+      <div class="logo-wrapper" onclick="location.href='services.html'" role="link" tabindex="0" aria-label="Go to home">
+        <img class="logo-img" src="Socials/assets/logo.png" alt="PeakCraft Innovations logo" width="56" height="56" loading="eager" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%231A7A3A%22 rx=%2216%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'" onload="this.style.opacity='1'; this.style.transition='opacity 0.4s ease';" style="opacity: 0;" />
+        <span class="logo-text">PeakCraft Innovations</span>
+      </div>
+
+      <div class="nav-links" role="navigation" aria-label="Main menu">
+        <a href="services.html" class="nav-link active-link">Services</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ========== SERVICES PAGE ========== -->
+    <section id="page-services" aria-label="Services">
+
+      <div class="hero" aria-label="Introduction and call to action">
+        <div class="hero-text">
+          <h1>Building Tomorrow's Digital Experiences Today</h1>
+          <p>PeakCraft Innovations Limited is your trusted partner for premium websites, mobile apps, business automation, AI solutions, and custom software – built right here in Zambia.</p>
+          <div class="hero-buttons">
+            <a href="contact.html"><button>Request a Project</button></a>
+            <a href="portfolio.html"><button class="btn-secondary">View Portfolio</button></a>
+          </div>
+        </div>
+        <div class="hero-image" aria-hidden="true">
+          <img src="Socials/assets/hero-photo.jpg" alt="Modern technology workspace" onerror="this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'" />
+        </div>
+      </div>
+
+      <div class="services-block" aria-label="Our services">
+        <h2>Our Services</h2>
+        <div class="grid-3" role="list">
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s1">
+            <div class="service-icon" aria-hidden="true">🌐</div>
+            <div id="s1" class="service-title">Website Development</div>
+            <p class="service-desc">Custom, responsive websites designed to engage your audience and grow your business online.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s2">
+            <div class="service-icon" aria-hidden="true">📱</div>
+            <div id="s2" class="service-title">Mobile Apps</div>
+            <p class="service-desc">User-friendly mobile applications tailored to your business needs on iOS and Android.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s3">
+            <div class="service-icon" aria-hidden="true">⚡</div>
+            <div id="s3" class="service-title">Business Automation</div>
+            <p class="service-desc">Streamline workflows and increase efficiency with custom automation solutions.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s4">
+            <div class="service-icon" aria-hidden="true">🤖</div>
+            <div id="s4" class="service-title">AI Solutions</div>
+            <p class="service-desc">Leverage artificial intelligence to transform your business and gain a competitive advantage.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s5">
+            <div class="service-icon" aria-hidden="true">☁️</div>
+            <div id="s5" class="service-title">SaaS Development</div>
+            <p class="service-desc">Build scalable, secure, and user-centric SaaS platforms tailored to your market.</p>
+          </article>
+          <article class="service-card" role="listitem" tabindex="0" aria-labelledby="s6">
+            <div class="service-icon" aria-hidden="true">🛠️</div>
+            <div id="s6" class="service-title">Custom Software</div>
+            <p class="service-desc">End-to-end custom software solutions designed to solve your unique business challenges.</p>
+          </article>
+        </div>
+      </div>
+
+      <section aria-label="Service categories" style="margin-top:2.5rem; text-align:center;">
+        <p style="font-weight:600; color: var(--text-dark); margin-bottom:0.25rem;">Click any service to get started</p>
+        <div class="tags" role="list">
+          <a href="contact.html?service=Web%20App" class="tag">Web Apps</a>
+          <a href="contact.html?service=Website" class="tag">Websites</a>
+          <a href="contact.html?service=SaaS" class="tag">SaaS</a>
+          <a href="contact.html?service=Mobile%20App" class="tag">Mobile Apps</a>
+          <a href="contact.html?service=Business%20Automation" class="tag">Business Automation</a>
+          <a href="contact.html?service=AI%20Solutions" class="tag">AI Solutions</a>
+          <a href="contact.html?service=Custom%20Software" class="tag">Custom Software</a>
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-text">PeakCraft Innovations</div>
+        <p>Premium digital solutions built in Zambia – websites, mobile apps, automation, AI, and custom software.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Website Development</a>
+        <a href="services.html">Mobile Apps</a>
+        <a href="services.html">Business Automation</a>
+        <a href="services.html">AI Solutions</a>
+        <a href="services.html">SaaS &amp; Custom Software</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+260951683381">📞 +260 951 683 381</a>
+        <a href="mailto:peaklshda1@gmail.com">✉️ peaklshda1@gmail.com</a>
+        <p>📍 Lusaka, Zambia</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Get a Quote</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
+      <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================
+    // script.js - PeakCraft Innovations
+    // EmailJS Integration with YOUR credentials
+    // Service ID: service_xjrsbg8
+    // Template ID: template_2hcybjz
+    // ============================================
+
+    // Initialize EmailJS with your public key
+    (function() {
+      emailjs.init({
+        publicKey: "lJvZLakX5Di_kxhdG",
+      });
+    })();
+
+    /**
+     * sendMail - Main function to send project requests via EmailJS
+     * Uses Service ID: service_xjrsbg8
+     * Uses Template ID: template_2hcybjz
+     */
+    function sendMail(event) {
+      // Prevent default form submission
+      if (event) {
+        event.preventDefault();
+      }
+
+      // Get form and button elements
+      const form = document.getElementById('contact-form');
+      if (!form) {
+        console.error('Form with id "contact-form" not found');
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : 'Submit';
+
+      // Collect ALL form data
+      let params = {
+        // Client Information
+        name: document.getElementById("name")?.value?.trim() || '',
+        email: document.getElementById("email")?.value?.trim() || '',
+        phone: document.getElementById("phone")?.value?.trim() || '',
+        whatsapp: document.getElementById("whatsapp")?.value?.trim() || '',
+
+        // Project Details
+        project_type: document.getElementById("projectType")?.value || '',
+        start_date: document.getElementById("startDate")?.value || 'Not specified',
+        end_date: document.getElementById("endDate")?.value || 'Not specified',
+        budget: document.getElementById("budget")?.value || 'Not specified',
+        timeline: document.getElementById("timeline")?.value || 'Not specified',
+        description: document.getElementById("description")?.value?.trim() || '',
+
+        // Additional Info
+        to_email: 'peaklshda1@gmail.com',
+        submitted_date: new Date().toLocaleString('en-ZM', {
+          timeZone: 'Africa/Lusaka',
+          dateStyle: 'full',
+          timeStyle: 'medium'
+        })
+      };
+
+      // Validate required fields
+      if (!params.name || !params.email || !params.phone ||
+        !params.whatsapp || !params.project_type || !params.description) {
+        alert('⚠️ Please fill in all required fields.\n\nRequired: Name, Email, Phone, WhatsApp, Project Type, Description');
+        return;
+      }
+
+      // Show loading state if button exists
+      if (submitBtn) {
+        submitBtn.textContent = '⏳ Sending...';
+        submitBtn.disabled = true;
+      }
+
+      // YOUR EmailJS credentials
+      const SERVICE_ID = "service_xjrsbg8";
+      const TEMPLATE_ID = "template_2hcybjz";
+
+      // Send email using EmailJS
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, params)
+        .then(function(response) {
+          // Success
+          alert('✅ Thank you for your request!\n\nWe will get back to you within 24 hours.\n\n📧 Confirmation sent to: ' +
+            params.email);
+
+          // Reset form
+          form.reset();
+
+          // Reset button
+          if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+
+          console.log('Email sent successfully!', response);
+        })
+        .catch(function(error) {
+          // Error handling
+          console.error('❌ EmailJS Error:', error);
+
+          let errorMsg = '❌ Oops! Something went wrong.\n\n';
+          if (error.status === 400) {
+            errorMsg += 'Please check all fields and try again.';
+          } else if (error.status === 429) {
+            errorMsg += 'Too many requests. Please wait a moment and try again.';
+          } else if (error.status === 403) {
+            errorMsg += 'Access denied. Please check your API key.';
+          } else {
+            errorMsg += 'Please try again or contact us directly at peaklshda1@gmail.com';
+          }
+
+          alert(errorMsg);
+
+          // Reset button
+          if (submitBtn) {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+    }
+
+    // ============================================
+    // Auto-attach form submission handler
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-form');
+      if (form) {
+        // Use sendMail as the default handler
+        form.addEventListener('submit', sendMail);
+        console.log('✅ Contact form ready! Using Service: service_xjrsbg8, Template: template_2hcybjz');
+      } else {
+        console.warn('⚠️ Contact form not found. Make sure your form has id="contact-form"');
+      }
+    });
+
+    // ============================================
+    // Console helper for debugging
+    // ============================================
+    console.log('📧 PeakCraft Innovations - EmailJS Ready');
+    console.log('🔑 Service ID: service_xjrsbg8');
+    console.log('📄 Template ID: template_2hcybjz');
+    console.log('📋 Function available: sendMail()');
+  </script>
+</body>
+</html>
