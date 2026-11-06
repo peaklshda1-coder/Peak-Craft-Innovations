@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How It Works — PeakCraft Innovations</title>
+  <meta name="description" content="The PeakCraft Innovations project journey — from first conversation, through written scope, to build, handover and optional support." />
+  <meta name="theme-color" content="#063D2E" />
+  <link rel="icon" type="image/png" href="Socials/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- ============ HOW-WE-WORK ROTATION — SCOPED CSS ============ -->
+  <!-- Scoped to .flow-rotation so nothing else on the site is affected -->
+  <style>
+    .flow-rotation {
+      border-radius: var(--radius-lg, 24px);
+      overflow: hidden;
+      box-shadow: var(--shadow-md, 0 8px 30px rgba(6,61,46,.06));
+      background: #041a10;
+      border: 1px solid rgba(6,61,46,.04);
+    }
+
+    .flow-rotation .flow-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #041a10;
+      overflow: hidden;
+    }
+
+    .flow-rotation .flow-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s ease-in-out;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .flow-rotation .flow-slide.is-active {
+      opacity: 1;
+      z-index: 2;
+      pointer-events: auto;
+    }
+
+    .flow-rotation .flow-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #041a10;
+    }
+
+    .flow-rotation .flow-slide-caption {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.9rem;
+      color: #fff;
+      z-index: 3;
+      pointer-events: none;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    .flow-rotation .flow-slide-index {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--champagne, #D6B46A);
+      background: rgba(6, 61, 46, 0.7);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(214, 180, 106, 0.4);
+      white-space: nowrap;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .flow-rotation .flow-slide-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .flow-rotation .flow-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.14);
+      z-index: 4;
+    }
+
+    .flow-rotation .flow-progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--champagne, #D6B46A), var(--warm-gold, #F1DDA5));
+      transition: width 0.15s linear;
+    }
+
+    .flow-rotation .flow-controls-bar {
+      position: absolute;
+      bottom: 0.9rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 5;
+    }
+
+    .flow-rotation .flow-btn {
+      background: rgba(6, 61, 46, 0.75);
+      border: 1px solid rgba(214, 180, 106, 0.45);
+      color: #F1DDA5;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: all 0.2s ease;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+    }
+
+    .flow-rotation .flow-btn:hover {
+      background: rgba(6, 61, 46, 0.95);
+      border-color: var(--warm-gold, #F1DDA5);
+      transform: scale(1.08);
+    }
+
+    .flow-rotation .flow-btn:focus-visible {
+      outline: 2px solid var(--warm-gold, #F1DDA5);
+      outline-offset: 2px;
+    }
+
+    .flow-rotation .flow-btn.flow-pause {
+      font-size: 0.7rem;
+      letter-spacing: 0;
+    }
+
+    .flow-rotation .flow-btn.flow-pause.is-paused {
+      background: rgba(214, 180, 106, 0.9);
+      color: #063D2E;
+      border-color: var(--champagne, #D6B46A);
+    }
+
+    .flow-rotation .flow-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(6, 61, 46, 0.7);
+      border: 1px solid rgba(214, 180, 106, 0.35);
+      border-radius: 999px;
+      height: 32px;
+      padding: 0 0.75rem;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .flow-rotation .flow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(241, 221, 165, 0.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.25s ease;
+    }
+
+    .flow-rotation .flow-dot:hover {
+      background: rgba(241, 221, 165, 0.7);
+    }
+
+    .flow-rotation .flow-dot.is-active {
+      background: var(--warm-gold, #F1DDA5);
+      width: 22px;
+      border-radius: 999px;
+      box-shadow: 0 0 8px rgba(241, 221, 165, 0.6);
+    }
+
+    .flow-rotation .flow-dot:focus-visible {
+      outline: 2px solid var(--warm-gold, #F1DDA5);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .flow-rotation .flow-slide-caption {
+        bottom: 0.85rem;
+        left: 0.75rem;
+        right: 0.75rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+      .flow-rotation .flow-slide-title { font-size: 0.78rem; }
+      .flow-rotation .flow-slide-index { font-size: 0.62rem; padding: 0.22rem 0.55rem; }
+      .flow-rotation .flow-controls-bar {
+        bottom: 0.55rem;
+        right: 0.6rem;
+        gap: 0.35rem;
+      }
+      .flow-rotation .flow-btn { width: 32px; height: 32px; font-size: 0.85rem; }
+      .flow-rotation .flow-dots { height: 28px; padding: 0 0.55rem; }
+      .flow-rotation .flow-dot { width: 6px; height: 6px; }
+      .flow-rotation .flow-dot.is-active { width: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow-rotation .flow-slide { transition: none !important; }
+      .flow-rotation .flow-progress-bar { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header id="mainHeader">
+  <nav class="container" aria-label="Primary navigation">
+    <a class="logo-wrapper" href="index.html" aria-label="PeakCraft Innovations home">
+      <img class="logo-img" src="Socials/assets/logo.png" alt="PeakCraft Innovations logo" width="48" height="48"
+        onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%23063D2E%22 rx=%2212%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22%23F1DDA5%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'">
+      <span class="logo-text">PeakCraft Innovations</span>
+    </a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="primary-links" aria-label="Open menu">☰</button>
+    <div class="nav-links" id="primary-links" role="navigation" aria-label="Main menu">
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="how-it-works.html" class="active-link" aria-current="page">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="#" class="nav-cta" data-zite>Start a Project</a>
+    </div>
+  </nav>
+</header>
+<main id="main">
+  <section class="page-band" aria-labelledby="process-title">
+    <div class="band-media"><img src="assets/images/page-process.jpg" alt="" onerror="this.style.display='none'" /></div>
+    <div class="band-overlay"></div>
+    <div class="band-content container">
+      <span class="hero-eyebrow">The process</span>
+      <h1 id="process-title">A clear process, <span style="color:var(--warm-gold)">from idea to handover</span>.</h1>
+      <p style="max-width:640px;font-size:1.08rem">You work directly with the founder, keeping communication straightforward and decisions close to the project.</p>
+    </div>
+  </section>
+  <section aria-labelledby="steps-title">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Six steps</span>
+        <h2 id="steps-title">What working with PeakCraft looks like</h2>
+      </div>
+      <div class="steps-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1000px;margin:0 auto">
+        <div class="step">
+          <div class="step-number">1</div>
+          <strong>Initial conversation</strong>
+          <p>Share your business, the problem you want to solve, your priorities and any budget range. No technical jargon required — describe it in your own words.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <strong>Requirements &amp; scope</strong>
+          <p>We clarify the deliverables, requirements, costs, milestones and what is outside the initial scope. You receive a written scope before work begins.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <strong>Design &amp; build</strong>
+          <p>Work proceeds against the agreed plan. Progress updates, milestone reviews and the revision allowance are handled as agreed in writing.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <strong>Review</strong>
+          <p>You review the work against the agreed scope. Feedback within the agreed revision allowance is incorporated; anything extra is quoted separately.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <strong>Handover</strong>
+          <p>Completed deliverables, access details and relevant documentation are handed over so you know exactly what you have and how to use it.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">6</div>
+          <strong>Optional support</strong>
+          <p>If agreed, maintenance can continue on a defined recurring scope. Out-of-scope requests are always quoted before work starts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="background:#F0F6F1;border-block:1px solid var(--gray-100)" aria-labelledby="expect-title">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">What you can expect</span>
+        <h2 id="expect-title">Honest communication, no surprises</h2>
+      </div>
+      <div class="service-grid" style="max-width:960px;margin:0 auto">
+        <article class="service-card">
+          <h3>Written scope</h3>
+          <p>Every project includes a written scope covering what is being delivered, what it costs, and what is not included. This protects both sides.</p>
+        </article>
+        <article class="service-card">
+          <h3>Honest timelines</h3>
+          <p>Timelines are estimated based on the agreed scope. If something changes, we discuss it and adjust the scope accordingly.</p>
+        </article>
+        <article class="service-card">
+          <h3>Clear revision allowance</h3>
+          <p>The number of included revisions is agreed in advance. Extra rounds or changes outside scope are quoted separately.</p>
+        </article>
+        <article class="service-card">
+          <h3>Real handover</h3>
+          <p>You receive what was agreed, with any relevant credentials and documentation. The goal is for you to be able to use and continue with the deliverables.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="video-title">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">See it in action</span>
+        <h2 id="video-title">A walkthrough of how we work</h2>
+      </div>
+
+      <!-- ============================================================
+           HOW-WE-WORK ROTATION — 4 videos
+           To change which videos play, edit the four <source> paths
+           and the four <span class="flow-slide-title"> captions.
+           To change rotation speed, edit ROTATE_MS in the JS at the
+           bottom of this file (default 6000 = 6 seconds).
+           ============================================================ -->
+      <div class="flow-rotation" style="max-width:900px;margin:0 auto" aria-label="How we work — rotating walkthrough">
+        <div class="flow-stage" id="flow-stage" tabindex="0" aria-label="How we work videos — use left and right arrow keys to navigate, space to pause">
+
+          <!-- SLIDE 1 — Sketching system flows -->
+          <div class="flow-slide is-active" data-slide="0">
+            <!-- RENAME THIS FILE (remove the … character and space) -->
+            <video class="flow-video" preload="auto" playsinline muted aria-label="Woman sketching system flows on a tablet">
+              <source src="Socials/assets/Woman_sketching_system_flows_on_6a83815dhow it workzs.mp4" type="video/mp4" />
+            </video>
+            <div class="flow-slide-caption">
+              <span class="flow-slide-index">01 / 04</span>
+              <span class="flow-slide-title">Sketching the system flow</span>
+            </div>
+          </div>
+
+          <!-- SLIDE 2 — Welcoming a client -->
+          <div class="flow-slide" data-slide="1">
+            <!-- RENAME THIS FILE (remove the … character and space) -->
+            <video class="flow-video" preload="metadata" playsinline muted aria-label="Person welcoming a client with a handshake">
+              <source src="Socials/assets/Person_welcoming_client_with_han…_9f5d0262how it workzs.mp4" type="video/mp4" />
+            </video>
+            <div class="flow-slide-caption">
+              <span class="flow-slide-index">02 / 04</span>
+              <span class="flow-slide-title">Welcoming the client</span>
+            </div>
+          </div>
+
+          <!-- SLIDE 3 — Presenting portfolio -->
+          <div class="flow-slide" data-slide="2">
+            <!-- RENAME THIS FILE (remove the … character and space) -->
+            <video class="flow-video" preload="metadata" playsinline muted aria-label="Person presenting a portfolio to a potential client">
+              <source src="Socials/assets/Person_presenting_portfolio_to_p…_2d04f1d9how it workzs.mp4" type="video/mp4" />
+            </video>
+            <div class="flow-slide-caption">
+              <span class="flow-slide-index">03 / 04</span>
+              <span class="flow-slide-title">Presenting the portfolio</span>
+            </div>
+          </div>
+
+          <!-- SLIDE 4 — Reviewing screen together -->
+          <div class="flow-slide" data-slide="3">
+            <!-- RENAME THIS FILE (remove the … character and space) -->
+            <video class="flow-video" preload="metadata" playsinline muted aria-label="People reviewing work together on a glowing screen">
+              <source src="Socials/assets/People_reviewing_glowing_screen_…_4af0f422how it workzs.mp4" type="video/mp4" />
+            </video>
+            <div class="flow-slide-caption">
+              <span class="flow-slide-index">04 / 04</span>
+              <span class="flow-slide-title">Reviewing the work together</span>
+            </div>
+          </div>
+
+          <div class="flow-progress" aria-hidden="true">
+            <div class="flow-progress-bar" id="flow-progress-bar"></div>
+          </div>
+
+          <div class="flow-controls-bar">
+            <button type="button" class="flow-btn flow-prev" id="flow-prev" aria-label="Previous video">‹</button>
+            <div class="flow-dots" id="flow-dots" role="tablist" aria-label="Choose video"></div>
+            <button type="button" class="flow-btn flow-next" id="flow-next" aria-label="Next video">›</button>
+            <button type="button" class="flow-btn flow-pause" id="flow-pause" aria-label="Pause rotation" aria-pressed="false">❚❚</button>
+          </div>
+
+        </div>
+        <div class="demo-video-header" style="background:var(--deep-emerald);color:var(--white);padding:.9rem 1.5rem;font-weight:600;font-size:.95rem;display:block;text-align:center">
+          Watch How We Work
+          <span style="display:block;font-weight:400;font-size:.82rem;opacity:.85;margin-top:.2rem">A full walkthrough of our development process</span>
+        </div>
+      </div>
+      <!-- ============ END HOW-WE-WORK ROTATION ============ -->
+
+    </div>
+  </section>
+
+  <section aria-labelledby="process-cta-title" style="padding-top:0">
+    <div class="container">
+      <div class="custom-band">
+        <div>
+          <h2 id="process-cta-title">Ready to start the first conversation?</h2>
+          <p>Tell us about your project and what you're trying to improve. We'll take it from there.</p>
+        </div>
+        <a class="btn btn-gold" href="#" data-zite>Start a Project</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-text">PeakCraft Innovations</div>
+        <p>Building Tomorrow's Digital Experiences Today. Websites and practical business tools for businesses in Zambia and beyond.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Website Development</a>
+        <a href="services.html">Digital Registers</a>
+        <a href="services.html">Custom Web Applications</a>
+        <a href="services.html">Maintenance &amp; Support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+260951683381">☎ +260 951 683 381</a>
+        <a href="mailto:peaklshda1@gmail.com">✉ peaklshda1@gmail.com</a>
+        <p>Lusaka, Zambia</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="#" data-zite>Get a Quote</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
+      <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site-config.js"></script>
+<script src="assets/js/main.js"></script>
+
+<!-- ============================================================
+     HOW-WE-WORK ROTATION — SCOPED JS
+     Only runs on this page. Does not affect other scripts.
+     To change rotation speed: edit ROTATE_MS below.
+     ============================================================ -->
+<script>
+(function initFlowRotation(){
+  var stage = document.getElementById('flow-stage');
+  if (!stage) return;
+
+  var slides   = Array.prototype.slice.call(stage.querySelectorAll('.flow-slide'));
+  var videos   = Array.prototype.slice.call(stage.querySelectorAll('.flow-video'));
+  var dotsWrap = document.getElementById('flow-dots');
+  var prevBtn  = document.getElementById('flow-prev');
+  var nextBtn  = document.getElementById('flow-next');
+  var pauseBtn = document.getElementById('flow-pause');
+  var progress = document.getElementById('flow-progress-bar');
+
+  if (!slides.length) return;
+
+  var ROTATE_MS = 6000; // ← change this to speed up / slow down
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var current = 0;
+  var timer = null;
+  var paused = false;
+  var userHovering = false;
+  var rafId = null;
+  var slideStart = 0;
+
+  /* Build dots */
+  if (dotsWrap) {
+    dotsWrap.innerHTML = '';
+    slides.forEach(function(_, i){
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'flow-dot' + (i === 0 ? ' is-active' : '');
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', 'Show video ' + (i + 1) + ' of ' + slides.length);
+      dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      dot.addEventListener('click', function(){ goTo(i, true); });
+      dotsWrap.appendChild(dot);
+    });
+  }
+
+  function updateDots(){
+    if (!dotsWrap) return;
+    var dots = dotsWrap.querySelectorAll('.flow-dot');
+    dots.forEach(function(d, i){
+      d.classList.toggle('is-active', i === current);
+      d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+    });
+  }
+
+  function goTo(index, fromUser){
+    if (index === current && !fromUser) return;
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+
+    slides[current].classList.remove('is-active');
+    var oldVideo = videos[current];
+    if (oldVideo) {
+      try { oldVideo.pause(); oldVideo.currentTime = 0; } catch(_) {}
+    }
+
+    current = index;
+
+    slides[current].classList.add('is-active');
+    updateDots();
+
+    var newVideo = videos[current];
+    if (newVideo) {
+      newVideo.preload = 'auto';
+      var p = newVideo.play();
+      if (p && typeof p.catch === 'function') p.catch(function(){});
+    }
+
+    resetProgress();
+    if (!paused && !prefersReduced) restartTimer();
+  }
+
+  function resetProgress(){
+    slideStart = performance.now();
+    if (progress) progress.style.width = '0%';
+    if (rafId) cancelAnimationFrame(rafId);
+    if (!prefersReduced && !paused) tickProgress();
+  }
+
+  function tickProgress(){
+    if (!progress) return;
+    if (paused || userHovering) {
+      slideStart = performance.now();
+    } else {
+      var elapsed = performance.now() - slideStart;
+      var pct = Math.min(100, (elapsed / ROTATE_MS) * 100);
+      progress.style.width = pct + '%';
+      if (pct >= 100) return;
+    }
+    rafId = requestAnimationFrame(tickProgress);
+  }
+
+  function startTimer(){
+    clearTimeout(timer);
+    timer = setTimeout(function(){
+      if (paused || userHovering) return;
+      goTo(current + 1, false);
+    }, ROTATE_MS);
+  }
+
+  function restartTimer(){
+    if (prefersReduced) return;
+    resetProgress();
+    startTimer();
+  }
+
+  function stopTimer(){
+    clearTimeout(timer);
+    timer = null;
+  }
+
+  function setPaused(value){
+    paused = value;
+    if (pauseBtn) {
+      pauseBtn.classList.toggle('is-paused', paused);
+      pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      pauseBtn.setAttribute('aria-label', paused ? 'Resume rotation' : 'Pause rotation');
+      pauseBtn.textContent = paused ? '▶' : '❚❚';
+    }
+    var v = videos[current];
+    if (paused) {
+      stopTimer();
+      if (v) try { v.pause(); } catch(_) {}
+    } else {
+      if (v) {
+        var p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(function(){});
+      }
+      resetProgress();
+      startTimer();
+    }
+  }
+
+  /* Hover pause */
+  stage.addEventListener('mouseenter', function(){
+    userHovering = true;
+    stopTimer();
+    var v = videos[current];
+    if (v) try { v.pause(); } catch(_) {}
+  });
+  stage.addEventListener('mouseleave', function(){
+    userHovering = false;
+    if (!paused) {
+      var v = videos[current];
+      if (v) {
+        var p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(function(){});
+      }
+      resetProgress();
+      startTimer();
+    }
+  });
+
+  /* Tab visibility */
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) {
+      stopTimer();
+      var v = videos[current];
+      if (v) try { v.pause(); } catch(_) {}
+    } else if (!paused && !userHovering) {
+      var v2 = videos[current];
+      if (v2) {
+        var p = v2.play();
+        if (p && typeof p.catch === 'function') p.catch(function(){});
+      }
+      resetProgress();
+      startTimer();
+    }
+  });
+
+  /* Video ended early → advance */
+  videos.forEach(function(v, i){
+    v.addEventListener('ended', function(){
+      if (i === current && !paused && !userHovering) {
+        goTo(i + 1, false);
+      }
+    });
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', function(){ goTo(current - 1, true); });
+  if (nextBtn) nextBtn.addEventListener('click', function(){ goTo(current + 1, true); });
+  if (pauseBtn) pauseBtn.addEventListener('click', function(){ setPaused(!paused); });
+
+  /* Keyboard */
+  stage.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1, true); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1, true); }
+    if (e.key === ' ')          { e.preventDefault(); setPaused(!paused); }
+  });
+
+  /* Off-screen pause */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) {
+          stopTimer();
+          var v = videos[current];
+          if (v) try { v.pause(); } catch(_) {}
+        } else if (!paused && !userHovering) {
+          var v2 = videos[current];
+          if (v2) {
+            var p = v2.play();
+            if (p && typeof p.catch === 'function') p.catch(function(){});
+          }
+          resetProgress();
+          startTimer();
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(stage);
+  }
+
+  /* First video muted + play */
+  if (videos[0]) {
+    videos[0].muted = true;
+    var p0 = videos[0].play();
+    if (p0 && typeof p0.catch === 'function') p0.catch(function(){});
+  }
+  updateDots();
+  resetProgress();
+  startTimer();
+})();
+</script>
+</body>
+</html>

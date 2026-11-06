@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — PeakCraft Innovations</title>
+  <meta name="description" content="36+ PeakCraft Innovations project concepts and live demos across websites, digital registers, business systems, apps, SaaS and automation." />
+  <meta name="theme-color" content="#063D2E" />
+  <link rel="icon" type="image/png" href="Socials/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- ============ FEATURED DEMO ROTATION — SCOPED CSS ============ -->
+  <!-- All rules are scoped to .demo-rotation so nothing else on the site is affected -->
+  <style>
+    .demo-rotation {
+      border-radius: var(--radius-lg, 24px);
+      overflow: hidden;
+      box-shadow: var(--shadow-md, 0 8px 30px rgba(6,61,46,.06));
+      background: #041a10;
+    }
+
+    .demo-rotation .demo-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #041a10;
+      overflow: hidden;
+    }
+
+    .demo-rotation .demo-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s ease-in-out;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .demo-rotation .demo-slide.is-active {
+      opacity: 1;
+      z-index: 2;
+      pointer-events: auto;
+    }
+
+    .demo-rotation .demo-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #041a10;
+    }
+
+    .demo-rotation .demo-slide-caption {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.9rem;
+      color: #fff;
+      z-index: 3;
+      pointer-events: none;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    .demo-rotation .demo-slide-index {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--champagne, #D6B46A);
+      background: rgba(6, 61, 46, 0.7);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(214, 180, 106, 0.4);
+      white-space: nowrap;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .demo-rotation .demo-slide-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .demo-rotation .demo-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.14);
+      z-index: 4;
+    }
+
+    .demo-rotation .demo-progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--champagne, #D6B46A), var(--warm-gold, #F1DDA5));
+      transition: width 0.15s linear;
+    }
+
+    .demo-rotation .demo-controls-bar {
+      position: absolute;
+      bottom: 0.9rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 5;
+    }
+
+    .demo-rotation .demo-btn {
+      background: rgba(6, 61, 46, 0.75);
+      border: 1px solid rgba(214, 180, 106, 0.45);
+      color: #F1DDA5;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: all 0.2s ease;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+    }
+
+    .demo-rotation .demo-btn:hover {
+      background: rgba(6, 61, 46, 0.95);
+      border-color: var(--warm-gold, #F1DDA5);
+      transform: scale(1.08);
+    }
+
+    .demo-rotation .demo-btn:focus-visible {
+      outline: 2px solid var(--warm-gold, #F1DDA5);
+      outline-offset: 2px;
+    }
+
+    .demo-rotation .demo-btn.demo-pause {
+      font-size: 0.7rem;
+      letter-spacing: 0;
+    }
+
+    .demo-rotation .demo-btn.demo-pause.is-paused {
+      background: rgba(214, 180, 106, 0.9);
+      color: #063D2E;
+      border-color: var(--champagne, #D6B46A);
+    }
+
+    .demo-rotation .demo-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(6, 61, 46, 0.7);
+      border: 1px solid rgba(214, 180, 106, 0.35);
+      border-radius: 999px;
+      height: 32px;
+      padding: 0 0.75rem;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .demo-rotation .demo-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(241, 221, 165, 0.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.25s ease;
+    }
+
+    .demo-rotation .demo-dot:hover {
+      background: rgba(241, 221, 165, 0.7);
+    }
+
+    .demo-rotation .demo-dot.is-active {
+      background: var(--warm-gold, #F1DDA5);
+      width: 22px;
+      border-radius: 999px;
+      box-shadow: 0 0 8px rgba(241, 221, 165, 0.6);
+    }
+
+    .demo-rotation .demo-dot:focus-visible {
+      outline: 2px solid var(--warm-gold, #F1DDA5);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .demo-rotation .demo-slide-caption {
+        bottom: 0.85rem;
+        left: 0.75rem;
+        right: 0.75rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+      .demo-rotation .demo-slide-title { font-size: 0.78rem; }
+      .demo-rotation .demo-slide-index { font-size: 0.62rem; padding: 0.22rem 0.55rem; }
+      .demo-rotation .demo-controls-bar {
+        bottom: 0.55rem;
+        right: 0.6rem;
+        gap: 0.35rem;
+      }
+      .demo-rotation .demo-btn { width: 32px; height: 32px; font-size: 0.85rem; }
+      .demo-rotation .demo-dots { height: 28px; padding: 0 0.55rem; }
+      .demo-rotation .demo-dot { width: 6px; height: 6px; }
+      .demo-rotation .demo-dot.is-active { width: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .demo-rotation .demo-slide { transition: none !important; }
+      .demo-rotation .demo-progress-bar { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header id="mainHeader">
+  <nav class="container" aria-label="Primary navigation">
+    <a class="logo-wrapper" href="index.html" aria-label="PeakCraft Innovations home">
+      <img class="logo-img" src="Socials/assets/logo.png" alt="PeakCraft Innovations logo" width="48" height="48"
+        onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%23063D2E%22 rx=%2212%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22%23F1DDA5%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3EPC%3C/text%3E%3C/svg%3E'">
+      <span class="logo-text">PeakCraft Innovations</span>
+    </a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="primary-links" aria-label="Open menu">☰</button>
+    <div class="nav-links" id="primary-links" role="navigation" aria-label="Main menu">
+      <a href="services.html">Services</a>
+      <a href="portfolio.html" class="active-link" aria-current="page">Portfolio</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="#" class="nav-cta" data-zite>Start a Project</a>
+    </div>
+  </nav>
+</header>
+<main id="main">
+  <section class="page-band" aria-labelledby="portfolio-title">
+    <div class="band-media"><img src="assets/images/page-portfolio.jpg" alt="" onerror="this.style.display='none'" /></div>
+    <div class="band-overlay"></div>
+    <div class="band-content container">
+      <span class="hero-eyebrow">Selected concepts &amp; demonstrations</span>
+      <h1 id="portfolio-title">Ideas made <span style="color:var(--warm-gold)">easier to see</span>.</h1>
+      <p style="max-width:640px;font-size:1.08rem">Explore website concepts, practical business tools and software prototypes. Concepts are labelled honestly; a published demo appears only after its real URL is added.</p>
+    </div>
+  </section>
+  <section aria-label="Portfolio projects">
+    <div class="container">
+      <div class="portfolio-headline-row">
+        <div>
+          <span class="eyebrow">Founder-led digital studio</span>
+          <h2>Every concept, honestly labelled.</h2>
+          <p>These examples show the types of problems PeakCraft can help solve. Some are interactive prototypes or design concepts, not client deployments or production systems.</p>
+        </div>
+        <div class="portfolio-count">
+          <strong id="portfolio-total">36</strong>
+          <span>project concepts</span>
+        </div>
+      </div>
+      <div class="portfolio-notice">
+        <strong>Concept disclosure</strong>
+        <span>Each project below carries a status label. A "Live Demo" label only appears when a real HTTPS URL has been added to the project configuration — not before.</span>
+      </div>
+      <div class="portfolio-toolbar">
+        <div class="portfolio-filters" role="group" aria-label="Filter portfolio by category">
+          <button class="portfolio-filter is-active" data-filter="all" aria-pressed="true">All Projects</button>
+          <button class="portfolio-filter" data-filter="Websites" aria-pressed="false">Websites</button>
+          <button class="portfolio-filter" data-filter="Digital Registers" aria-pressed="false">Digital Registers</button>
+          <button class="portfolio-filter" data-filter="Business Systems" aria-pressed="false">Business Systems</button>
+          <button class="portfolio-filter" data-filter="Apps & SaaS" aria-pressed="false">Apps &amp; SaaS</button>
+          <button class="portfolio-filter" data-filter="Automation" aria-pressed="false">Automation</button>
+        </div>
+        <label class="portfolio-search-label" for="portfolio-search">
+          Search projects
+          <input id="portfolio-search" type="search" placeholder="Try &quot;stock&quot;, &quot;website&quot; or &quot;finance&quot;" autocomplete="off" />
+        </label>
+      </div>
+      <p id="portfolio-results-status" class="portfolio-results-status" aria-live="polite">Showing all project concepts.</p>
+      <div id="portfolio-grid" class="portfolio-data-grid"></div>
+
+      <!-- ============================================================
+           FEATURED DEMO — 6-VIDEO ROTATION
+           To change which videos play, edit the six <source> paths below
+           and the six <span class="demo-slide-title"> captions.
+           To change rotation speed, edit ROTATE_MS in the JS at the
+           bottom of this file (default 6000 = 6 seconds).
+           ============================================================ -->
+      <div class="portfolio-video-wrap demo-rotation" style="margin-top:2.5rem" aria-label="Featured project demos">
+        <div class="demo-stage" id="demo-stage" tabindex="0" aria-label="Featured demos — use left and right arrow keys to navigate, space to pause">
+
+          <!-- SLIDE 1 -->
+          <div class="demo-slide is-active" data-slide="0">
+            <!-- RENAME THIS FILE (remove the … character) -->
+            <video class="demo-video" preload="auto" playsinline muted aria-label="Professional reviewing financial records">
+              <source src="Socials/assets/Professional_reviewing_financial…_60358ffademo.mp4" type="video/mp4" />
+            </video>
+            <div class="demo-slide-caption">
+              <span class="demo-slide-index">01 / 06</span>
+              <span class="demo-slide-title">Professional reviewing financial records</span>
+            </div>
+          </div>
+
+          <!-- SLIDE 2 -->
+          <div class="demo-slide" data-slide="1">
+            <!-- RENAME THIS FILE (remove the … character) -->
+            <video class="demo-video" preload="metadata" playsinline muted aria-label="Supervisor reviewing staff schedule">
+              <source src="Socials/assets/Supervisor_reviewing_staff_sched…_c26a6bb6demo.mp4" type="video/mp4" />
+            </video>
+            <div class="demo-slide-caption">
+              <span class="demo-slide-index">02 / 06</span>
+              <span class="demo-slide-title">Supervisor reviewing staff schedule</span>
+            </div>
+          </div>
+
+          <!-- SLIDE 3 -->
+          <div class="demo-slide" data-slide="2">
+            <!-- RENAME THIS FILE (remove the … character) -->
+            <video class="demo-video" preload="metadata" playsinline muted aria-label="Worker scanning inventory in store">
+              <source src="Socials/assets/Worker_scanning_inventory_in_sto…_f7adf005demo.mp4" type="video/mp4" />
+            </video>
+            <div class="demo-slide-caption">
+              <span class="demo-slide-index">03 / 06</span>
+              <span class="demo-slide-title">Worker scanning inventory in store</span>
+            </div>
+          </div>
+
+          <!-- SLIDE 4 -->
+          <div class="demo-slide" data-slide="3">
+            <!-- RENAME THIS FILE (remove the … character) -->
+            <video class="demo-video" preload="metadata" playsinline muted aria-label="Creating commercial film project">
+              <source src="Socials/assets/Creating_commercial_film_project…_eda6d59cdemo.mp4" type="video/mp4" />
+            </video>
+            <div class="demo-slide-caption">
+              <span class="demo-slide-index">04 / 06</span>
+              <span class="demo-slide-title">Creating a commercial film project</span>
+            </div>
+          </div>
+
+          <!-- SLIDE 5 -->
+          <div class="demo-slide" data-slide="4">
+            <video class="demo-video" preload="metadata" playsinline muted aria-label="Client handover of digital project">
+              <source src="Socials/assets/Client_handover_of_digital_project_3e86c627demo.mp4" type="video/mp4" />
+            </video>
+            <div class="demo-slide-caption">
+              <span class="demo-slide-index">05 / 06</span>
+              <span class="demo-slide-title">Client handover of a digital project</span>
+            </div>
+          </div>
+
+          <!-- SLIDE 6 -->
+          <div class="demo-slide" data-slide="5">
+            <!-- RENAME THIS FILE (remove the … character) -->
+            <video class="demo-video" preload="metadata" playsinline muted aria-label="Client and consultant reviewing work">
+              <source src="Socials/assets/Client_and_consultant_reviewing_…_84dea753Demo.mp4" type="video/mp4" />
+            </video>
+            <div class="demo-slide-caption">
+              <span class="demo-slide-index">06 / 06</span>
+              <span class="demo-slide-title">Client and consultant reviewing work</span>
+            </div>
+          </div>
+
+          <div class="demo-progress" aria-hidden="true">
+            <div class="demo-progress-bar" id="demo-progress-bar"></div>
+          </div>
+
+          <div class="demo-controls-bar">
+            <button type="button" class="demo-btn demo-prev" id="demo-prev" aria-label="Previous demo">‹</button>
+            <div class="demo-dots" id="demo-dots" role="tablist" aria-label="Choose demo"></div>
+            <button type="button" class="demo-btn demo-next" id="demo-next" aria-label="Next demo">›</button>
+            <button type="button" class="demo-btn demo-pause" id="demo-pause" aria-label="Pause rotation" aria-pressed="false">❚❚</button>
+          </div>
+
+        </div>
+        <div class="portfolio-video-label">Featured Demo — See PeakCraft in action</div>
+      </div>
+      <!-- ============ END FEATURED DEMO ============ -->
+
+      <div class="portfolio-notice" style="margin-top:2.5rem;background:#fff;border-color:#dce9df;border-left-color:var(--champagne);box-shadow:var(--shadow)">
+        <div>
+          <strong style="display:block;margin-bottom:.4rem">Have a similar business need?</strong>
+          <p style="margin:0;font-size:.92rem">Contact us to discuss a project. Custom applications, SaaS and complex integrations are quoted individually.</p>
+        </div>
+        <a class="btn" href="#" data-zite data-zite-service="Custom Software" style="flex-shrink:0;margin-left:1rem">Build Something Similar</a>
+      </div>
+    </div>
+  </section>
+  <dialog id="project-dialog" class="project-dialog" aria-labelledby="project-dialog-title">
+    <div class="project-dialog-top">
+      <span id="project-dialog-status" class="project-status"></span>
+      <button type="button" class="dialog-close" data-close-dialog aria-label="Close project details">×</button>
+    </div>
+    <div id="project-dialog-content"></div>
+  </dialog>
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-text">PeakCraft Innovations</div>
+        <p>Building Tomorrow's Digital Experiences Today. Websites and practical business tools for businesses in Zambia and beyond.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Website Development</a>
+        <a href="services.html">Digital Registers</a>
+        <a href="services.html">Custom Web Applications</a>
+        <a href="services.html">Maintenance &amp; Support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+260951683381">☎ +260 951 683 381</a>
+        <a href="mailto:peaklshda1@gmail.com">✉ peaklshda1@gmail.com</a>
+        <p>Lusaka, Zambia</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="#" data-zite>Get a Quote</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 PeakCraft Innovations Limited. All rights reserved.</p>
+      <a href="mailto:peaklshda1@gmail.com">peaklshda1@gmail.com</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site-config.js"></script>
+<script src="assets/js/main.js"></script>
+
+<!-- ============================================================
+     FEATURED DEMO ROTATION — SCOPED JS
+     Only runs on this page. Does not affect other scripts.
+     To change rotation speed: edit ROTATE_MS below.
+     ============================================================ -->
+<script>
+(function initDemoRotation(){
+  var stage = document.getElementById('demo-stage');
+  if (!stage) return;
+
+  var slides   = Array.prototype.slice.call(stage.querySelectorAll('.demo-slide'));
+  var videos   = Array.prototype.slice.call(stage.querySelectorAll('.demo-video'));
+  var dotsWrap = document.getElementById('demo-dots');
+  var prevBtn  = document.getElementById('demo-prev');
+  var nextBtn  = document.getElementById('demo-next');
+  var pauseBtn = document.getElementById('demo-pause');
+  var progress = document.getElementById('demo-progress-bar');
+
+  if (!slides.length) return;
+
+  var ROTATE_MS = 6000; // ← change this to speed up / slow down
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var current = 0;
+  var timer = null;
+  var paused = false;
+  var userHovering = false;
+  var rafId = null;
+  var slideStart = 0;
+
+  /* Build dots */
+  if (dotsWrap) {
+    dotsWrap.innerHTML = '';
+    slides.forEach(function(_, i){
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'demo-dot' + (i === 0 ? ' is-active' : '');
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', 'Show demo ' + (i + 1) + ' of ' + slides.length);
+      dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      dot.addEventListener('click', function(){ goTo(i, true); });
+      dotsWrap.appendChild(dot);
+    });
+  }
+
+  function updateDots(){
+    if (!dotsWrap) return;
+    var dots = dotsWrap.querySelectorAll('.demo-dot');
+    dots.forEach(function(d, i){
+      d.classList.toggle('is-active', i === current);
+      d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+    });
+  }
+
+  function goTo(index, fromUser){
+    if (index === current && !fromUser) return;
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+
+    // fade out current
+    slides[current].classList.remove('is-active');
+    var oldVideo = videos[current];
+    if (oldVideo) {
+      try { oldVideo.pause(); oldVideo.currentTime = 0; } catch(_) {}
+    }
+
+    current = index;
+
+    // fade in new
+    slides[current].classList.add('is-active');
+    updateDots();
+
+    var newVideo = videos[current];
+    if (newVideo) {
+      newVideo.preload = 'auto';
+      var p = newVideo.play();
+      if (p && typeof p.catch === 'function') p.catch(function(){});
+    }
+
+    resetProgress();
+    if (!paused && !prefersReduced) restartTimer();
+  }
+
+  function resetProgress(){
+    slideStart = performance.now();
+    if (progress) progress.style.width = '0%';
+    if (rafId) cancelAnimationFrame(rafId);
+    if (!prefersReduced && !paused) tickProgress();
+  }
+
+  function tickProgress(){
+    if (!progress) return;
+    if (paused || userHovering) {
+      slideStart = performance.now();
+    } else {
+      var elapsed = performance.now() - slideStart;
+      var pct = Math.min(100, (elapsed / ROTATE_MS) * 100);
+      progress.style.width = pct + '%';
+      if (pct >= 100) return;
+    }
+    rafId = requestAnimationFrame(tickProgress);
+  }
+
+  function startTimer(){
+    clearTimeout(timer);
+    timer = setTimeout(function(){
+      if (paused || userHovering) return;
+      goTo(current + 1, false);
+    }, ROTATE_MS);
+  }
+
+  function restartTimer(){
+    if (prefersReduced) return;
+    resetProgress();
+    startTimer();
+  }
+
+  function stopTimer(){
+    clearTimeout(timer);
+    timer = null;
+  }
+
+  function setPaused(value){
+    paused = value;
+    if (pauseBtn) {
+      pauseBtn.classList.toggle('is-paused', paused);
+      pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      pauseBtn.setAttribute('aria-label', paused ? 'Resume rotation' : 'Pause rotation');
+      pauseBtn.textContent = paused ? '▶' : '❚❚';
+    }
+    var v = videos[current];
+    if (paused) {
+      stopTimer();
+      if (v) try { v.pause(); } catch(_) {}
+    } else {
+      if (v) {
+        var p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(function(){});
+      }
+      resetProgress();
+      startTimer();
+    }
+  }
+
+  /* Hover pause */
+  stage.addEventListener('mouseenter', function(){
+    userHovering = true;
+    stopTimer();
+    var v = videos[current];
+    if (v) try { v.pause(); } catch(_) {}
+  });
+  stage.addEventListener('mouseleave', function(){
+    userHovering = false;
+    if (!paused) {
+      var v = videos[current];
+      if (v) {
+        var p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(function(){});
+      }
+      resetProgress();
+      startTimer();
+    }
+  });
+
+  /* Tab visibility */
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) {
+      stopTimer();
+      var v = videos[current];
+      if (v) try { v.pause(); } catch(_) {}
+    } else if (!paused && !userHovering) {
+      var v2 = videos[current];
+      if (v2) {
+        var p = v2.play();
+        if (p && typeof p.catch === 'function') p.catch(function(){});
+      }
+      resetProgress();
+      startTimer();
+    }
+  });
+
+  /* Video ended early → advance */
+  videos.forEach(function(v, i){
+    v.addEventListener('ended', function(){
+      if (i === current && !paused && !userHovering) {
+        goTo(i + 1, false);
+      }
+    });
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', function(){ goTo(current - 1, true); });
+  if (nextBtn) nextBtn.addEventListener('click', function(){ goTo(current + 1, true); });
+  if (pauseBtn) pauseBtn.addEventListener('click', function(){ setPaused(!paused); });
+
+  /* Keyboard */
+  stage.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1, true); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1, true); }
+    if (e.key === ' ')          { e.preventDefault(); setPaused(!paused); }
+  });
+
+  /* Off-screen pause */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) {
+          stopTimer();
+          var v = videos[current];
+          if (v) try { v.pause(); } catch(_) {}
+        } else if (!paused && !userHovering) {
+          var v2 = videos[current];
+          if (v2) {
+            var p = v2.play();
+            if (p && typeof p.catch === 'function') p.catch(function(){});
+          }
+          resetProgress();
+          startTimer();
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(stage);
+  }
+
+  /* First video muted + play */
+  if (videos[0]) {
+    videos[0].muted = true;
+    var p0 = videos[0].play();
+    if (p0 && typeof p0.catch === 'function') p0.catch(function(){});
+  }
+  updateDots();
+  resetProgress();
+  startTimer();
+})();
+</script>
+</body>
+</html>
